@@ -43,12 +43,12 @@ const open = ref(false);
 
 <template>
     <div class="relative">
-        <div @click="open = !open">
+        <div class="cursor-pointer" @click="open = !open">
             <slot name="trigger" />
         </div>
 
         <!-- Full Screen Dropdown Overlay -->
-        <div v-show="open" class="fixed inset-0 z-40" @click="open = false"></div>
+        <div v-show="open" class="fixed inset-0 z-40 bg-soft-black bg-opacity-20" @click="open = false"></div>
 
         <transition
             enter-active-class="transition ease-out duration-200"
@@ -60,12 +60,12 @@ const open = ref(false);
         >
             <div
                 v-show="open"
-                class="absolute z-50 mt-2 rounded-md shadow-lg"
+                class="absolute z-50 mt-2 rounded-md shadow-lg bg-just-white"
                 :class="[widthClass, alignmentClasses]"
                 style="display: none"
                 @click="open = false"
             >
-                <div class="rounded-md ring-1 ring-black ring-opacity-5" :class="contentClasses">
+                <div class="rounded-md" :class="contentClasses">
                     <slot name="content" />
                 </div>
             </div>

@@ -1,23 +1,69 @@
-import './bootstrap';
-import '../css/app.css';
+import "./bootstrap";
+import "../css/app.css";
 
-import { createApp, h } from 'vue';
-import { createInertiaApp } from '@inertiajs/vue3';
-import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers';
-import { ZiggyVue } from '../../vendor/tightenco/ziggy/dist/vue.m';
+import { createApp, h } from "vue";
+import { createInertiaApp } from "@inertiajs/vue3";
+import { resolvePageComponent } from "laravel-vite-plugin/inertia-helpers";
+import { ZiggyVue } from "../../vendor/tightenco/ziggy/dist/vue.m";
 
-const appName = window.document.getElementsByTagName('title')[0]?.innerText || 'Laravel';
+import { library } from "@fortawesome/fontawesome-svg-core";
+import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
+import {
+    faBars,
+    faBuildingShield,
+    faDolly,
+    faBoxesStacked,
+    faCarSide,
+    faTruckRampBox,
+    faPeopleCarryBox,
+    faFileLines,
+    faFilter,
+    faChevronDown,
+    faChevronRight,
+    faRotate,
+    faPlus,
+    faXmark,
+    faUser,
+    faLock,
+} from "@fortawesome/free-solid-svg-icons";
+
+library.add({
+    faBars,
+    faBuildingShield,
+    faDolly,
+    faBoxesStacked,
+    faCarSide,
+    faTruckRampBox,
+    faPeopleCarryBox,
+    faFileLines,
+    faFilter,
+    faChevronDown,
+    faChevronRight,
+    faRotate,
+    faPlus,
+    faXmark,
+    faUser,
+    faLock,
+});
+
+const appName =
+    window.document.getElementsByTagName("title")[0]?.innerText || "Laravel";
 
 createInertiaApp({
     title: (title) => `${appName} - ${title}`,
-    resolve: (name) => resolvePageComponent(`./Pages/${name}.vue`, import.meta.glob('./Pages/**/*.vue')),
+    resolve: (name) =>
+        resolvePageComponent(
+            `./Pages/${name}.vue`,
+            import.meta.glob("./Pages/**/*.vue")
+        ),
     setup({ el, App, props, plugin }) {
         return createApp({ render: () => h(App, props) })
             .use(plugin)
             .use(ZiggyVue, Ziggy)
+            .component("font-awesome-icon", FontAwesomeIcon)
             .mount(el);
     },
     progress: {
-        color: '#023373',
+        color: "#023373",
     },
 });
