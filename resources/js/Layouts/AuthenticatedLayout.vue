@@ -59,7 +59,13 @@ const links = ref([
                 <div class="flex justify-between items-center px-10 w-5/6">
                     <h1>Sistema de Control de Almacén</h1>
                     <Dropdown>
-                        <template #trigger>{{ user.username }}</template>
+                        <template #trigger
+                            >{{ user.username }}
+                            <font-awesome-icon
+                                class="w-3 h-3 ml-2"
+                                icon="chevron-down"
+                            />
+                        </template>
                         <template #content>
                             <DropdownLink
                                 method="post"
@@ -84,7 +90,7 @@ const links = ref([
                         {{ link.title }}</NavLink
                     >
                 </nav>
-                <main class="pt-[135px]">
+                <main class="pt-[135px] px-10">
                     <slot name="title" />
                     <slot />
                 </main>

@@ -1,40 +1,40 @@
 <script setup>
-import { computed, onMounted, onUnmounted, ref } from 'vue';
+import { computed, onMounted, onUnmounted, ref } from "vue";
 
 const props = defineProps({
     align: {
-        default: 'right',
+        default: "right",
     },
     width: {
-        default: '48',
+        default: "48",
     },
     contentClasses: {
-        default: () => ['py-1', 'bg-white'],
+        default: () => ["py-1", "bg-white"],
     },
 });
 
 const closeOnEscape = (e) => {
-    if (open.value && e.key === 'Escape') {
+    if (open.value && e.key === "Escape") {
         open.value = false;
     }
 };
 
-onMounted(() => document.addEventListener('keydown', closeOnEscape));
-onUnmounted(() => document.removeEventListener('keydown', closeOnEscape));
+onMounted(() => document.addEventListener("keydown", closeOnEscape));
+onUnmounted(() => document.removeEventListener("keydown", closeOnEscape));
 
 const widthClass = computed(() => {
     return {
-        48: 'w-48',
+        48: "w-48",
     }[props.width.toString()];
 });
 
 const alignmentClasses = computed(() => {
-    if (props.align === 'left') {
-        return 'origin-top-left left-0';
-    } else if (props.align === 'right') {
-        return 'origin-top-right right-0';
+    if (props.align === "left") {
+        return "origin-top-left left-0";
+    } else if (props.align === "right") {
+        return "origin-top-right right-0";
     } else {
-        return 'origin-top';
+        return "origin-top";
     }
 });
 
@@ -43,12 +43,16 @@ const open = ref(false);
 
 <template>
     <div class="relative">
-        <div class="cursor-pointer" @click="open = !open">
+        <div class="flex items-center cursor-pointer bg-just-white" @click="open = !open">
             <slot name="trigger" />
         </div>
 
         <!-- Full Screen Dropdown Overlay -->
-        <div v-show="open" class="fixed inset-0 z-40 bg-soft-black bg-opacity-20" @click="open = false"></div>
+        <div
+            v-show="open"
+            class="fixed inset-0 z-40 bg-soft-black bg-opacity-30"
+            @click="open = false"
+        ></div>
 
         <transition
             enter-active-class="transition ease-out duration-200"

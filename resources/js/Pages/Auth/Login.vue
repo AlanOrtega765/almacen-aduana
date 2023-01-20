@@ -21,17 +21,21 @@ const submit = () => {
     <GuestLayout>
         <Head title="Log in" />
 
-        <form @submit.prevent="submit">
+        <h1 class="text-xl font-semibold">Iniciar Sesión</h1>
+        <form class="mt-4" @submit.prevent="submit">
             <div>
                 <InputLabel for="username" value="Usuario" />
 
-                <TextInput
-                    id="username"
-                    type="text"
-                    class="mt-1 block w-full"
-                    v-model="form.username"
-                    required
-                />
+                <div class="relative flex items-center mt-1">
+                    <font-awesome-icon class="absolute left-3" icon="user" />
+                    <TextInput
+                        id="username"
+                        type="text"
+                        class="block w-full pl-9"
+                        v-model="form.username"
+                        required
+                    />
+                </div>
 
                 <InputError class="mt-2" :message="form.errors.username" />
             </div>
@@ -39,13 +43,16 @@ const submit = () => {
             <div class="mt-4">
                 <InputLabel for="password" value="Contraseña" />
 
-                <TextInput
-                    id="password"
-                    type="password"
-                    class="mt-1 block w-full"
-                    v-model="form.password"
-                    required
-                />
+                <div class="relative flex items-center mt-1">
+                    <font-awesome-icon class="absolute left-3" icon="lock" />
+                    <TextInput
+                        id="password"
+                        type="password"
+                        class="block w-full pl-9"
+                        v-model="form.password"
+                        required
+                    />
+                </div>
 
                 <InputError class="mt-2" :message="form.errors.password" />
             </div>
