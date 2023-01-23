@@ -90,7 +90,7 @@ const links = ref([
                         {{ link.title }}</NavLink
                     >
                 </nav>
-                <main class="pt-[135px] px-10">
+                <main class="pt-[135px] pb-10 px-10 w-5/6">
                     <slot name="title" />
                     <slot />
                 </main>
