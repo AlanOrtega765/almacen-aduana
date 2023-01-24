@@ -8,4 +8,10 @@ use Illuminate\Database\Eloquent\Model;
 class Mercancias extends Model
 {
     use HasFactory;
+    protected $fillable = [
+        'n_rol',
+        'cantidad_bulto',
+        'valor_mercancia'
+
+    ];
 }
