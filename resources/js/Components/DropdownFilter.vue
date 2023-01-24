@@ -43,16 +43,12 @@ const open = ref(false);
 
 <template>
     <div class="relative">
-        <div class="flex items-center cursor-pointer bg-just-white" @click="open = !open">
+        <div
+            class="flex items-center cursor-pointer bg-just-white rounded-l-md px-3 py-2"
+            @click="open = !open"
+        >
             <slot name="trigger" />
         </div>
-
-        <!-- Full Screen Dropdown Overlay -->
-        <div
-            v-show="open"
-            class="fixed inset-0 z-40 bg-soft-black bg-opacity-30"
-            @click="open = false"
-        ></div>
 
         <transition
             enter-active-class="transition ease-out duration-200"
@@ -67,7 +63,6 @@ const open = ref(false);
                 class="absolute z-50 mt-2 rounded-md shadow-lg bg-just-white"
                 :class="[widthClass, alignmentClasses]"
                 style="display: none"
-                @click="open = false"
             >
                 <div class="rounded-md" :class="contentClasses">
                     <slot name="content" />

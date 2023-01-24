@@ -1,5 +1,5 @@
 <script setup>
-import { onMounted, ref } from 'vue';
+import { ref } from 'vue';
 
 defineProps(['modelValue']);
 
@@ -10,7 +10,7 @@ const input = ref(null);
 
 <template>
     <input
-        class="border-light-gray focus:border-primary focus:ring-primary rounded-md shadow-md"
+        class="border-light-gray outline-none border-none rounded-r-md px-3"
         :value="modelValue"
         @input="$emit('update:modelValue', $event.target.value)"
         ref="input"
