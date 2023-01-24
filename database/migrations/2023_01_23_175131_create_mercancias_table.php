@@ -14,7 +14,9 @@ return new class extends Migration
     public function up()
     {
         Schema::create('mercancias', function (Blueprint $table) {
-            $table->id(n_rol);
+            $table->id('n_rol');
+            $table->integer('cantidad_bulto');
+            $table->integer('valor_mercancia')->nullable();
             $table->timestamps();
         });
     }
