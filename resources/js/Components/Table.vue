@@ -4,7 +4,7 @@ defineProps(["columns", "items", 'width']);
 
 <template>
     <table class="table-auto text-left bg-just-white rounded-xl" :class="width">
-        <thead class="h-16 border-b-[1px] border-light-gray">
+        <thead class="h-10 border-b-[1px] border-light-gray">
             <tr>
                 <th class="pl-5 last-of-type:pr-5" v-for="(column, index) in columns" :key="index">
                     {{ column.name }}
@@ -14,7 +14,7 @@ defineProps(["columns", "items", 'width']);
         </thead>
         <tbody>
             <tr
-                class="h-16 border-b-[1px] last-of-type:border-0 border-light-gray"
+                class="h-10 border-b-[1px] last-of-type:border-0 border-light-gray"
                 v-for="(item, index) in items"
                 :key="index"
             >

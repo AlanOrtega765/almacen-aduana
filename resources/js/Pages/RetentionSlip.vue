@@ -7,8 +7,10 @@ import Table from "@/Components/Table.vue";
 import Pagination from "@/Components/Pagination.vue";
 
 import { Head } from "@inertiajs/vue3";
+import { ref } from "vue";
 
 defineProps(["retentions"]);
+const search = ref("");
 
 const tableColumns = [
     { name: "N° Boleta", data: "id" },
@@ -56,6 +58,7 @@ const tableColumns = [
                     <TextInputFilter
                         placeholder="Buscar n° boleta..."
                         type="number"
+                        v-model="search"
                     />
                 </div>
                 <SecondaryButton>
@@ -70,7 +73,7 @@ const tableColumns = [
                     :items="retentions.data"
                 />
             </div>
-            <Pagination :links="retentions.links"/>
+            <Pagination :links="retentions.links" />
         </section>
     </AuthenticatedLayout>
 </template>
