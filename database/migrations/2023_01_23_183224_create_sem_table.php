@@ -13,12 +13,17 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('sev', function (Blueprint $table) {
-            $table->id('numero_sev');
+        Schema::create('sem', function (Blueprint $table) {
+            $table->id('numero_sem');
             $table->date('fecha_llegada');
             $table->date('fecha_venc');
+            $table->string('tipo_cancelacion', 20)->nullable;
+            $table->text('observacion', 500);
             $table->boolean('estado');
-            $table->text('observacion');
+            $table->integer('total_general');
+            $table->integer('numero_lig_grav')->nullable();
+            $table->date('fecha_gcp')->nullable();
+
             $table->timestamps();
         });
     }
@@ -30,6 +35,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('sev');
+        Schema::dropIfExists('sem');
     }
 };

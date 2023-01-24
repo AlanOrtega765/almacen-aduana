@@ -14,7 +14,10 @@ return new class extends Migration
     public function up()
     {
         Schema::create('retencion', function (Blueprint $table) {
-            $table->id();
+            $table->id('n_boleta');
+            $table->string('tipo_doc', 20);
+            $table->date('fecha_reten');
+            $table->boolean('franquicia');
             $table->timestamps();
         });
     }

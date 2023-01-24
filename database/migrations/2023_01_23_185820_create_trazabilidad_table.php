@@ -14,7 +14,11 @@ return new class extends Migration
     public function up()
     {
         Schema::create('trazabilidad', function (Blueprint $table) {
-            $table->id();
+            $table->foreignId('id_almacen_fk')->references('id_almacen')->on('almacen');
+            $table->unsignedBigInteger('n_rol_fk');
+            $table->foreign('n_rol_fk')->references('n_rol')->on('mercancias');
+            $table->date('fecha_inicio');
+            $table->date('fecha_termino');
             $table->timestamps();
         });
     }

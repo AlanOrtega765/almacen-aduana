@@ -14,7 +14,13 @@ return new class extends Migration
     public function up()
     {
         Schema::create('abandono', function (Blueprint $table) {
-            $table->id();
+            $table->id('n_oficio');
+            $table->date('fecha_oficio');
+            $table->date('fecha_venc');
+            $table->string('turno', 30);
+            $table->date('fecha_recepcion');
+            $table->text('observacion');
+            $table->string('estado', 20);
             $table->timestamps();
         });
     }

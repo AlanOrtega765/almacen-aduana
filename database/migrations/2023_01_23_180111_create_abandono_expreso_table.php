@@ -14,7 +14,9 @@ return new class extends Migration
     public function up()
     {
         Schema::create('abandono_expreso', function (Blueprint $table) {
-            $table->id();
+            $table->id('n_rol_ae');
+            $table->date('fecha_doc');
+            $table->string('documento', 30);
             $table->timestamps();
         });
     }
