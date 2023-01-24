@@ -15,9 +15,10 @@ return new class extends Migration
     {
         Schema::create('tipo_mercancia', function (Blueprint $table) {
             $table->foreignId('n_rol_fk')->references('n_rol')->on('mercancias');
-            $table->unsignedBigInteger('tipo_mercancias');
-            $table->foreign('tipo_mercancias')->references('tipo_mercancias')->on('tipo_mercancia');
+            $table->id('tipo_mercancias');
+            $table->string('Nombre_merc', 30);
             $table->integer('cantidad');
+            $table->integer('valor_mercancia')->nullable();
             $table->timestamps();
         });
     }

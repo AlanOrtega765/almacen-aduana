@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('suspencion_despacho', function (Blueprint $table) {
             $table->id('n_documento');
-            $table->
+
             $table->timestamps();
         });
     }

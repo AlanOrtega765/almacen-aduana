@@ -13,18 +13,21 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('detalle_abandono', function (Blueprint $table) {
-            $table->foreignId('n_almacen')->references('n_almacen')->on('abandono_expreso');
+        Schema::create('detalle_contrabando', function (Blueprint $table) {
+            $table->foreignId('n_rol_contrab')->references('n_rol')->on('contrabando');
             $table->unsignedBigInteger('id_person_fk');
             $table->foreign('id_person_fk')->references('id_person')->on('persona');
             $table->unsignedBigInteger('id_users_fk');
-            $table->foreign('id_users_fk')->references('id_users')->on('users');
+            $table->foreign('id_users_fk')->references('id')->on('users');
             $table->unsignedBigInteger('id_almacen_fk');
             $table->foreign('id_almacen_fk')->references('id_almacen')->on('almacen');
             $table->unsignedBigInteger('n_rol_fk');
             $table->foreign('n_rol_fk')->references('n_rol')->on('mercancias');
             $table->unsignedBigInteger('tipo_mercancias_fk');
             $table->foreign('tipo_mercancias_fk')->references('tipo_mercancias')->on('tipo_mercancia');
+            $table->unsignedBigInteger('id_vehiculo_fk');
+            $table->foreign('id_vehiculo_fk')->references('id_vehiculo')->on('datos_vehiculo');
+
 
             $table->timestamps();
         });
@@ -37,6 +40,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('detalle_abandono');
+        Schema::dropIfExists('detalle_contrabando');
     }
 };

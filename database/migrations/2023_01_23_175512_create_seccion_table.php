@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('seccion', function (Blueprint $table) {
             $table->foreignId('id_almacen_fk')->references('id_almacen')->on('almacen');
-            $table->strins('sector', 20);
+            $table->string('sector', 20);
             $table->timestamps();
         });
     }
