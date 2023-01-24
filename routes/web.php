@@ -43,4 +43,9 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
+Route::get('/retentionpdf', function() {
+
+    return inertia('Documents/Retentionpdf');
+});
+
 require __DIR__ . '/auth.php';
