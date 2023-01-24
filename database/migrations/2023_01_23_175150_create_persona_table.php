@@ -23,7 +23,6 @@ return new class extends Migration
             $table->string('nacionalidad_p', 30);
             $table->integer('reincidente');
 
-
             $table->timestamps();
         });
     }
