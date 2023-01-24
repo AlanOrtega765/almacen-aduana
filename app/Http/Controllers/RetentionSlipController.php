@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Retenciones;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
@@ -14,7 +15,8 @@ class RetentionSlipController extends Controller
      */
     public function index()
     {
-        return Inertia::render('RetentionSlip');
+        $retentions = Retenciones::query()->paginate(10);
+        return Inertia::render('RetentionSlip', ['retentions' => $retentions]);
     }
 
     /**
