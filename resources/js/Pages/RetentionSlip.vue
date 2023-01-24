@@ -4,9 +4,11 @@ import DropdownFilter from "@/Components/DropdownFilter.vue";
 import TextInputFilter from "@/Components/TextInputFilter.vue";
 import SecondaryButton from "@/Components/SecondaryButton.vue";
 import Table from "@/Components/Table.vue";
-import { Head, Link } from "@inertiajs/vue3";
+import Pagination from "@/Components/Pagination.vue";
 
-const props = defineProps(["retentions", "links"]);
+import { Head } from "@inertiajs/vue3";
+
+defineProps(["retentions"]);
 
 const tableColumns = [
     { name: "N° Boleta", data: "id" },
@@ -26,7 +28,6 @@ const tableColumns = [
     { name: "Plazo Maximo", data: "plazo_maximo" },
     { name: "Estado", data: "estado" },
 ];
-console.log(props.retentions.links);
 </script>
 
 <template>
@@ -69,17 +70,7 @@ console.log(props.retentions.links);
                     :items="retentions.data"
                 />
             </div>
-            <div class="flex">
-                <div v-for="link in retentions.links">
-                    <div v-if="link.url === null" v-html="link.label" />
-                    <Link
-                        v-else
-                        class="flex"
-                        :href="link.url"
-                        v-html="link.label"
-                    />
-                </div>
-            </div>
+            <Pagination :links="retentions.links"/>
         </section>
     </AuthenticatedLayout>
 </template>
