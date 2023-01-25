@@ -13,8 +13,8 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('trazabilidad', function (Blueprint $table) {
-            $table->foreignId('id_almacen_fk')->references('id_almacen')->on('almacen');
+        Schema::create('trazabilidads', function (Blueprint $table) {
+            $table->foreignId('id_almacen_fk')->references('id_almacen')->on('almacens');
             $table->unsignedBigInteger('n_rol_fk');
             $table->foreign('n_rol_fk')->references('n_rol')->on('mercancias');
             $table->date('fecha_inicio');
@@ -30,6 +30,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('trazabilidad');
+        Schema::dropIfExists('trazabilidads');
     }
 };

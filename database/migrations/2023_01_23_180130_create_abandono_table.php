@@ -13,7 +13,7 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('abandono', function (Blueprint $table) {
+        Schema::create('abandonos', function (Blueprint $table) {
             $table->id('n_oficio');
             $table->date('fecha_oficio');
             $table->date('fecha_venc');
@@ -32,6 +32,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('abandono');
+        Schema::dropIfExists('abandonos');
     }
 };

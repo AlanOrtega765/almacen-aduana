@@ -13,7 +13,7 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('rezago', function (Blueprint $table) {
+        Schema::create('rezagos', function (Blueprint $table) {
             $table->id('n_acta');
             $table->date('fecha_doc');
             $table->string('acta_entrega_rezago', 20);
@@ -36,6 +36,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('rezago');
+        Schema::dropIfExists('rezagos');
     }
 };

@@ -5,14 +5,14 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Tipo_Mercancia extends Model
+class Trazabilidad extends Model
 {
     use HasFactory;
-    protected $fillable = [
+    /*protected $fillable = [
+        'id_almacen_fk',
         'n_rol_fk',
-        'tipo_mercancias',
-        'Nombre_merc',
-        'cantidad',
-        'valor_mercancia'
-    ];
+        'nro_id_person',
+        'fecha_inicio',
+        'fecha_termino'
+    ];*/
 }

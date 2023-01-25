@@ -5,15 +5,13 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Mercancias extends Model
+class TipoMercancia extends Model
 {
     use HasFactory;
     protected $fillable = [
 
-        'nombre_merc',
-        'cantidad_bulto',
-        'peso',
-        'valor_mercancia'
-
+       /* 'nombre_merc',
+        'cantidad',
+        'valor_mercancia'*/
     ];
 }

@@ -13,11 +13,12 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('retencion', function (Blueprint $table) {
-            $table->id('n_boleta');
-            $table->string('tipo_doc', 20);
+        Schema::create('retencions', function (Blueprint $table) {
+            $table->id('n_boleta')->from(53000); // asignacion de la id desde el 53000
             $table->date('fecha_reten');
+            $table->date('fecha_venc');
             $table->boolean('franquicia');
+            $table->string('estado', 10);
             $table->timestamps();
         });
     }
@@ -29,6 +30,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('retencion');
+        Schema::dropIfExists('retencions');
     }
 };

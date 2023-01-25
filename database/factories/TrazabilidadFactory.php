@@ -5,9 +5,9 @@ namespace Database\Factories;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Seccion>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Trazabilidad>
  */
-class SeccionFactory extends Factory
+class TrazabilidadFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -17,7 +17,7 @@ class SeccionFactory extends Factory
     public function definition()
     {
         return [
-           // 'sector' => fake()->randomElement(['zona-norte', 'zona-sur', 'patio']),
+            //
         ];
     }
 }

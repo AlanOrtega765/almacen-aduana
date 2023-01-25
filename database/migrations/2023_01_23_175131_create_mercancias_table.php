@@ -15,7 +15,9 @@ return new class extends Migration
     {
         Schema::create('mercancias', function (Blueprint $table) {
             $table->id('n_rol');
+            $table->string('nombre_merc', 20);
             $table->integer('cantidad_bulto');
+            $table->integer('peso');
             $table->integer('valor_mercancia')->nullable();
             $table->timestamps();
         });

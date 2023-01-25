@@ -17,7 +17,12 @@ class AlmacenFactory extends Factory
     public function definition()
     {
         return [
-            //
+
+            'nombre_almc' => fake()->randomElement(['Chacalluta', 'Arica', 'Chungara', 'Hansen', 'Sitrans', 'Visviri']),
+            'avanzada' => fake()->randomElement(['Chacalluta', 'Arica', 'Chungara', 'Hansen', 'Sitrans', 'Visviri']),
+
+            //'observaciones' => fake()->text(200),
+
         ];
     }
 }

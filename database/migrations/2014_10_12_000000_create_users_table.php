@@ -18,8 +18,8 @@ return new class extends Migration
             $table->string('username')->unique();
             $table->string('password')->unique();
             $table->string('rut');
-            $table->string('nombre_func', 20);
-            $table->string('apellido_p', 30);
+            $table->string('nombre_func', 50);
+            $table->string('apellido_p', 50);
             $table->string('apellido_m', 30);
             $table->integer('numero_rol');
             $table->boolean('estado');

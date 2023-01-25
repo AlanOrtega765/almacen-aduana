@@ -17,7 +17,15 @@ class PersonaFactory extends Factory
     public function definition()
     {
         return [
-            //
+
+            'tipo_doc_p' => fake()->randomElement(['CI', 'DNI', 'PASAPORTE']),
+            'nro_id_person' => fake()->randomElement(['12345678-9', '19456789-0', '20854980-K']),
+            'nombre_p' => fake()->firstName(),
+            'apellido_p' => fake()->lastName(),
+            'direccion_p' => fake()->streetName(),
+            'nacionalidad_p' => fake()->randomElement(['Chilena', 'Peruana', 'Boliviana', 'OTRO']),
+            'reincidente' => fake()->randomNumber('0','0', '0', '1'),
+
         ];
     }
 }

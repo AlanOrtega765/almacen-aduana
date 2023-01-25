@@ -13,7 +13,7 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('sev', function (Blueprint $table) {
+        Schema::create('sevs', function (Blueprint $table) {
             $table->id('numero_sev');
             $table->date('fecha_llegada');
             $table->date('fecha_venc');
@@ -30,6 +30,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('sev');
+        Schema::dropIfExists('sevs');
     }
 };

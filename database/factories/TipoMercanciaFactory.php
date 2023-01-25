@@ -16,8 +16,11 @@ class TipoMercanciaFactory extends Factory
      */
     public function definition()
     {
-        return [
-            //
+        return [ /*
+            'nombre_merc' => fake()->randomElement(['polera', 'cigarros', 'zapatillas', 'zapatos', 'ropa-interior']),
+            'cantidad' => fake()->randomDigit(),
+            'valor_mercancia' => fake()->randomNumber(),
+*/
         ];
     }
 }

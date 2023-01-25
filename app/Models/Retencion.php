@@ -10,9 +10,9 @@ class Retencion extends Model
     use HasFactory;
 
     protected $fillable = [
-        'n_boleta',
-        'tipo_documento',
-        'fecha',
+        'fecha_reten',
+        'fecha_venc',
         'franquicia'
+
     ];
 }
