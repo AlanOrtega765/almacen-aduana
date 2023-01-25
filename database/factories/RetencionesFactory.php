@@ -18,6 +18,7 @@ class RetencionesFactory extends Factory
     {
         return [
             'fecha_boleta' => fake()->date(),
+            'tipo_doc_imputado' => fake()->randomElement(['DNI', 'PASAPORTE', 'CI']),
             'n_doc_imputado' => fake()->randomElement(['12345678-9', '19456789-0', '20854980-K']),
             'nombres_imputado' => fake()->firstName(),
             'apellidos_imputado' => fake()->lastName(),

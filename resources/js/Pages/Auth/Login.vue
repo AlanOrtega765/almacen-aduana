@@ -3,6 +3,8 @@ import GuestLayout from "@/Layouts/GuestLayout.vue";
 import InputError from "@/Components/InputError.vue";
 import InputLabel from "@/Components/InputLabel.vue";
 import TextInput from "@/Components/TextInput.vue";
+import PrimaryButton from "@/Components/PrimaryButton.vue";
+
 import { Head, useForm } from "@inertiajs/vue3";
 
 const form = useForm({
@@ -57,12 +59,7 @@ const submit = () => {
                 <InputError class="mt-2" :message="form.errors.password" />
             </div>
             <div class="bg-light-gray h-[1px] w-full my-6"></div>
-            <button
-                type="submit"
-                class="bg-primary hover:bg-primary hover:bg-opacity-95 text-just-white font-bold px-3 py-2 rounded-md w-full"
-            >
-                Ingresar
-            </button>
+            <PrimaryButton class="w-full"> Ingresar </PrimaryButton>
         </form>
     </GuestLayout>
 </template>

@@ -5,6 +5,8 @@ import { createApp, h } from "vue";
 import { createInertiaApp } from "@inertiajs/vue3";
 import { resolvePageComponent } from "laravel-vite-plugin/inertia-helpers";
 import { ZiggyVue } from "../../vendor/tightenco/ziggy/dist/vue.m";
+import Datepicker from '@vuepic/vue-datepicker';
+import '@vuepic/vue-datepicker/dist/main.css'
 
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
@@ -20,11 +22,13 @@ import {
     faFilter,
     faChevronDown,
     faChevronRight,
+    faChevronLeft,
     faRotate,
     faPlus,
     faXmark,
     faUser,
     faLock,
+    faTrash
 } from "@fortawesome/free-solid-svg-icons";
 
 library.add({
@@ -39,11 +43,13 @@ library.add({
     faFilter,
     faChevronDown,
     faChevronRight,
+    faChevronLeft,
     faRotate,
     faPlus,
     faXmark,
     faUser,
     faLock,
+    faTrash
 });
 
 const appName =
@@ -61,6 +67,7 @@ createInertiaApp({
             .use(plugin)
             .use(ZiggyVue, Ziggy)
             .component("font-awesome-icon", FontAwesomeIcon)
+            .component('DatePicker', Datepicker)
             .mount(el);
     },
     progress: {
