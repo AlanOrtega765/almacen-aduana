@@ -13,11 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('tipomercancias', function (Blueprint $table) {
+        Schema::create('tipo_mercancias', function (Blueprint $table) {
             $table->foreignId('n_rol_fk')->references('n_rol')->on('mercancias');
-            $table->id('id_mercancias');
-            $table->string('nombre_merc', 30);
-            $table->integer('cantidad');
+            $table->id('id_mercancias')->from(1);
+            $table->string('nombre_merc', 30)->nullable();
+            $table->integer('cantidad')->nullable();
             $table->integer('valor_mercancia')->nullable();
             $table->timestamps();
         });

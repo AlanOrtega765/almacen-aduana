@@ -8,10 +8,10 @@ use Illuminate\Database\Eloquent\Model;
 class TipoMercancia extends Model
 {
     use HasFactory;
-    protected $fillable = [
+/*    protected $fillable = [
 
-       /* 'nombre_merc',
+        'nombre_merc',
         'cantidad',
-        'valor_mercancia'*/
-    ];
+        'valor_mercancia'
+    ];*/
 }

@@ -24,7 +24,7 @@ return new class extends Migration
             $table->unsignedBigInteger('n_rol_fk');
             $table->foreign('n_rol_fk')->references('n_rol')->on('mercancias');
             $table->unsignedBigInteger('tipo_mercancias_fk');
-            $table->foreign('tipo_mercancias_fk')->references('id_mercancias')->on('tipomercancias');
+            $table->foreign('tipo_mercancias_fk')->references('id_mercancias')->on('tipo_mercancias');
             $table->unsignedBigInteger('id_vehiculo_fk');
             $table->foreign('id_vehiculo_fk')->references('id_vehiculo')->on('datos_vehiculos');
 
