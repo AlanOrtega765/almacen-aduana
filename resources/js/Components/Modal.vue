@@ -1,5 +1,5 @@
 <script setup>
-import { computed, onMounted, onUnmounted, watch } from 'vue';
+import { ref, computed, onMounted, onUnmounted, watch } from 'vue';
 
 const props = defineProps({
     show: {
@@ -40,6 +40,8 @@ const closeOnEscape = (e) => {
         close();
     }
 };
+
+const notClose = ref(false);
 
 onMounted(() => document.addEventListener('keydown', closeOnEscape));
 

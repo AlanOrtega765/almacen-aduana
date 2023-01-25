@@ -79,9 +79,6 @@ const listMerchandise = () => {
 };
 
 const deleteItem = (index) => {
-    // listOfMerchandise.value = listOfMerchandise.value.filter((item) => {
-    //     if (!item.indexOf(index)) return item;
-    // })
     listOfMerchandise.value = listOfMerchandise.value.filter((item, id) => {
         if (id !== index) return item;
     });
@@ -115,6 +112,15 @@ const optionsFranchise = [
     { name: "SI", value: "SI", selected: false },
     { name: "NO", value: "NO", selected: false },
 ];
+
+const optionsAdvanced = [
+    { name: '', value: '', selected: true },
+    { name: 'CHUNGARA', value: 'CHUNGARA', selected: false },
+    { name: 'CHACALLUTA', value: 'CHACALLUTA', selected: false },
+    { name: 'VISVIRI', value: 'VISVIRI', selected: false },
+    { name: 'HANS', value: 'HANS', selected: false },
+    { name: 'SITRANS', value: 'SITRANS', selected: false },
+]
 </script>
 
 <template>
@@ -162,9 +168,12 @@ const optionsFranchise = [
         </section>
         <Modal :show="show" :closeable="false">
             <div class="flex justify-between items-center">
-                <h1 class="text-xl">Crear Boleta de Retención</h1>
-                <DangerButton @click="show = false">
-                    <font-awesome-icon icon="xmark" />
+                <h1 class="text-2xl">Crear Boleta de Retención</h1>
+                <DangerButton
+                    class="rounded-full w-9 h-9 flex items-center justify-center"
+                    @click="show = false"
+                >
+                    <font-awesome-icon class="w-4 h-4" icon="xmark" />
                 </DangerButton>
             </div>
             <form class="flex flex-col gap-4 mt-4" @submit.prevent="submit">
@@ -224,6 +233,7 @@ const optionsFranchise = [
                             <InputLabel>
                                 N° Documento
                                 <TextInput
+                                    v-model="form.n_doc_imputado"
                                     class="w-full h-[38px] border-[1px] shadow-none rounded outline-none hover:border-dark-gray transition-colors duration-200 focus:border-dark-gray px-2 py-3 border-gray"
                                 />
                             </InputLabel>
@@ -232,6 +242,7 @@ const optionsFranchise = [
                             <InputLabel>
                                 Dirección
                                 <TextInput
+                                    v-model="form.direccion"
                                     class="w-full h-[38px] border-[1px] shadow-none rounded outline-none hover:border-dark-gray transition-colors duration-200 focus:border-dark-gray px-2 py-3 border-gray"
                                 />
                             </InputLabel>
@@ -242,6 +253,7 @@ const optionsFranchise = [
                             <InputLabel>
                                 Ciudad
                                 <TextInput
+                                    v-model="form.ciudad"
                                     class="w-full h-[38px] border-[1px] shadow-none rounded outline-none hover:border-dark-gray transition-colors duration-200 focus:border-dark-gray px-2 py-3 border-gray"
                                 />
                             </InputLabel>
@@ -335,7 +347,29 @@ const optionsFranchise = [
                             </table>
                         </div>
                     </div>
-                    <div class="grid-cols-6"></div>
+                    <div class="grid grid-cols-6 gap-2">
+                        <div class="col-span-2">
+                            <InputLabel>
+                                Peso
+                                <TextInput
+                                    v-model="form.peso"
+                                    type="number"
+                                    min="0"
+                                    class="w-full h-[38px] border-[1px] shadow-none rounded outline-none hover:border-dark-gray transition-colors duration-200 focus:border-dark-gray px-2 py-3 border-gray"
+                                />
+                            </InputLabel>
+                        </div>
+                        <div class="col-span-2">
+                            <InputLabel>
+                                Avanzada
+                                <SelectInput
+                                    class="w-full h-[38px]"
+                                    v-model="form.avanzada"
+                                    :options="optionsAdvanced"
+                                />
+                            </InputLabel>
+                        </div>
+                    </div>
                 </div>
             </form>
         </Modal>
