@@ -21,7 +21,6 @@ class AlmacenFactory extends Factory
             'nombre_almc' => fake()->randomElement(['Chacalluta', 'Arica', 'Chungara', 'Hansen', 'Sitrans', 'Visviri']),
             'avanzada' => fake()->randomElement(['Chacalluta', 'Arica', 'Chungara', 'Hansen', 'Sitrans', 'Visviri']),
 
-            //'observaciones' => fake()->text(200),
 
         ];
     }
