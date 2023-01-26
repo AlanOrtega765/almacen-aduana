@@ -13,12 +13,14 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('tipo_mercancia', function (Blueprint $table) {
-            $table->foreignId('n_rol_fk')->references('n_rol')->on('mercancias');
-            $table->id('tipo_mercancias');
-            $table->string('Nombre_merc', 30);
-            $table->integer('cantidad');
-            $table->integer('valor_mercancia')->nullable();
+        Schema::create('abandonos', function (Blueprint $table) {
+            $table->id('n_oficio');
+            $table->date('fecha_oficio');
+            $table->date('fecha_venc');
+            $table->string('turno', 30);
+            $table->date('fecha_recepcion');
+            $table->text('observacion');
+            $table->string('estado', 20);
             $table->timestamps();
         });
     }
@@ -30,6 +32,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('tipo_mercancia');
+        Schema::dropIfExists('abandonos');
     }
 };
