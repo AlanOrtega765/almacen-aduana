@@ -24,13 +24,6 @@ return new class extends Migration
             $table->integer('numero_rol');
             $table->boolean('estado');
             $table->string('privilegio', 20);
-            $table->string('rut')->unique();
-            $table->string('nombre_func', 20);
-            $table->string('apellido_p', 20);
-            $table->string('apellido_m', 20);
-            $table->integer('numero_rol');
-            $table->boolean('estado');
-            $table->string('privilegio');
             $table->rememberToken();
             $table->timestamps();
         });
