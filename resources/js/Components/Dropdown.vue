@@ -50,7 +50,7 @@ const open = ref(false);
         <!-- Full Screen Dropdown Overlay -->
         <div
             v-show="open"
-            class="fixed inset-0 z-40 bg-soft-black bg-opacity-30"
+            class="fixed inset-0 z-40 bg-soft-black bg-opacity-50"
             @click="open = false"
         ></div>
 

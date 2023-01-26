@@ -16,7 +16,7 @@ defineProps(["links"]);
                 v-else
                 :class="
                     link.active
-                        ? 'border-2 border-primary bg-just-white px-5 h-full flex items-center rounded-md shadow-md text-primary'
+                        ? 'border-2 border-primary bg-just-white px-5 h-full flex items-center rounded-md shadow-md text-primary font-bold'
                         : 'bg-just-white px-5 h-full flex items-center rounded-md shadow-md text-primary'
                 "
                 :href="link.url"

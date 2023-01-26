@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::create('retenciones', function (Blueprint $table) {
             $table->id()->from(5000);
             $table->date('fecha_boleta');
+            $table->string('tipo_doc_imputado');
             $table->string('n_doc_imputado');
             $table->string('nombres_imputado');
             $table->string('apellidos_imputado');

@@ -48,7 +48,8 @@ class RetentionSlipController extends Controller
      */
     public function show($id)
     {
-        //
+        $retention = Retenciones::find($id)->simplePaginate(1);
+        return $retention;
     }
 
     /**
