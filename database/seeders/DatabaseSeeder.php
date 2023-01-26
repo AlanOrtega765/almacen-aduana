@@ -18,13 +18,13 @@ class DatabaseSeeder extends Seeder
         // \App\Models\User::factory(10)->create();
 
         \App\Models\Retenciones::factory(30)->create();
-        \App\Models\Retencion::factory(20)->create();
+        //\App\Models\Retencion::factory(20)->create();
         \App\Models\Persona::factory(20)->create();
         \App\Models\Mercancias::factory(50)->create();
         //\App\Models\Seccion::factory(20)->create();
         //\App\Models\Tipomercancia::factory(20)->create();
         \App\Models\Almacen::factory(5)->create();
-
+        \App\Models\DatosVehiculo::factory(30)->create();
 
         \App\Models\User::factory()->create([
             'username' => 'Test User',

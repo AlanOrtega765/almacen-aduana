@@ -8,4 +8,5 @@ use Illuminate\Database\Eloquent\Model;
 class Abandono_Expreso extends Model
 {
     use HasFactory;
+
 }

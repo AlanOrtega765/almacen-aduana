@@ -18,11 +18,6 @@ class RetencionFactory extends Factory
     {
         return [
 
-            'fecha_reten' => fake()->date(),
-            'fecha_venc' => fake()->date(),
-            'franquicia' => fake()->randomDigit([0, 1]),
-            'estado' => fake()->randomElement(['Vigente', 'Vencido']),
-
         ];
     }
 }

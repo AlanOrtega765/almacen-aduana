@@ -16,8 +16,6 @@ class ContrabandoFactory extends Factory
      */
     public function definition()
     {
-        return [
-            //
-        ];
+
     }
 }

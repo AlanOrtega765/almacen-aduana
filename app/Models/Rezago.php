@@ -8,4 +8,5 @@ use Illuminate\Database\Eloquent\Model;
 class Rezago extends Model
 {
     use HasFactory;
+
 }

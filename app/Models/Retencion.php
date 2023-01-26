@@ -9,10 +9,10 @@ class Retencion extends Model
 {
     use HasFactory;
 
-    protected $fillable = [
+  /*  protected $fillable = [
         'fecha_reten',
         'fecha_venc',
         'franquicia'
 
-    ];
+    ];*/
 }

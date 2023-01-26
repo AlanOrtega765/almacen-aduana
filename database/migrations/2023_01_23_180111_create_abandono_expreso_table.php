@@ -16,7 +16,6 @@ return new class extends Migration
         Schema::create('abandono_expresos', function (Blueprint $table) {
             $table->id('n_rol_ae');
             $table->date('fecha_doc');
-            $table->string('documento', 30);
             $table->timestamps();
         });
     }

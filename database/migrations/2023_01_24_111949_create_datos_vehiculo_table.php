@@ -23,7 +23,7 @@ return new class extends Migration
             $table->string('chasis_veh', 30);
             $table->integer('n_motor_vehiculo');
             $table->integer('anho_fabric');
-            $table->string('origen_veh')->nullable();
+            $table->string('origen_veh', 20)->nullable();
             $table->timestamps();
         });
     }

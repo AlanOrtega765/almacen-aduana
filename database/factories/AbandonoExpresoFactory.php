@@ -16,8 +16,6 @@ class AbandonoExpresoFactory extends Factory
      */
     public function definition()
     {
-        return [
-            //
-        ];
+
     }
 }
