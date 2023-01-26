@@ -13,7 +13,7 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('contrabando', function (Blueprint $table) {
+        Schema::create('contrabandos', function (Blueprint $table) {
             $table->id('n_rol');
             $table->date('fecha_contrab');
             $table->date('fecha_venc_contrab');
@@ -37,6 +37,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('contrabando');
+        Schema::dropIfExists('contrabandos');
     }
 };

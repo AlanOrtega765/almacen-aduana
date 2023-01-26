@@ -16,14 +16,14 @@ return new class extends Migration
         Schema::create('users', function (Blueprint $table) {
             $table->id();
             $table->string('username')->unique();
-            $table->string('password');
-            $table->string('rut')->unique();
-            $table->string('nombre_func', 20);
-            $table->string('apellido_p', 20);
-            $table->string('apellido_m', 20);
+            $table->string('password')->unique();
+            $table->string('rut');
+            $table->string('nombre_func', 50);
+            $table->string('apellido_p', 50);
+            $table->string('apellido_m', 30);
             $table->integer('numero_rol');
             $table->boolean('estado');
-            $table->string('privilegio');
+            $table->string('privilegio', 20);
             $table->rememberToken();
             $table->timestamps();
         });

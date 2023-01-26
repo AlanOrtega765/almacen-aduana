@@ -13,11 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('tipo_mercancia', function (Blueprint $table) {
-            $table->foreignId('n_rol_fk')->references('n_rol')->on('mercancias');
-            $table->id('tipo_mercancias');
-            $table->string('Nombre_merc', 30);
-            $table->integer('cantidad');
+        Schema::create('mercancias', function (Blueprint $table) {
+            $table->id('n_rol');
+            $table->integer('cantidad_bulto');
+            $table->text('nombre_merc');
+            $table->integer('peso')->nullable();
             $table->integer('valor_mercancia')->nullable();
             $table->timestamps();
         });
@@ -30,6 +30,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('tipo_mercancia');
+        Schema::dropIfExists('mercancias');
     }
 };
