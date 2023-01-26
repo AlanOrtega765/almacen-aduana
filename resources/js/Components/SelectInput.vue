@@ -10,9 +10,10 @@ const input = ref(null);
 
 <template>
     <select
-        class="appearance-none rounded border-gray focus:border-gray hover:border-dark-gray cursor-pointer transition-colors duration-200"
+        class="rounded border-gray hover:border-dark-gray outline-none focus:border-gray focus:ring-0 cursor-pointer transition-colors duration-200"
         @input="$emit('update:modelValue', $event.target.value)"
         ref="input"
+        :value="modelValue"
     >
         <option
             v-for="(option, index) in options"

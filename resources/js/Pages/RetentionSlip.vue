@@ -5,21 +5,24 @@ import InputLabel from "@/Components/InputLabel.vue";
 import SelectInput from "@/Components/SelectInput.vue";
 import TextInput from "@/Components/TextInput.vue";
 import TextInputFilter from "@/Components/TextInputFilter.vue";
-import DangerButton from "@/Components/DangerButton.vue";
+import InputError from "@/Components/InputError.vue";
+import PrimaryButton from "@/Components/PrimaryButton.vue";
 import SecondaryButton from "@/Components/SecondaryButton.vue";
+import DangerButton from "@/Components/DangerButton.vue";
 import Table from "@/Components/Table.vue";
 import Pagination from "@/Components/Pagination.vue";
 import Modal from "@/Components/Modal.vue";
 
 import { Head } from "@inertiajs/vue3";
-import { ref, reactive } from "vue";
+import { ref } from "vue";
 
 defineProps(["retentions"]);
 const search = ref("");
 
-const tableColumns = [
+const tableColumns = ref([
     { name: "N° Boleta", data: "id" },
     { name: "Fecha Boleta", data: "fecha_boleta" },
+    { name: "Plazo Maximo", data: "plazo_maximo" },
     { name: "Tipo Documento", data: "tipo_doc_imputado" },
     { name: "N° Documento", data: "n_doc_imputado" },
     { name: "Nombres", data: "nombres_imputado" },
@@ -33,13 +36,58 @@ const tableColumns = [
     { name: "Avanzada", data: "avanzada" },
     { name: "Almacén", data: "almacen" },
     { name: "Observaciones", data: "observaciones" },
-    { name: "Plazo Maximo", data: "plazo_maximo" },
     { name: "Estado", data: "estado" },
-];
+]);
+
+const optionsTypeDocument = ref([
+    { name: "", value: "", selected: true },
+    { name: "CI", value: "CI" },
+    { name: "DNI", value: "DNI" },
+    { name: "PASAPORTE", value: "PASAPORTE" },
+]);
+
+const optionsNationality = ref([
+    { name: "", value: "", selected: true },
+    { name: "CHILENA", value: "CHILENA" },
+    { name: "PERUANA", value: "PERUANA" },
+    { name: "BOLIVIANA", value: "BOLIVIANA" },
+    { name: "OTROS", value: "OTROS" },
+]);
+
+const optionsFranchise = ref([
+    { name: "", value: "", selected: true },
+    { name: "SI", value: "SI" },
+    { name: "NO", value: "NO" },
+]);
+
+const optionsAdvanced = ref([
+    { name: "", value: "", selected: true },
+    { name: "ARICA", value: "ARICA" },
+    { name: "CHUNGARA", value: "CHUNGARA" },
+    { name: "CHACALLUTA", value: "CHACALLUTA" },
+    { name: "VISVIRI", value: "VISVIRI" },
+    { name: "HANS", value: "HANS" },
+    { name: "SITRANS", value: "SITRANS" },
+]);
+
+const optionsWarehouse = ref([
+    { name: "", value: "", selected: true },
+    { name: "ARICA", value: "ARICA" },
+    { name: "CHUNGARA", value: "CHUNGARA" },
+    { name: "CHACALLUTA", value: "CHACALLUTA" },
+    { name: "VISVIRI", value: "VISVIRI" },
+    { name: "HANS", value: "HANS" },
+    { name: "SITRANS", value: "SITRANS" },
+]);
 
 const show = ref(false);
 
-const form = reactive({
+const message = ref({
+    error: "",
+    success: "",
+});
+
+const form = ref({
     fecha_boleta: null,
     tipo_doc_imputado: "",
     n_doc_imputado: "",
@@ -49,14 +97,14 @@ const form = reactive({
     direccion: "",
     ciudad: "",
     franquicia: "",
-    descripcion: "",
+    descripcion_mercancias: "",
     bultos: 0,
-    peso: "",
+    peso: 0,
     avanzada: "",
     almacen: "",
-    obervaciones: "",
+    observaciones: "",
     plazo_maximo: null,
-    estado: "",
+    estado: "Vigente",
 });
 
 const merchandise = ref({
@@ -67,6 +115,31 @@ const merchandise = ref({
 const listOfMerchandise = ref([]);
 
 const listMerchandise = () => {
+    if (
+        merchandise.value.description === "" &&
+        merchandise.value.quantity < 1
+    ) {
+        message.value.error =
+            "¡Ingresa una descripción y una cantidad mayor a 0!";
+        return;
+    }
+
+    if (merchandise.value.description === "") {
+        message.value.error = "Ingresa una descripción!";
+        return;
+    }
+
+    if (merchandise.value.quantity < 1) {
+        message.value.error = "¡Ingresa una cantidad mayor a 0!";
+        return;
+    }
+
+    if (merchandise.value.description.length > 50) {
+        message.value.error =
+            "¡La descripción debe contener igual o menos de 50 caractéres!";
+        return;
+    }
+
     listOfMerchandise.value.push({
         description: merchandise.value.description,
         quantity: merchandise.value.quantity,
@@ -92,35 +165,90 @@ const format = (date) => {
     return `${day}/${month}/${year}`;
 };
 
-const optionsTypeDocument = [
-    { name: "", value: "", selected: true },
-    { name: "CI", value: "CI", selected: false },
-    { name: "DNI", value: "DNI", selected: false },
-    { name: "PASAPORTE", value: "PASAPORTE", selected: false },
-];
+const onCloseModal = () => {
+    show.value = false;
+    listOfMerchandise.value = [];
+    merchandise.value = {
+        description: "",
+        quantity: 1,
+    };
+    form.value = {
+        fecha_boleta: null,
+        tipo_doc_imputado: "",
+        n_doc_imputado: "",
+        nombres_imputado: "",
+        apellidos_imputado: "",
+        nacionalidad: "",
+        direccion: "",
+        ciudad: "",
+        franquicia: "",
+        descripcion_mercancias: "",
+        bultos: 0,
+        peso: 0,
+        avanzada: "",
+        almacen: "",
+        observaciones: "",
+        plazo_maximo: null,
+        estado: "Vigente",
+    };
+};
 
-const optionsNationality = [
-    { name: "", value: "", selected: true },
-    { name: "CHILENA", value: "CHILENA", selected: false },
-    { name: "PERUANA", value: "PERUANA", selected: false },
-    { name: "BOLIVIANA", value: "BOLIVIANA", selected: false },
-    { name: "OTROS", value: "OTROS", selected: false },
-];
+const dateSelected = () => {
+    form.value.plazo_maximo = new Date(form.value.fecha_boleta);
+    form.value.plazo_maximo = form.value.plazo_maximo.setDate(
+        form.value.plazo_maximo.getDate() + 90
+    );
+};
 
-const optionsFranchise = [
-    { name: "", value: "", selected: true },
-    { name: "SI", value: "SI", selected: false },
-    { name: "NO", value: "NO", selected: false },
-];
+const submit = () => {
+    if (listOfMerchandise.value.length === 0) {
+        message.value.error = "¡Debes ingresar mercancías!";
+        return;
+    }
 
-const optionsAdvanced = [
-    { name: '', value: '', selected: true },
-    { name: 'CHUNGARA', value: 'CHUNGARA', selected: false },
-    { name: 'CHACALLUTA', value: 'CHACALLUTA', selected: false },
-    { name: 'VISVIRI', value: 'VISVIRI', selected: false },
-    { name: 'HANS', value: 'HANS', selected: false },
-    { name: 'SITRANS', value: 'SITRANS', selected: false },
-]
+    const list = [];
+
+    listOfMerchandise.value.forEach((item) => {
+        list.push(Object.values(item).reverse().join(" "));
+    });
+    form.value.descripcion_mercancias = list.join(", ").toUpperCase();
+
+    form.value.fecha_boleta = formatDate(form.value.fecha_boleta);
+    form.value.plazo_maximo = formatDate(form.value.plazo_maximo);
+
+    console.log(form.value);
+
+    form.value = {
+        fecha_boleta: null,
+        tipo_doc_imputado: "",
+        n_doc_imputado: "",
+        nombres_imputado: "",
+        apellidos_imputado: "",
+        nacionalidad: "",
+        direccion: "",
+        ciudad: "",
+        franquicia: "",
+        descripcion_mercancias: "",
+        bultos: 0,
+        peso: 0,
+        avanzada: "",
+        almacen: "",
+        observaciones: "",
+        plazo_maximo: null,
+        estado: "Vigente",
+    };
+
+    listOfMerchandise.value = [];
+};
+
+const formatDate = (date) => {
+    const _date = new Date(date);
+    const day = _date.getDate();
+    const month = _date.getMonth() + 1;
+    const year = _date.getFullYear();
+
+    return `${day}/${month}/${year}`;
+};
 </script>
 
 <template>
@@ -167,139 +295,157 @@ const optionsAdvanced = [
             <Pagination :links="retentions.links" />
         </section>
         <Modal :show="show" :closeable="false">
-            <div class="flex justify-between items-center">
+            <div class="flex justify-between items-center shadow-md p-4">
                 <h1 class="text-2xl">Crear Boleta de Retención</h1>
                 <DangerButton
                     class="rounded-full w-9 h-9 flex items-center justify-center"
-                    @click="show = false"
+                    @click="onCloseModal"
                 >
                     <font-awesome-icon class="w-4 h-4" icon="xmark" />
                 </DangerButton>
             </div>
-            <form class="flex flex-col gap-4 mt-4" @submit.prevent="submit">
-                <div class="grid grid-cols-4">
-                    <InputLabel class="col-span-1"
-                        >Fecha Boleta
-
-                        <DatePicker
-                            v-model="form.fecha_boleta"
-                            :format="format"
-                        />
-                    </InputLabel>
-                </div>
+            <form class="flex flex-col gap-4 p-6" @submit.prevent="submit">
                 <div>
-                    <h3 class="col-span-4 font-semibold">Datos Imputado</h3>
+                    <h3 class="font-semibold">Funcionario</h3>
 
-                    <div class="grid grid-cols-6 gap-2">
-                        <div class="col-span-2">
-                            <InputLabel>
-                                Nombres
-                                <TextInput
-                                    class="w-full h-[38px] border-[1px] shadow-none rounded outline-none hover:border-dark-gray transition-colors duration-200 focus:border-dark-gray px-2 py-3 border-gray"
-                                />
-                            </InputLabel>
-                        </div>
-                        <div class="col-span-2">
-                            <InputLabel>
-                                Apellidos
-                                <TextInput
-                                    class="w-full h-[38px] border-[1px] shadow-none rounded outline-none hover:border-dark-gray transition-colors duration-200 focus:border-dark-gray px-2 py-3 border-gray"
-                                />
-                            </InputLabel>
-                        </div>
-                        <div class="col-span-2">
-                            <InputLabel>
-                                Nacionalidad
-                                <SelectInput
-                                    class="w-full h-[38px]"
-                                    v-model="form.tipo_doc_imputado"
-                                    :options="optionsNationality"
-                                />
-                            </InputLabel>
-                        </div>
-                    </div>
-                    <div class="grid grid-cols-6 gap-2">
-                        <div class="col-span-2">
-                            <InputLabel>
-                                Tipo Documento
-                                <SelectInput
-                                    class="w-full h-[38px]"
-                                    v-model="form.tipo_doc_imputado"
-                                    :options="optionsTypeDocument"
-                                />
-                            </InputLabel>
-                        </div>
-                        <div class="col-span-2">
-                            <InputLabel>
-                                N° Documento
-                                <TextInput
-                                    v-model="form.n_doc_imputado"
-                                    class="w-full h-[38px] border-[1px] shadow-none rounded outline-none hover:border-dark-gray transition-colors duration-200 focus:border-dark-gray px-2 py-3 border-gray"
-                                />
-                            </InputLabel>
-                        </div>
-                        <div class="col-span-2">
-                            <InputLabel>
-                                Dirección
-                                <TextInput
-                                    v-model="form.direccion"
-                                    class="w-full h-[38px] border-[1px] shadow-none rounded outline-none hover:border-dark-gray transition-colors duration-200 focus:border-dark-gray px-2 py-3 border-gray"
-                                />
-                            </InputLabel>
-                        </div>
-                    </div>
-                    <div class="grid grid-cols-6 gap-2">
-                        <div class="col-span-2">
-                            <InputLabel>
-                                Ciudad
-                                <TextInput
-                                    v-model="form.ciudad"
-                                    class="w-full h-[38px] border-[1px] shadow-none rounded outline-none hover:border-dark-gray transition-colors duration-200 focus:border-dark-gray px-2 py-3 border-gray"
-                                />
-                            </InputLabel>
-                        </div>
-                        <div class="col-span-2">
-                            <InputLabel>
-                                Uso Franquicia
-                                <SelectInput
-                                    class="w-full h-[38px]"
-                                    v-model="form.tipo_doc_imputado"
-                                    :options="optionsFranchise"
-                                />
-                            </InputLabel>
-                        </div>
+                    <div class="grid grid-cols-4 gap-2 mt-4">
+                        <InputLabel class="col-span-2">
+                            Nombres
+                            <TextInput
+                                disabled
+                                class="w-full h-[38px] shadow-none border-[1px] px-2 py-3 border-gray"
+                                placeholder="fasjdkasjdkajksd"
+                            />
+                        </InputLabel>
+                        <InputLabel class="col-span-2">
+                            Apellidos
+                            <TextInput
+                                disabled
+                                class="w-full h-[38px] shadow-none border-[1px] px-2 py-3 border-gray"
+                                placeholder="fasjdkasjdkajksd"
+                            />
+                        </InputLabel>
                     </div>
                 </div>
+                <div class="w-full h-[1px] bg-gray mt-2"></div>
+                <div>
+                    <h3 class="font-semibold">Imputado</h3>
+
+                    <div class="grid grid-cols-6 gap-2 mt-4">
+                        <InputLabel class="col-span-3">
+                            Nombres
+                            <TextInput
+                                v-model="form.nombres_imputado"
+                                required
+                                class="w-full h-[38px] border-[1px] shadow-none rounded outline-none hover:border-dark-gray transition-colors duration-200 focus:border-dark-gray px-2 py-3 border-gray"
+                            />
+                        </InputLabel>
+                        <InputLabel class="col-span-3">
+                            Apellidos
+                            <TextInput
+                                required
+                                v-model="form.apellidos_imputado"
+                                class="w-full h-[38px] border-[1px] shadow-none rounded outline-none hover:border-dark-gray transition-colors duration-200 focus:border-dark-gray px-2 py-3 border-gray"
+                            />
+                        </InputLabel>
+                        <InputLabel class="col-span-2">
+                            Nacionalidad
+                            <SelectInput
+                                required
+                                class="w-full h-[38px]"
+                                v-model="form.nacionalidad"
+                                :options="optionsNationality"
+                            />
+                        </InputLabel>
+
+                        <InputLabel class="col-span-2">
+                            Tipo Documento
+                            <SelectInput
+                                required
+                                class="w-full h-[38px]"
+                                v-model="form.tipo_doc_imputado"
+                                :options="optionsTypeDocument"
+                            />
+                        </InputLabel>
+                        <InputLabel class="col-span-2">
+                            N° Documento
+                            <TextInput
+                                required
+                                v-model="form.n_doc_imputado"
+                                class="w-full h-[38px] border-[1px] shadow-none rounded outline-none hover:border-dark-gray transition-colors duration-200 focus:border-dark-gray px-2 py-3 border-gray"
+                            />
+                        </InputLabel>
+                        <InputLabel class="col-span-2">
+                            Dirección
+                            <TextInput
+                                required
+                                v-model="form.direccion"
+                                class="w-full h-[38px] border-[1px] shadow-none rounded outline-none hover:border-dark-gray transition-colors duration-200 focus:border-dark-gray px-2 py-3 border-gray"
+                            />
+                        </InputLabel>
+                        <InputLabel class="col-span-2">
+                            Ciudad
+                            <TextInput
+                                required
+                                v-model="form.ciudad"
+                                class="w-full h-[38px] border-[1px] shadow-none rounded outline-none hover:border-dark-gray transition-colors duration-200 focus:border-dark-gray px-2 py-3 border-gray"
+                            />
+                        </InputLabel>
+                        <InputLabel class="col-span-2">
+                            Uso Franquicia
+                            <SelectInput
+                                class="w-full h-[38px]"
+                                required
+                                v-model="form.franquicia"
+                                :options="optionsFranchise"
+                            />
+                        </InputLabel>
+                    </div>
+                </div>
+                <div class="w-full h-[1px] bg-gray mt-2"></div>
                 <div>
                     <h3 class="col-span-4 font-semibold">Mercancias</h3>
-                    <div class="grid grid-cols-6 gap-2">
-                        <div class="col-span-4">
-                            <InputLabel>
-                                Descripción
-                                <TextInput
-                                    v-model="merchandise.description"
-                                    class="w-full h-[38px] border-[1px] shadow-none rounded outline-none hover:border-dark-gray transition-colors duration-200 focus:border-dark-gray px-2 py-3 border-gray"
-                                />
-                            </InputLabel>
-                        </div>
-                        <div class="col-span-1">
-                            <InputLabel>
-                                Cantidad
-                                <TextInput
-                                    v-model="merchandise.quantity"
-                                    type="number"
-                                    min="0"
-                                    class="w-full h-[38px] border-[1px] shadow-none rounded outline-none hover:border-dark-gray transition-colors duration-200 focus:border-dark-gray px-2 py-3 border-gray"
-                                />
-                            </InputLabel>
-                        </div>
-                        <div class="col-span-1 self-end h-[38px]">
+                    <div class="grid grid-cols-6 gap-2 mt-4">
+                        <InputLabel class="col-span-4">
+                            Descripción
+                            <TextInput
+                                v-model="merchandise.description"
+                                @keydown="message.error = ''"
+                                class="w-full h-[38px] border-[1px] shadow-none rounded outline-none hover:border-dark-gray transition-colors duration-200 focus:border-dark-gray px-2 py-3 border-gray"
+                            />
+                        </InputLabel>
+
+                        <InputLabel class="col-span-1">
+                            Cantidad
+                            <TextInput
+                                v-model="merchandise.quantity"
+                                type="number"
+                                min="1"
+                                @input="message.error = ''"
+                                class="w-full h-[38px] border-[1px] shadow-none rounded outline-none hover:border-dark-gray transition-colors duration-200 focus:border-dark-gray px-2 py-3 border-gray"
+                            />
+                        </InputLabel>
+                        <div class="col-span-1 self-end">
                             <SecondaryButton
-                                class="h-full"
+                                class="h-[38px]"
                                 @click="listMerchandise"
                             >
                                 <font-awesome-icon icon="plus" />
                             </SecondaryButton>
+                        </div>
+                        <div class="flex items-center col-span-6">
+                            <span
+                                :class="
+                                    merchandise.description.length > 50
+                                        ? 'text-red'
+                                        : ''
+                                "
+                                >{{ merchandise.description.length }} / 50</span
+                            >
+                            <InputError
+                                class="col-span-12 ml-4"
+                                :message="message.error"
+                            />
                         </div>
                         <div
                             class="col-span-6 w-full border-[1px] border-gray rounded-md"
@@ -309,10 +455,14 @@ const optionsAdvanced = [
                                     class="border-b-gray border-t-0 border-x-0 border-[1px]"
                                 >
                                     <tr>
-                                        <th class="text-left pl-4 py-2">#</th>
-                                        <th class="text-left">Descripción</th>
-                                        <th class="text-left">Cantidad</th>
-                                        <th class="text-left"></th>
+                                        <th class="text-left pl-4 py-2 w-12">
+                                            #
+                                        </th>
+                                        <th class="text-left w-3/4">
+                                            Descripción
+                                        </th>
+                                        <th class="text-left w-12">Cantidad</th>
+                                        <th class=""></th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -329,7 +479,9 @@ const optionsAdvanced = [
                                             {{ index + 1 }}
                                         </td>
                                         <td>{{ item.description }}</td>
-                                        <td>{{ item.quantity }}</td>
+                                        <td class="text-center">
+                                            {{ item.quantity }}
+                                        </td>
                                         <td>
                                             <font-awesome-icon
                                                 class="invisible group-hover:visible text-dark-gray"
@@ -346,31 +498,83 @@ const optionsAdvanced = [
                                 </tbody>
                             </table>
                         </div>
-                    </div>
-                    <div class="grid grid-cols-6 gap-2">
-                        <div class="col-span-2">
-                            <InputLabel>
-                                Peso
-                                <TextInput
-                                    v-model="form.peso"
-                                    type="number"
-                                    min="0"
-                                    class="w-full h-[38px] border-[1px] shadow-none rounded outline-none hover:border-dark-gray transition-colors duration-200 focus:border-dark-gray px-2 py-3 border-gray"
-                                />
-                            </InputLabel>
-                        </div>
-                        <div class="col-span-2">
-                            <InputLabel>
-                                Avanzada
-                                <SelectInput
-                                    class="w-full h-[38px]"
-                                    v-model="form.avanzada"
-                                    :options="optionsAdvanced"
-                                />
-                            </InputLabel>
-                        </div>
+
+                        <InputLabel class="col-span-1">
+                            Peso (Kg)
+                            <TextInput
+                                v-model="form.peso"
+                                type="number"
+                                required
+                                min="0"
+                                class="w-full h-[38px] border-[1px] shadow-none rounded outline-none hover:border-dark-gray transition-colors duration-200 focus:border-dark-gray px-2 py-3 border-gray"
+                            />
+                        </InputLabel>
+                        <InputLabel class="col-span-1">
+                            Bultos
+                            <TextInput
+                                v-model="form.bultos"
+                                type="number"
+                                required
+                                min="0"
+                                class="w-full h-[38px] border-[1px] shadow-none rounded outline-none hover:border-dark-gray transition-colors duration-200 focus:border-dark-gray px-2 py-3 border-gray"
+                            />
+                        </InputLabel>
+                        <InputLabel class="col-span-2">
+                            Avanzada
+                            <SelectInput
+                                class="w-full h-[38px]"
+                                v-model="form.avanzada"
+                                required
+                                :options="optionsAdvanced"
+                            />
+                        </InputLabel>
+                        <InputLabel class="col-span-2">
+                            Almacén
+                            <SelectInput
+                                class="w-full h-[38px]"
+                                v-model="form.almacen"
+                                required
+                                :options="optionsWarehouse"
+                            />
+                        </InputLabel>
                     </div>
                 </div>
+                <div class="w-full h-[1px] bg-gray mt-2"></div>
+                <div>
+                    <h3 class="font-semibold">Observaciones</h3>
+                    <textarea
+                        class="w-full focus:ring-0 focus:border-dark-gray border-gray border-[1px] rounded-md"
+                        rows="4"
+                        v-model="form.observaciones"
+                    ></textarea>
+                </div>
+                <div class="w-full h-[1px] bg-gray mt-2"></div>
+                <div>
+                    <h3 class="font-semibold">Fechas Documento</h3>
+                    <div class="grid grid-cols-4 gap-2 mt-4">
+                        <InputLabel class="col-span-1"
+                            >Fecha Retención
+
+                            <DatePicker
+                                v-model="form.fecha_boleta"
+                                :format="format"
+                                required
+                                @update:modelValue="dateSelected"
+                            />
+                        </InputLabel>
+                        <InputLabel class="col-span-1"
+                            >Plazo Máximo (90 días)
+
+                            <DatePicker
+                                readonly
+                                required
+                                v-model="form.plazo_maximo"
+                                :format="format"
+                            />
+                        </InputLabel>
+                    </div>
+                </div>
+                <PrimaryButton class="mt-2"> Registrar </PrimaryButton>
             </form>
         </Modal>
     </AuthenticatedLayout>

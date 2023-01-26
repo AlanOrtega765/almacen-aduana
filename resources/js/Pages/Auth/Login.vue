@@ -33,7 +33,7 @@ const submit = () => {
                     <TextInput
                         id="username"
                         type="text"
-                        class="block w-full pl-9"
+                        class="block w-full pl-9 border-light-gray"
                         v-model="form.username"
                         required
                     />
@@ -50,7 +50,7 @@ const submit = () => {
                     <TextInput
                         id="password"
                         type="password"
-                        class="block w-full pl-9"
+                        class="block w-full pl-9 border-light-gray"
                         v-model="form.password"
                         required
                     />
