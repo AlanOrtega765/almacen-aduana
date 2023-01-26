@@ -10,8 +10,8 @@ class Mercancias extends Model
     use HasFactory;
     protected $fillable = [
 
-        'nombre_merc',
         'cantidad_bulto',
+        'nombre_merc',
         'peso',
         'valor_mercancia'
 

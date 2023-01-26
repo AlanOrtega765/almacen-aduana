@@ -22,8 +22,6 @@ return new class extends Migration
             $table->foreign('id_almacen_fk')->references('id_almacen')->on('almacens');
             $table->unsignedBigInteger('n_rol_fk');
             $table->foreign('n_rol_fk')->references('n_rol')->on('mercancias');
-            $table->unsignedBigInteger('tipo_mercancias_fk');
-            $table->foreign('tipo_mercancias_fk')->references('id_mercancias')->on('tipo_mercancias')->nullable();
             $table->unsignedBigInteger('id_vehiculo_fk');
             $table->foreign('id_vehiculo_fk')->references('id_vehiculo')->on('datos_vehiculos')->nullable();
 

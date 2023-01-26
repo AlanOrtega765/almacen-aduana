@@ -20,6 +20,8 @@ return new class extends Migration
             $table->boolean('franquicia');
             $table->string('estado', 10);
             $table->timestamps();
+            $table->unsignedBigInteger('id_users_fk');
+            $table->foreign('id_users_fk')->references('id')->on('users');
         });
     }
 
