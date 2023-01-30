@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Mercancias;
+use App\Models\Personas;
 use App\Models\Retenciones;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
 
 class RetentionSlipController extends Controller
@@ -15,8 +18,8 @@ class RetentionSlipController extends Controller
      */
     public function index()
     {
-        $retentions = Retenciones::query()->paginate(10);
-        return Inertia::render('RetentionSlip', ['retentions' => $retentions]);
+        // $retentions = Retenciones::join('persona')
+        // return Inertia::render('RetentionSlip', ['retentions' => $retentions]);}
     }
 
     /**
@@ -37,7 +40,35 @@ class RetentionSlipController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $user_id = Auth::id();
+
+        $persona = Personas::create([
+            'nombre_p' => $request->nombres_imputado,
+            'apellido_p' => $request->apellidos_imputado,
+            'tipo_doc_p' => $request->tipo_doc_imputado,
+            'nro_id_person' => $request->n_doc_imputado,
+            'direccion_p' => $request->direccion,
+            'nacionalidad_p' => $request->nacionalidad
+        ]);
+
+        $mercancias = Mercancias::create([
+            'nombre_merc' => $request->descripcion_mercancias,
+            'peso' => $request->peso,
+            'cantidad_bulto' => $request->bultos,
+            'id_almacen_fk' => $request->ubicacion
+        ]);
+
+        Retenciones::create([
+            'fecha_reten' => $request->fecha_boleta,
+            'fecha_venc' => $request->plazo_maximo,
+            'franquicia' => $request->franquicia,
+            'estado' => $request->estado,
+            'observaciones' => $request->observaciones,
+            'id_user_fk' => $user_id,
+            'id_persona_fk' => $persona->id
+        ]);
+
+        
     }
 
     /**

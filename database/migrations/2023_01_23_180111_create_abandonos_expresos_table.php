@@ -13,10 +13,9 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('almacens', function (Blueprint $table) {
-            $table->id('id_almacen');
-            $table->string('nombre_almc', 40);
-            $table->string('avanzada', 40);
+        Schema::create('abandonos_expresos', function (Blueprint $table) {
+            $table->id('n_rol_ae');
+            $table->date('fecha_doc');
             $table->timestamps();
         });
     }
@@ -28,6 +27,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('almacens');
+        Schema::dropIfExists('abandonos_expresos');
     }
 };

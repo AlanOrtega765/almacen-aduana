@@ -13,21 +13,19 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('detalle_sdds', function (Blueprint $table) {
-            $table->foreignId('n_documento')->references('n_documento')->on('suspencion_despachos');
+        Schema::create('detalles_abandonos_expresos', function (Blueprint $table) {
             $table->unsignedBigInteger('id_person_fk');
             $table->foreign('id_person_fk')->references('id_person')->on('personas');
             $table->unsignedBigInteger('id_users_fk');
             $table->foreign('id_users_fk')->references('id')->on('users');
             $table->unsignedBigInteger('id_almacen_fk');
-            $table->foreign('id_almacen_fk')->references('id_almacen')->on('almacens');
+            $table->foreign('id_almacen_fk')->references('id_almacen')->on('almacenes');
             $table->unsignedBigInteger('n_rol_fk');
             $table->foreign('n_rol_fk')->references('n_rol')->on('mercancias');
             $table->unsignedBigInteger('id_vehiculo_fk');
             $table->foreign('id_vehiculo_fk')->references('id_vehiculo')->on('datos_vehiculos')->nullable();
 
             $table->timestamps();
-
         });
     }
 
@@ -38,6 +36,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('detalle_sdds');
+        Schema::dropIfExists('detalles_abandonos_expresos');
     }
 };

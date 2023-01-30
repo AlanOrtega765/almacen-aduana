@@ -13,8 +13,10 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('suspencion_despachos', function (Blueprint $table) {
-            $table->id('n_documento');
+        Schema::create('detalles_retenciones', function (Blueprint $table) {
+            $table->foreignId('n_boleta_pf')->references('n_boleta')->on('retenciones');
+            $table->unsignedBigInteger('id_mercancia_fk');
+            $table->foreign('id_mercancia_fk')->references('n_rol')->on('mercancias');
 
             $table->timestamps();
         });
@@ -27,6 +29,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('suspencion_despachos');
+        Schema::dropIfExists('detalles_retenciones');
     }
 };

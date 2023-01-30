@@ -12,8 +12,9 @@ defineProps(["columns", "items", 'width']);
                 <th v-if="false">Acciones</th>
             </tr>
         </thead>
-        <tbody>
+        <tbody class="relative">
             <tr
+                v-if="items.length > 1"
                 class="h-10 border-b-[1px] last-of-type:border-0 border-light-gray"
                 v-for="(item, index) in items"
                 :key="index"
@@ -25,6 +26,9 @@ defineProps(["columns", "items", 'width']);
                 >
                     {{ item[column.data] }}
                 </td>
+            </tr>
+            <tr class="bg-just-white h-10 block rounded-b-xl" v-else>
+                <span class="absolute flex justify-center items-center w-full h-full text-dark-gray uppercase">No se encontraron registros</span>
             </tr>
         </tbody>
     </table>

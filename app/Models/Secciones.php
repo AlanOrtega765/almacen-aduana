@@ -5,7 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Sem extends Model
+class Secciones extends Model
 {
-    use HasFactory;
+   /* use HasFactory;
+    protected $fillable = [
+
+        'sector'
+    ];*/
 }

@@ -13,12 +13,9 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('trazabilidads', function (Blueprint $table) {
-            $table->foreignId('id_almacen_fk')->references('id_almacen')->on('almacens');
-            $table->unsignedBigInteger('n_rol_fk');
-            $table->foreign('n_rol_fk')->references('n_rol')->on('mercancias');
-            $table->date('fecha_inicio');
-            $table->date('fecha_termino');
+        Schema::create('suspensiones_despachos', function (Blueprint $table) {
+            $table->id('n_documento');
+
             $table->timestamps();
         });
     }
@@ -30,6 +27,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('trazabilidads');
+        Schema::dropIfExists('suspensiones_despachos');
     }
 };

@@ -13,9 +13,9 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('abandono_expresos', function (Blueprint $table) {
-            $table->id('n_rol_ae');
-            $table->date('fecha_doc');
+        Schema::create('secciones', function (Blueprint $table) {
+            $table->foreignId('id_almacen_fk')->references('id_almacen')->on('almacenes');
+            $table->string('sector', 20);
             $table->timestamps();
         });
     }
@@ -27,6 +27,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('abandono_expresos');
+        Schema::dropIfExists('secciones');
     }
 };

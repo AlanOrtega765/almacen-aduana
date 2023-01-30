@@ -13,15 +13,18 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('retencions', function (Blueprint $table) {
+        Schema::create('retenciones', function (Blueprint $table) {
             $table->id('n_boleta')->from(53000); // asignacion de la id desde el 53000
             $table->date('fecha_reten');
             $table->date('fecha_venc');
             $table->boolean('franquicia');
             $table->string('estado', 10);
+            $table->text('observaciones', 200)->nullable();
+            $table->unsignedBigInteger('id_persona_fk');
+            $table->foreign('id_persona_fk')->references('id_person')->on('personas');
+            $table->unsignedBigInteger('id_user_fk');
+            $table->foreign('id_user_fk')->references('id')->on('users');
             $table->timestamps();
-            $table->unsignedBigInteger('id_users_fk');
-            $table->foreign('id_users_fk')->references('id')->on('users');
         });
     }
 
@@ -32,6 +35,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('retencions');
+        Schema::dropIfExists('retenciones');
     }
 };

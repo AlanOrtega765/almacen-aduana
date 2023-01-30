@@ -13,9 +13,10 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('seccions', function (Blueprint $table) {
-            $table->foreignId('id_almacen_fk')->references('id_almacen')->on('almacens');
-            $table->string('sector', 20);
+        Schema::create('almacenes', function (Blueprint $table) {
+            $table->id('id_almacen');
+            $table->string('nombre_almc', 40);
+            $table->string('avanzada', 40);
             $table->timestamps();
         });
     }
@@ -27,6 +28,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('seccions');
+        Schema::dropIfExists('almacenes');
     }
 };

@@ -13,12 +13,12 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('tipo_mercancias', function (Blueprint $table) {
-            $table->foreignId('n_rol_fk')->references('n_rol')->on('mercancias');
-            $table->id('id_mercancias')->from(1);
-            $table->string('nombre_merc', 30)->nullable();
-            $table->integer('cantidad')->nullable();
-            $table->integer('valor_mercancia')->nullable();
+        Schema::create('trazabilidades', function (Blueprint $table) {
+            $table->foreignId('id_almacen_fk')->references('id_almacen')->on('almacenes');
+            $table->unsignedBigInteger('n_rol_fk');
+            $table->foreign('n_rol_fk')->references('n_rol')->on('mercancias');
+            $table->date('fecha_inicio');
+            $table->date('fecha_termino');
             $table->timestamps();
         });
     }
@@ -30,6 +30,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('tipomercancias');
+        Schema::dropIfExists('trazabilidades');
     }
 };

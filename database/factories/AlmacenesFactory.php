@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Almacen>
  */
-class AlmacenFactory extends Factory
+class AlmacenesFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -17,12 +17,8 @@ class AlmacenFactory extends Factory
     public function definition()
     {
         return [
-
-            'nombre_almc' => fake()->randomElement(['Chacalluta', 'Arica', 'Chungara', 'Hansen', 'Sitrans', 'Visviri']),
-            'avanzada' => fake()->randomElement(['Chacalluta', 'Arica', 'Chungara', 'Hansen', 'Sitrans', 'Visviri']),
-
-            //'observaciones' => fake()->text(200),
-
+            'nombre_almc' => ['Chacalluta', 'Arica', 'Chungara', 'Hansen', 'Sitrans', 'Visviri'],
+            'avanzada' => ['Chacalluta', 'Arica', 'Chungara', 'Hansen', 'Sitrans', 'Visviri']
         ];
     }
 }

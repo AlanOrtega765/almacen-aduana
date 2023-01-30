@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Abandono_Expreso extends Model
+class Rezagos extends Model
 {
     use HasFactory;
 

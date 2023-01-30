@@ -15,10 +15,12 @@ return new class extends Migration
     {
         Schema::create('mercancias', function (Blueprint $table) {
             $table->id('n_rol');
-            $table->integer('cantidad_bulto');
             $table->text('nombre_merc');
-            $table->integer('peso')->nullable();
+            $table->integer('peso');
+            $table->integer('cantidad_bulto');
             $table->integer('valor_mercancia')->nullable();
+            $table->unsignedBigInteger('id_almacen_fk');
+            $table->foreign('id_almacen_fk')->references('id_almacen')->on('almacenes');
             $table->timestamps();
         });
     }

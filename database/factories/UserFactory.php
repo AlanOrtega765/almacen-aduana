@@ -19,16 +19,15 @@ class UserFactory extends Factory
     public function definition()
     {
         return [
-            'username' => fake()->firstName(),
+            'username' => fake()->userName(),
             'password' => Hash::make('123456789'), // password
-            'rut' => fake()->randomnumber(),
+            'rut' => fake()->randomElement(['12345678-9', '23456789-0', '21456789-3', '19675435-K']),
             'nombre_func'=> fake()->firstName(),
             'apellido_p'=> fake()->lastName(),
             'apellido_m'=> fake()->lastName(),
             'numero_rol' => fake()->randomNumber(),
             'estado' => fake()->boolean(),
-            'privilegio' => 'administrador',
-            'remember_token' => Str::random(10),
+            'privilegio' => fake()->randomElement(['Auditor', 'Almacenista', 'Administrador']),
         ];
     }
 }

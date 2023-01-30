@@ -13,10 +13,13 @@ import Table from "@/Components/Table.vue";
 import Pagination from "@/Components/Pagination.vue";
 import Modal from "@/Components/Modal.vue";
 
-import { Head } from "@inertiajs/vue3";
-import { ref } from "vue";
+import { Head, router, usePage } from "@inertiajs/vue3";
+import { ref, computed } from "vue";
 
 defineProps(["retentions"]);
+
+const user = computed(() => usePage().props.auth.user);
+
 const search = ref("");
 
 const tableColumns = ref([
@@ -40,44 +43,30 @@ const tableColumns = ref([
 ]);
 
 const optionsTypeDocument = ref([
-    { name: "", value: "", selected: true },
     { name: "CI", value: "CI" },
     { name: "DNI", value: "DNI" },
-    { name: "PASAPORTE", value: "PASAPORTE" },
+    { name: "PASAPORTE", value: "Pasaporte" },
 ]);
 
 const optionsNationality = ref([
-    { name: "", value: "", selected: true },
-    { name: "CHILENA", value: "CHILENA" },
-    { name: "PERUANA", value: "PERUANA" },
-    { name: "BOLIVIANA", value: "BOLIVIANA" },
-    { name: "OTROS", value: "OTROS" },
+    { name: "CHILENA", value: "Chilena" },
+    { name: "PERUANA", value: "Peruana" },
+    { name: "BOLIVIANA", value: "Boliviana" },
+    { name: "OTRA", value: "Otra" },
 ]);
 
 const optionsFranchise = ref([
-    { name: "", value: "", selected: true },
-    { name: "SI", value: "SI" },
-    { name: "NO", value: "NO" },
+    { name: "SI", value: 1 },
+    { name: "NO", value: 0 },
 ]);
 
 const optionsAdvanced = ref([
-    { name: "", value: "", selected: true },
-    { name: "ARICA", value: "ARICA" },
-    { name: "CHUNGARA", value: "CHUNGARA" },
-    { name: "CHACALLUTA", value: "CHACALLUTA" },
-    { name: "VISVIRI", value: "VISVIRI" },
-    { name: "HANS", value: "HANS" },
-    { name: "SITRANS", value: "SITRANS" },
-]);
-
-const optionsWarehouse = ref([
-    { name: "", value: "", selected: true },
-    { name: "ARICA", value: "ARICA" },
-    { name: "CHUNGARA", value: "CHUNGARA" },
-    { name: "CHACALLUTA", value: "CHACALLUTA" },
-    { name: "VISVIRI", value: "VISVIRI" },
-    { name: "HANS", value: "HANS" },
-    { name: "SITRANS", value: "SITRANS" },
+    { name: "Arica - Bodega Principal", value: 1 },
+    { name: "Arica - Bodega Hansen", value: 2 },
+    { name: "Arica - Bodega Sitrans", value: 3 },
+    { name: "Chacalluta - Bodega Principal", value: 4 },
+    { name: "Chungara - Bodega Principal", value: 5 },
+    { name: "Visviri - Bodega Principal", value: 6 },
 ]);
 
 const show = ref(false);
@@ -96,12 +85,11 @@ const form = ref({
     nacionalidad: "",
     direccion: "",
     ciudad: "",
-    franquicia: "",
+    franquicia: null,
     descripcion_mercancias: "",
     bultos: 0,
     peso: 0,
-    avanzada: "",
-    almacen: "",
+    ubicacion: 0,
     observaciones: "",
     plazo_maximo: null,
     estado: "Vigente",
@@ -181,12 +169,11 @@ const onCloseModal = () => {
         nacionalidad: "",
         direccion: "",
         ciudad: "",
-        franquicia: "",
+        franquicia: null,
         descripcion_mercancias: "",
         bultos: 0,
         peso: 0,
-        avanzada: "",
-        almacen: "",
+        ubicacion: 0,
         observaciones: "",
         plazo_maximo: null,
         estado: "Vigente",
@@ -216,7 +203,8 @@ const submit = () => {
     form.value.fecha_boleta = formatDate(form.value.fecha_boleta);
     form.value.plazo_maximo = formatDate(form.value.plazo_maximo);
 
-    console.log(form.value);
+    router.post("boletas-retencion/store", form.value);
+    console.log(form.value)
 
     form.value = {
         fecha_boleta: null,
@@ -227,12 +215,11 @@ const submit = () => {
         nacionalidad: "",
         direccion: "",
         ciudad: "",
-        franquicia: "",
+        franquicia: null,
         descripcion_mercancias: "",
         bultos: 0,
         peso: 0,
-        avanzada: "",
-        almacen: "",
+        ubicacion: 0,
         observaciones: "",
         plazo_maximo: null,
         estado: "Vigente",
@@ -247,7 +234,7 @@ const formatDate = (date) => {
     const month = _date.getMonth() + 1;
     const year = _date.getFullYear();
 
-    return `${day}/${month}/${year}`;
+    return `${year}-${month}-${day}`;
 };
 </script>
 
@@ -306,6 +293,32 @@ const formatDate = (date) => {
             </div>
             <form class="flex flex-col gap-4 p-6" @submit.prevent="submit">
                 <div>
+                    <h3 class="font-semibold">Fechas Documento</h3>
+                    <div class="grid grid-cols-4 gap-2 mt-4">
+                        <InputLabel class="col-span-1"
+                            >Fecha Retención
+
+                            <DatePicker
+                                v-model="form.fecha_boleta"
+                                :format="format"
+                                required
+                                @update:modelValue="dateSelected"
+                            />
+                        </InputLabel>
+                        <InputLabel class="col-span-1"
+                            >Plazo Máximo (90 días)
+
+                            <DatePicker
+                                readonly
+                                required
+                                v-model="form.plazo_maximo"
+                                :format="format"
+                            />
+                        </InputLabel>
+                    </div>
+                </div>
+                <div class="w-full h-[1px] bg-gray mt-2"></div>
+                <div>
                     <h3 class="font-semibold">Funcionario</h3>
 
                     <div class="grid grid-cols-4 gap-2 mt-4">
@@ -314,7 +327,7 @@ const formatDate = (date) => {
                             <TextInput
                                 disabled
                                 class="w-full h-[38px] shadow-none border-[1px] px-2 py-3 border-gray"
-                                placeholder="fasjdkasjdkajksd"
+                                :placeholder="user.nombre_func"
                             />
                         </InputLabel>
                         <InputLabel class="col-span-2">
@@ -322,7 +335,9 @@ const formatDate = (date) => {
                             <TextInput
                                 disabled
                                 class="w-full h-[38px] shadow-none border-[1px] px-2 py-3 border-gray"
-                                placeholder="fasjdkasjdkajksd"
+                                :placeholder="
+                                    user.apellido_p + ' ' + user.apellido_m
+                                "
                             />
                         </InputLabel>
                     </div>
@@ -519,22 +534,13 @@ const formatDate = (date) => {
                                 class="w-full h-[38px] border-[1px] shadow-none rounded outline-none hover:border-dark-gray transition-colors duration-200 focus:border-dark-gray px-2 py-3 border-gray"
                             />
                         </InputLabel>
-                        <InputLabel class="col-span-2">
-                            Avanzada
+                        <InputLabel class="col-span-4">
+                            Ubicación
                             <SelectInput
                                 class="w-full h-[38px]"
-                                v-model="form.avanzada"
+                                v-model="form.ubicacion"
                                 required
                                 :options="optionsAdvanced"
-                            />
-                        </InputLabel>
-                        <InputLabel class="col-span-2">
-                            Almacén
-                            <SelectInput
-                                class="w-full h-[38px]"
-                                v-model="form.almacen"
-                                required
-                                :options="optionsWarehouse"
                             />
                         </InputLabel>
                     </div>
@@ -548,32 +554,7 @@ const formatDate = (date) => {
                         v-model="form.observaciones"
                     ></textarea>
                 </div>
-                <div class="w-full h-[1px] bg-gray mt-2"></div>
-                <div>
-                    <h3 class="font-semibold">Fechas Documento</h3>
-                    <div class="grid grid-cols-4 gap-2 mt-4">
-                        <InputLabel class="col-span-1"
-                            >Fecha Retención
 
-                            <DatePicker
-                                v-model="form.fecha_boleta"
-                                :format="format"
-                                required
-                                @update:modelValue="dateSelected"
-                            />
-                        </InputLabel>
-                        <InputLabel class="col-span-1"
-                            >Plazo Máximo (90 días)
-
-                            <DatePicker
-                                readonly
-                                required
-                                v-model="form.plazo_maximo"
-                                :format="format"
-                            />
-                        </InputLabel>
-                    </div>
-                </div>
                 <PrimaryButton class="mt-2"> Registrar </PrimaryButton>
             </form>
         </Modal>
