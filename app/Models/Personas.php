@@ -16,6 +16,7 @@ class Personas extends Model
         'apellido_p',
         'direccion_p',
         'nacionalidad_p',
+        'ciudad_p',
         'reincidente'
     ];
 }

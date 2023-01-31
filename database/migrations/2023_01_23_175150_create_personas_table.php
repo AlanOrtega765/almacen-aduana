@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('apellido_p', 40);
             $table->string('tipo_doc_p', 20);
             $table->string('nro_id_person', 20);
+            $table->string('ciudad_p', 80);
             $table->string('direccion_p', 50);
             $table->string('nacionalidad_p', 30);
             $table->integer('reincidente')->nullable();

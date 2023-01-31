@@ -6,6 +6,7 @@ use App\Models\DetallesRetenciones;
 use App\Models\Mercancias;
 use App\Models\Personas;
 use App\Models\Retenciones;
+use Barryvdh\DomPDF\Facade\Pdf as PDF;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
@@ -19,7 +20,14 @@ class RetentionSlipController extends Controller
      */
     public function index()
     {
-        $retentions = Retenciones::query()->paginate(10);
+        $retentions = Retenciones::select('retenciones.n_boleta', 'retenciones.fecha_reten', 'retenciones.fecha_venc', 'personas.tipo_doc_p', 'personas.nro_id_person', 'personas.nombre_p', 'personas.apellido_p', 'personas.nacionalidad_p', 'personas.direccion_p', 'personas.ciudad_p', 'retenciones.franquicia', 'mercancias.nombre_merc', 'mercancias.peso', 'mercancias.cantidad_bulto', 'almacenes.nombre_almc', 'almacenes.avanzada', 'retenciones.observaciones', 'retenciones.estado')
+            ->join('users', 'users.id', '=', 'retenciones.id_user_fk')
+            ->join('personas', 'personas.id_person', '=', 'retenciones.id_persona_fk')
+            ->join('detalles_retenciones', 'detalles_retenciones.n_boleta_pf', '=', 'retenciones.n_boleta')
+            ->join('mercancias', 'mercancias.n_rol', '=', 'detalles_retenciones.id_mercancia_fk')
+            ->join('almacenes', 'almacenes.id_almacen', '=', 'mercancias.id_almacen_fk')
+            ->paginate(10);
+
         return Inertia::render('RetentionSlip', ['retentions' => $retentions]);
     }
 
@@ -49,7 +57,8 @@ class RetentionSlipController extends Controller
             'tipo_doc_p' => $request->tipo_doc_imputado,
             'nro_id_person' => $request->n_doc_imputado,
             'direccion_p' => $request->direccion,
-            'nacionalidad_p' => $request->nacionalidad
+            'nacionalidad_p' => $request->nacionalidad,
+            'ciudad_p' => $request->ciudad,
         ]);
 
         $mercancias = Mercancias::create([
@@ -83,8 +92,20 @@ class RetentionSlipController extends Controller
      */
     public function show($id)
     {
-        $retention = Retenciones::find($id)->simplePaginate(1);
-        return $retention;
+    }
+
+    public function printPDF($id)
+    {
+        $retention = Retenciones::select('retenciones.n_boleta', 'retenciones.fecha_reten', 'retenciones.fecha_venc', 'personas.tipo_doc_p', 'personas.nro_id_person', 'personas.nombre_p', 'personas.apellido_p', 'personas.nacionalidad_p', 'personas.direccion_p', 'personas.ciudad_p', 'retenciones.franquicia', 'mercancias.nombre_merc', 'mercancias.cantidad_bulto', 'mercancias.peso', 'almacenes.nombre_almc', 'almacenes.avanzada', 'retenciones.observaciones', 'retenciones.estado')
+            ->where('retenciones.n_boleta', '=', $id)
+            ->join('users', 'users.id', '=', 'retenciones.id_user_fk')
+            ->join('personas', 'personas.id_person', '=', 'retenciones.id_persona_fk')
+            ->join('detalles_retenciones', 'detalles_retenciones.n_boleta_pf', '=', 'retenciones.n_boleta')
+            ->join('mercancias', 'mercancias.n_rol', '=', 'detalles_retenciones.id_mercancia_fk')
+            ->join('almacenes', 'almacenes.id_almacen', '=', 'mercancias.id_almacen_fk')
+            ->first();
+
+        return Inertia::render('Documents/Retentionpdf', ['retention' => $retention]);
     }
 
     /**

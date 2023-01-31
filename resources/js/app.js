@@ -28,7 +28,8 @@ import {
     faXmark,
     faUser,
     faLock,
-    faTrash
+    faTrash,
+    faFilePdf
 } from "@fortawesome/free-solid-svg-icons";
 
 library.add({
@@ -49,7 +50,8 @@ library.add({
     faXmark,
     faUser,
     faLock,
-    faTrash
+    faTrash,
+    faFilePdf
 });
 
 const appName =
