@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\DetallesRetenciones;
 use App\Models\Mercancias;
 use App\Models\Personas;
 use App\Models\Retenciones;
@@ -18,8 +19,8 @@ class RetentionSlipController extends Controller
      */
     public function index()
     {
-        // $retentions = Retenciones::join('persona')
-        // return Inertia::render('RetentionSlip', ['retentions' => $retentions]);}
+        $retentions = Retenciones::query()->paginate(10);
+        return Inertia::render('RetentionSlip', ['retentions' => $retentions]);
     }
 
     /**
@@ -58,7 +59,7 @@ class RetentionSlipController extends Controller
             'id_almacen_fk' => $request->ubicacion
         ]);
 
-        Retenciones::create([
+        $retenciones = Retenciones::create([
             'fecha_reten' => $request->fecha_boleta,
             'fecha_venc' => $request->plazo_maximo,
             'franquicia' => $request->franquicia,
@@ -68,7 +69,10 @@ class RetentionSlipController extends Controller
             'id_persona_fk' => $persona->id
         ]);
 
-        
+        DetallesRetenciones::create([
+            'n_boleta_pf' => $retenciones->id,
+            'id_mercancia_fk' => $mercancias->id
+        ]);
     }
 
     /**
