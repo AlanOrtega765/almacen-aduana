@@ -10,22 +10,12 @@ class Retenciones extends Model
     use HasFactory;
 
     protected $fillable = [
-        'n_boleta',
-        'fecha_boleta',
-        'tipo_doc_imputado',
-        'n_doc_imputado',
-        'nombre_imputado',
-        'nacionalidad',
-        'direccion',
-        'ciudad',
+        'fecha_reten',
+        'fecha_venc',
         'franquicia',
-        'descripcion',
-        'bultos',
-        'peso',
-        'avanzada',
-        'almacen',
+        'estado',
         'observaciones',
-        'plazo_maximo',
-        'estado'
+        'id_user_fk',
+        'id_persona_fk'
     ];
 }

@@ -1,5 +1,5 @@
 <script setup>
-import { computed, onMounted, onUnmounted, watch } from 'vue';
+import { ref, computed, onMounted, onUnmounted, watch } from 'vue';
 
 const props = defineProps({
     show: {
@@ -40,6 +40,8 @@ const closeOnEscape = (e) => {
         close();
     }
 };
+
+const notClose = ref(false);
 
 onMounted(() => document.addEventListener('keydown', closeOnEscape));
 
@@ -86,7 +88,7 @@ const maxWidthClass = computed(() => {
                 >
                     <div
                         v-show="show"
-                        class="p-4 mb-6 bg-just-white rounded-lg overflow-hidden shadow-xl transform transition-all sm:w-full sm:mx-auto"
+                        class="mb-6 bg-just-white rounded-lg overflow-hidden shadow-xl transform transition-all sm:w-full sm:mx-auto"
                         :class="maxWidthClass"
                     >
                         <slot />

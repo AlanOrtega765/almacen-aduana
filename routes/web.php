@@ -18,7 +18,8 @@ Route::get('/', [HomeController::class, 'index'])->middleware(['auth', 'verified
 
 // Boletas Retención
 Route::get('/boletas-retencion', [RetentionSlipController::class, 'index'])->middleware(['auth', 'verified'])->name('boletas.index');
-Route::get('/boletas-retencion/{id}', [RetentionSlipController::class, 'show'])->middleware(['auth', 'verified'])->name('boletas.show');
+Route::get('/boletas-retencion/pdf/{id}', [RetentionSlipController::class, 'printPDF'])->middleware(['auth', 'verified'])->name('pdf');
+Route::post('/boletas-retencion/store', [RetentionSlipController::class, 'store'])->middleware(['auth', 'verified']);
 
 // Contrabandos
 Route::get('/contrabandos', [ContrabandController::class, 'index'])->middleware(['auth', 'verified'])->name('contrabandos.index');

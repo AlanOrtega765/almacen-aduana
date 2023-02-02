@@ -1,13 +1,13 @@
 <script setup>
 import { Head } from "@inertiajs/vue3";
 
-const props = defineProps(["retention"]);
+const props = defineProps(["contraband"]);
 
 const merchandises = props.retention.nombre_merc.split(",");
 </script>
 
 <template>
-    <Head title="Boletas de Retención" />
+    <Head title="Rol de Contrabando" />
     <div class="pt-20">
         <header class="flex items-center justify-center gap-10 text-center">
             <div class="relative flex">
@@ -21,34 +21,34 @@ const merchandises = props.retention.nombre_merc.split(",");
                         src="../../../images/logo_aduana.jpg"
                     />
                 </div>
-                <h1 class="text-2xl font-bold">COMPROBANTE DE RETENCIÓN</h1>
+                <h1 class="text-2xl font-bold">ROL DE CONTRABANDO</h1>
             </div>
         </header>
 
         <main>
             <div>
                 <h1 class="text-right text-4xl font-bold mt-10">
-                    N° {{ retention.n_boleta }}
+                    N° {{ contraband.n_rol }}
                 </h1>
                 <div class="flex flex-col w-full items-end uppercase">
-                    <span>FECHA C.R.: {{ retention.fecha_reten }}</span>
-                    <span>AVANZADA: {{ retention.avanzada }}</span>
-                    <span>ALMACÉN: BODEGA {{ retention.nombre_almc }}</span>
+                    <span>FECHA C.R.: {{ contraband.fecha_reten }}</span>
+                    <span>AVANZADA: {{ contraband.avanzada }}</span>
+                    <span>ALMACÉN: BODEGA {{ contraband.nombre_almc }}</span>
                 </div>
                 <div class="flex flex-col uppercase">
                     <span
                         >PASAJERO:
                         {{
-                            retention.nombre_p + " " + retention.apellido_p
+                            contraband.nombre_p + " " + contraband.apellido_p
                         }}</span
                     >
                     <span
                         >RUT / DNI / PASAPORTE:
-                        {{ retention.nro_id_person }}</span
+                        {{ contraband.nro_id_person }}</span
                     >
-                    <span>NACIONALIDAD: {{ retention.nacionalidad_p }}</span>
-                    <span>DOMICILIO: {{ retention.direccion_p }}</span>
-                    <span>CIUDAD: {{ retention.ciudad_p }}</span>
+                    <span>NACIONALIDAD: {{ contraband.nacionalidad_p }}</span>
+                    <span>DOMICILIO: {{ contraband.direccion_p }}</span>
+                    <span>CIUDAD: {{ contraband.ciudad_p }}</span>
                 </div>
                 <table class="table-auto w-full mt-5">
                     <thead>
@@ -82,20 +82,20 @@ const merchandises = props.retention.nombre_merc.split(",");
                     <div class="flex justify-between mb-5">
                         <h5 class="font-bold">
                             Uso de Franquicia:
-                            <span class="font-normal" v-html="retention.franquicia === 1 ? 'SI' : 'NO'"></span>
+                            <span class="font-normal" v-html="contraband.franquicia === 1 ? 'SI' : 'NO'"></span>
                         </h5>
                         <h5 class="font-bold">
-                            Peso: <span class="font-normal">{{ retention.peso }} Kg.</span>
+                            Peso: <span class="font-normal">{{ contraband.peso }} Kg.</span>
                         </h5>
                         <h5 class="font-bold">
-                            Bultos: <span class="font-normal">{{ retention.cantidad_bulto }}</span>
+                            Bultos: <span class="font-normal">{{ contraband.cantidad_bulto }}</span>
                         </h5>
                     </div>
                     <div class="w-full">
                         <h4 class="font-bold mb-3">OBSERVACIONES:</h4>
                         <div
                             class="border-[1px] border-soft-black border-opacity-20 w-full h-32"
-                        >{{ retention.observaciones }}</div>
+                        >{{ contraband.observaciones }}</div>
                     </div>
                     <div class="flex flex-col">
                         <span class="font-bold"
@@ -109,7 +109,7 @@ const merchandises = props.retention.nombre_merc.split(",");
                             1109/96)</span
                         >
                         <span class="font-bold"
-                            >Plazo Máximo de Retiro: {{ retention.fecha_venc }}</span
+                            >Plazo Máximo de Retiro: {{ contraband.fecha_venc }}</span
                         >
                     </div>
                 </div>

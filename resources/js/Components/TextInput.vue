@@ -10,7 +10,7 @@ const input = ref(null);
 
 <template>
     <input
-        class="border-light-gray focus:border-primary focus:ring-primary rounded-md shadow-md"
+        class="focus:border-primary focus:ring-primary rounded-md shadow-md"
         :value="modelValue"
         @input="$emit('update:modelValue', $event.target.value)"
         ref="input"
