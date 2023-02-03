@@ -18,7 +18,7 @@ class RetentionSlipController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index() // Retenciones mostradas en interfaz Boletas Retención
     {
         $retentions = Retenciones::select('retenciones.n_boleta', 'retenciones.fecha_reten', 'retenciones.fecha_venc', 'personas.tipo_doc_p', 'personas.nro_id_person', 'personas.nombre_p', 'personas.apellido_p', 'personas.nacionalidad_p', 'personas.direccion_p', 'personas.ciudad_p', 'retenciones.franquicia', 'mercancias.nombre_merc', 'mercancias.peso', 'mercancias.cantidad_bulto', 'almacenes.nombre_almc', 'almacenes.avanzada', 'retenciones.observaciones', 'retenciones.estado')
             ->join('users', 'users.id', '=', 'retenciones.id_user_fk')
@@ -47,7 +47,7 @@ class RetentionSlipController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request) //Funcion utilizada para crear registros en la BD
     {
         $user_id = Auth::id();
 
@@ -94,7 +94,7 @@ class RetentionSlipController extends Controller
     {
     }
 
-    public function printPDF($id)
+    public function printPDF($id) //Funcion utilizada para crear documento PDF de Retentionpdf
     {
         $retention = Retenciones::select('retenciones.n_boleta', 'retenciones.fecha_reten', 'retenciones.fecha_venc', 'personas.tipo_doc_p', 'personas.nro_id_person', 'personas.nombre_p', 'personas.apellido_p', 'personas.nacionalidad_p', 'personas.direccion_p', 'personas.ciudad_p', 'retenciones.franquicia', 'mercancias.nombre_merc', 'mercancias.cantidad_bulto', 'mercancias.peso', 'almacenes.nombre_almc', 'almacenes.avanzada', 'retenciones.observaciones', 'retenciones.estado')
             ->where('retenciones.n_boleta', '=', $id)

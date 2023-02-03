@@ -1,4 +1,5 @@
 <script setup>
+/*Formulario para crear un nuevo registro en la BD */
 import InputLabel from "@/Components/InputLabel.vue";
 import SelectInput from "@/Components/SelectInput.vue";
 import TextInput from "@/Components/TextInput.vue";
@@ -29,43 +30,43 @@ const form = ref({
     observaciones: "",              //contrabando
     plazo_maximo: null,             //contrabando
     estado: "Vigente",              //contrabando
-    tipo_contrabando: "",
-    instituciones: "",
-    nue: 0,
-    doc_denunciante: "",
-    doc_cancelacion: "",
-    fecha_canc: null,
-    doc_de_entrega: "",
-    fecha_doc_entrega: null,
+    tipo_contrabando: "",           //contrabando
+    instituciones: "",              //contrabando
+    nue: 0,                         //contrabando
+    doc_denunciante: "",            //contrabando
+    doc_cancelacion: "",            //contrabando
+    fecha_canc: null,               //contrabando
+    doc_de_entrega: "",             //contrabando
+    fecha_doc_entrega: null,        //contrabando
 
 
 
 });
 
-const message = ref({
+const message = ref({ //almacena mensaje del formulario
     error: "",
     success: "",
 });
 
-const optionsTypeDocument = ref([
+const optionsTypeDocument = ref([ //opciones de Tipo Documento
     { name: "CI", value: "CI" },
     { name: "DNI", value: "DNI" },
     { name: "PASAPORTE", value: "Pasaporte" },
 ]);
 
-const optionsNationality = ref([
+const optionsNationality = ref([ //opciones de Nacionalidad
     { name: "CHILENA", value: "Chilena" },
     { name: "PERUANA", value: "Peruana" },
     { name: "BOLIVIANA", value: "Boliviana" },
     { name: "OTRA", value: "Otra" },
 ]);
 
-const optionsFranchise = ref([
+const optionsFranchise = ref([ //opciones de Franquicia
     { name: "SI", value: 1 },
     { name: "NO", value: 0 },
 ]);
 
-const optionsAdvanced = ref([
+const optionsAdvanced = ref([ //opciones de  Ubicacion del Almacen
     { name: "Arica - Bodega Principal", value: 1 },
     { name: "Arica - Bodega Hansen", value: 2 },
     { name: "Arica - Bodega Sitrans", value: 3 },
@@ -74,7 +75,7 @@ const optionsAdvanced = ref([
     { name: "Visviri - Bodega Principal", value: 6 },
 ]);
 
-const format = (date) => {
+const format = (date) => { //Formato de la fecha
     const day = date.getDate();
     const month = date.getMonth() + 1;
     const year = date.getFullYear();
@@ -82,14 +83,14 @@ const format = (date) => {
     return `${day}/${month}/${year}`;
 };
 
-const merchandise = ref({
+const merchandise = ref({  //Campos para las mercancias en el formulario
     description: "",
     quantity: 1,
 });
 
-const listOfMerchandise = ref([]);
+const listOfMerchandise = ref([]); //lista de mercancias
 
-const listMerchandise = () => {
+const listMerchandise = () => { //metodo que rellena la lista de la mercancia
     if (
         merchandise.value.description === "" &&
         merchandise.value.quantity < 1
@@ -126,20 +127,20 @@ const listMerchandise = () => {
     };
 };
 
-const deleteItem = (index) => {
+const deleteItem = (index) => { //borrar items del formulario de la lista de mercancias
     listOfMerchandise.value = listOfMerchandise.value.filter((item, id) => {
         if (id !== index) return item;
     });
 };
 
-const dateSelected = () => {
+const dateSelected = () => { //creación de plazo fecha de vencimiento
     form.value.plazo_maximo = new Date(form.value.fecha_boleta);
     form.value.plazo_maximo = form.value.plazo_maximo.setDate(
         form.value.plazo_maximo.getDate() + 90
     );
 };
 
-const resetForm = () => {
+const resetForm = () => { //Limpiar el formulario una vez subido a la BD
     listOfMerchandise.value = [];
     merchandise.value = {
         description: "",
@@ -165,7 +166,7 @@ const resetForm = () => {
     };
 };
 
-const submit = () => {
+const submit = () => { //metodo para la creacion de registros
     if (listOfMerchandise.value.length === 0) {
         message.value.error = "¡Debes ingresar mercancías!";
         return;
@@ -189,7 +190,7 @@ const submit = () => {
     });
 };
 
-const formatDate = (date) => {
+const formatDate = (date) => { //formatear fecha
     const _date = new Date(date);
     const day = _date.getDate();
     const month = _date.getMonth() + 1;

@@ -1,4 +1,5 @@
 <script setup>
+/*Formulario para crear un nuevo registro en la BD */
 import InputLabel from "@/Components/InputLabel.vue";
 import SelectInput from "@/Components/SelectInput.vue";
 import TextInput from "@/Components/TextInput.vue";

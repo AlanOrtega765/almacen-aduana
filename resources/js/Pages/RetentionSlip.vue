@@ -16,7 +16,7 @@ const props = defineProps(["retentions"]);
 
 const search = ref("");
 
-const tableColumns = ref([
+const tableColumns = ref([ //atributos de la tabla Retenciones de la BD
     { name: "N° Boleta", data: "n_boleta" },
     { name: "Fecha Boleta", data: "fecha_reten" },
     { name: "Plazo Maximo", data: "fecha_venc" },
