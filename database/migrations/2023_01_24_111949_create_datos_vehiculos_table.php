@@ -24,6 +24,8 @@ return new class extends Migration
             $table->integer('n_motor_vehiculo');
             $table->integer('anho_fabric');
             $table->string('origen_veh', 20)->nullable();
+            $table->unsignedBigInteger('id_almacen_fk');
+            $table->foreign('id_almacen_fk')->references('id_almacen')->on('almacenes');
             $table->timestamps();
         });
     }

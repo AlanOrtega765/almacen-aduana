@@ -25,6 +25,7 @@ const tableColumns = ref([ //atributos de la tabla Abandonos que se visualizaran
     { name: "Estado", data: "estado" },
 
     { name: "Descripcion", data: "nombre_merc" },
+    { name: "Turno", data: "turno" },
     { name: "Bultos", data: "cantidad_bulto" },
     { name: "Peso", data: "peso" },
     { name: "Almacen", data: "nombre_almc" },

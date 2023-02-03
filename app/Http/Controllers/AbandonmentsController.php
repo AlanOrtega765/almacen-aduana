@@ -20,7 +20,7 @@ class AbandonmentsController extends Controller
      */
     public function index()
     {
-        $abandono = Abandonos::select('abandonos.n_oficio', 'abandonos.fecha_oficio', 'abandonos.fecha_venc', 'abandonos.fecha_recepcion', 'abandonos.observacion', 'abandonos.estado')
+        $abandono = Abandonos::select('abandonos.n_oficio', 'abandonos.fecha_oficio', 'abandonos.fecha_venc', 'abandonos.fecha_recepcion', 'abandonos.observacion', 'abandonos.estado', 'detalles_contrabandos.turno')
             ->join('users', 'users.id', '=', 'abandonos.id_users_fk')
             ->join('detalles_abandonos', 'detalles_abandonos.n_oficio', '=', 'abandonos.n_oficio')
             ->join('mercancias', 'mercancias.n_rol', '=', 'detalles_abandonos.n_rol_fk')
