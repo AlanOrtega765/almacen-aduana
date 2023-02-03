@@ -4,6 +4,12 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Inertia\Inertia;
+use App\Models\DetalleAbandonos;
+use App\Models\Mercancias;
+use App\Models\Abandonos;
+use Barryvdh\DomPDF\Facade\Pdf as PDF;
+use Illuminate\Support\Facades\Auth;
+
 
 class AbandonmentsController extends Controller
 {
@@ -14,6 +20,15 @@ class AbandonmentsController extends Controller
      */
     public function index()
     {
+        $abandono = Abandonos::select('abandonos.n_oficio', 'abandonos.fecha_oficio', 'abandonos.fecha_venc', 'abandonos.fecha_recepcion', 'abandonos.observacion', 'abandonos.estado')
+            ->join('users', 'users.id', '=', 'abandonos.id_users_fk')
+            ->join('detalles_abandonos', 'detalles_abandonos.n_oficio', '=', 'abandonos.n_oficio')
+            ->join('mercancias', 'mercancias.n_rol', '=', 'detalles_abandonos.n_rol_fk')
+            ->join('almacenes', 'almacenes.id_almacen', '=', 'mercancias.id_almacen_fk')
+            ->paginate(10);
+
+        return Inertia::render('Abandonments', ['abandonments' => $abandono]);
+
         return Inertia::render('Abandonments');
     }
 
@@ -35,7 +50,41 @@ class AbandonmentsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $user_id = Auth::id();
+
+        $mercancias = Mercancias::create([
+            'nombre_merc' => $request->descripcion_mercancias,
+            'peso' => $request->peso,
+            'cantidad_bulto' => $request->bultos,
+            'id_almacen_fk' => $request->ubicacion
+        ]);
+
+        $retenciones = Abandonos::create([
+            'fecha_oficio' => $request->fecha_oficio,
+            'fecha_venc' => $request->plazo_maximo,
+            'fecha_recepcion' => $request->fecha_recepcion,
+            'observacion' => $request->observacion,
+            'estado' => $request->estado,
+            'id_user_fk' => $user_id,
+        ]);
+
+        DetalleAbandonos::create([
+            'n_oficio' => $retenciones->id,
+            'turno' =>  $request->turno,
+            'n_rol_fk' => $mercancias->id,
+        ]);
+    }
+
+    public function printPDF($id)
+    {
+        $contraband = Abandonos::sselect('abandonos.n_oficio', 'abandonos.fecha_oficio', 'abandonos.fecha_venc', 'abandonos.fecha_recepcion', 'abandonos.observacion', 'abandonos.estado')
+            ->join('users', 'users.id', '=', 'contrabandos.id_user_fk')
+            ->join('detalles_contrabandos', 'detalles_contrabandos.n_rol_contrab', '=', 'contrabandos.n_rol')
+            ->join('mercancias', 'mercancias.n_rol', '=', 'detalles_contrabandos.n_rol_merc')
+            ->join('almacenes', 'almacenes.id_almacen', '=', 'mercancias.id_almacen_fk')
+            ->first();
+
+        return Inertia::render('Documents/Contrabandpdf', ['contraband' => $contraband]);
     }
 
     /**
