@@ -18,6 +18,7 @@ class DatosVehiculos extends Model
         'chasis_veh',
         'n_motor_vehiculo',
         'anho_fabric',
-        'origen_veh'
+        'origen_veh',
+        'id_almacen_fk',
     ];
 }

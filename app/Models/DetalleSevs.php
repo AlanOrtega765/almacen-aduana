@@ -5,16 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Sevs extends Model
+class DetalleSevs extends Model
 {
     use HasFactory;
     protected $fillable = [
+        'numero_sev_pf',
 
-        'fecha_llegada',
-        'fecha_venc',
-        'estado',
-        'observacion',
-        'id_user_fk',
-        'id_persona_fk'
+        'id_vehiculo_fk',
     ];
 }

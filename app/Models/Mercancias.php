@@ -9,9 +9,9 @@ class Mercancias extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'cantidad_bulto',
         'nombre_merc',
         'peso',
+        'cantidad_bulto',
         'valor_mercancia',
         'id_almacen_fk'
     ];

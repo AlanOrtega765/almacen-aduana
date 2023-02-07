@@ -21,7 +21,10 @@ class ContrabandController extends Controller
      */
     public function index()
     {
-        $contraband = contrabandos::select('contrabandos.n_rol', 'contrabandos.fecha_contrab', 'contrabandos.fecha_venc_contrab', 'contrabandos.estado', 'contrabandos.tipo_contrabando', 'contrabandos.instituciones', 'contrabandos.nue', 'contrabandos.doc_denunciante', 'contrabandos.doc_cancelacion', 'contrabandos.fecha_canc', 'contrabandos.doc_de_entrega', 'contrabandos.fecha_doc_entrega', 'contrabandos.observaciones')
+        $contraband = contrabandos::select('contrabandos.n_rol', 'contrabandos.fecha_contrab', 'contrabandos.fecha_venc_contrab', 'contrabandos.estado',
+                                            'personas.tipo_doc_p', 'personas.nro_id_person', 'personas.nombre_p', 'personas.apellido_p', 'personas.nacionalidad_p', 'personas.direccion_p', 'personas.ciudad_p',
+                                            'mercancias.nombre_merc', 'mercancias.peso', 'mercancias.cantidad_bulto', 'almacenes.nombre_almc', 'almacenes.avanzada',
+                                            'contrabandos.tipo_contrabando', 'contrabandos.instituciones', 'contrabandos.nue', 'contrabandos.doc_denunciante', 'contrabandos.doc_cancelacion', 'contrabandos.fecha_canc', 'contrabandos.doc_de_entrega', 'contrabandos.fecha_doc_entrega', 'contrabandos.observaciones')
             ->join('users', 'users.id', '=', 'contrabandos.id_user_fk')
             ->join('personas', 'personas.id_person', '=', 'contrabandos.id_persona_fk')
             ->join('detalles_contrabandos', 'detalles_contrabandos.n_rol_contrab', '=', 'contrabandos.n_rol')
