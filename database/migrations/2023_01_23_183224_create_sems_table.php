@@ -23,6 +23,11 @@ return new class extends Migration
             $table->integer('total_general');
             $table->integer('numero_lig_grav')->nullable();
             $table->date('fecha_gcp')->nullable();
+            $table->unsignedBigInteger('id_persona_fk');
+            $table->foreign('id_persona_fk')->references('id_person')->on('personas');
+            $table->unsignedBigInteger('id_user_fk');
+            $table->foreign('id_user_fk')->references('id')->on('users');
+
 
             $table->timestamps();
         });
