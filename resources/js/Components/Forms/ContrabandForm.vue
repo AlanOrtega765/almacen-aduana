@@ -54,6 +54,14 @@ const optionsTypeDocument = ref([ //opciones de Tipo Documento
     { name: "PASAPORTE", value: "Pasaporte" },
 ]);
 
+const optionsTypeContraband = ref([ //opciones de Tipo de contrabando
+    { name: "CARABINEROS", value: "CARABINEROS" },
+    { name: "PDI", value: "PDI" },
+    { name: "SUSP DESPACHO", value: "SUSP DESP" },
+    { name: "TURNO REGULAR", value: "Turno regular" },
+    { name: "UDF", value: "UDF" },
+]);
+
 const optionsNationality = ref([ //opciones de Nacionalidad
     { name: "CHILENA", value: "Chilena" },
     { name: "PERUANA", value: "Peruana" },
@@ -61,10 +69,7 @@ const optionsNationality = ref([ //opciones de Nacionalidad
     { name: "OTRA", value: "Otra" },
 ]);
 
-const optionsFranchise = ref([ //opciones de Franquicia
-    { name: "SI", value: 1 },
-    { name: "NO", value: 0 },
-]);
+
 
 const optionsAdvanced = ref([ //opciones de  Ubicacion del Almacen
     { name: "Arica - Bodega Principal", value: 1 },
@@ -265,7 +270,17 @@ const formatDate = (date) => { //formatear fecha
             <h3 class="font-semibold">Documentos</h3>
 
             <div class="grid grid-cols-6 gap-2 mt-4">
-                <InputLabel class="col-span-4">
+
+                <InputLabel class="col-span-3">
+                    Tipo Contrabando
+                    <SelectInput
+                        required
+                        class="w-full h-[38px]"
+                        v-model="form.tipo_contrabando"
+                        :options="optionsTypeContraband"
+                    />
+                </InputLabel>
+                <InputLabel class="col-span-3">
                     DOC. Denunciante
                     <TextInput
                         v-model="form.doc_denunciante"
@@ -273,15 +288,15 @@ const formatDate = (date) => { //formatear fecha
                         class="w-full h-[38px] border-[1px] shadow-none rounded outline-none hover:border-dark-gray transition-colors duration-200 focus:border-dark-gray px-2 py-3 border-gray"
                     />
                 </InputLabel>
-                <InputLabel class="col-span-4">
-                    DOC cancelacion
+                <InputLabel class="col-span-3">
+                    DOC Cancelación
                     <TextInput
                         required
                         v-model="form.doc_cancelacion"
                         class="w-full h-[38px] border-[1px] shadow-none rounded outline-none hover:border-dark-gray transition-colors duration-200 focus:border-dark-gray px-2 py-3 border-gray"
                     />
                 </InputLabel>
-                <InputLabel class="col-span-4">
+                <InputLabel class="col-span-3">
                     DOC de entrega
                     <TextInput
                         required
@@ -290,7 +305,7 @@ const formatDate = (date) => { //formatear fecha
                     />
                 </InputLabel>
 
-                <InputLabel class="col-span-4"
+                <InputLabel class="col-span-3"
                     >Fecha DOC de entrega
 
                     <DatePicker
@@ -310,7 +325,7 @@ const formatDate = (date) => { //formatear fecha
             <h3 class="font-semibold">Imputado</h3>
 
             <div class="grid grid-cols-6 gap-2 mt-4">
-                <InputLabel class="col-span-4">
+                <InputLabel class="col-span-2">
                     Nombres
                     <TextInput
                         v-model="form.nombres_imputado"
@@ -318,7 +333,7 @@ const formatDate = (date) => { //formatear fecha
                         class="w-full h-[38px] border-[1px] shadow-none rounded outline-none hover:border-dark-gray transition-colors duration-200 focus:border-dark-gray px-2 py-3 border-gray"
                     />
                 </InputLabel>
-                <InputLabel class="col-span-4">
+                <InputLabel class="col-span-2">
                     Apellidos
                     <TextInput
                         required
@@ -326,7 +341,7 @@ const formatDate = (date) => { //formatear fecha
                         class="w-full h-[38px] border-[1px] shadow-none rounded outline-none hover:border-dark-gray transition-colors duration-200 focus:border-dark-gray px-2 py-3 border-gray"
                     />
                 </InputLabel>
-                <InputLabel class="col-span-4">
+                <InputLabel class="col-span-2">
                     Nacionalidad
                     <SelectInput
                         required
@@ -369,15 +384,7 @@ const formatDate = (date) => { //formatear fecha
                         class="w-full h-[38px] border-[1px] shadow-none rounded outline-none hover:border-dark-gray transition-colors duration-200 focus:border-dark-gray px-2 py-3 border-gray"
                     />
                 </InputLabel>
-                <InputLabel class="col-span-2">
-                    Uso Franquicia
-                    <SelectInput
-                        class="w-full h-[38px]"
-                        required
-                        v-model="form.franquicia"
-                        :options="optionsFranchise"
-                    />
-                </InputLabel>
+
             </div>
         </div>
         <div class="w-full h-[1px] bg-gray mt-2"></div>

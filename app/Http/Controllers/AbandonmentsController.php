@@ -59,7 +59,7 @@ class AbandonmentsController extends Controller
             'id_almacen_fk' => $request->ubicacion
         ]);
 
-        $retenciones = Abandonos::create([
+        $abandonos = Abandonos::create([
             'fecha_oficio' => $request->fecha_oficio,
             'fecha_venc' => $request->plazo_maximo,
             'fecha_recepcion' => $request->fecha_recepcion,
@@ -69,7 +69,7 @@ class AbandonmentsController extends Controller
         ]);
 
         DetalleAbandonos::create([
-            'n_oficio' => $retenciones->id,
+            'n_oficio' => $abandonos->id,
             'turno' =>  $request->turno,
             'n_rol_fk' => $mercancias->id,
         ]);
@@ -77,7 +77,7 @@ class AbandonmentsController extends Controller
 
     public function printPDF($id)
     {
-        $contraband = Abandonos::sselect('abandonos.n_oficio', 'abandonos.fecha_oficio', 'abandonos.fecha_venc', 'abandonos.fecha_recepcion', 'abandonos.observacion', 'abandonos.estado')
+        $contraband = Abandonos::select('abandonos.n_oficio', 'abandonos.fecha_oficio', 'abandonos.fecha_venc', 'abandonos.fecha_recepcion', 'abandonos.observacion', 'abandonos.estado')
             ->join('users', 'users.id', '=', 'contrabandos.id_user_fk')
             ->join('detalles_contrabandos', 'detalles_contrabandos.n_rol_contrab', '=', 'contrabandos.n_rol')
             ->join('mercancias', 'mercancias.n_rol', '=', 'detalles_contrabandos.n_rol_merc')

@@ -27,6 +27,7 @@ Route::post('/contrabandos/store', [ContrabandController::class, 'store'])->midd
 
 // Abandonos
 Route::get('/abandonos', [AbandonmentsController::class, 'index'])->middleware(['auth', 'verified'])->name('abandonos.index');
+Route::post('/abandonos/store', [AbandonmentsController::class, 'store'])->middleware(['auth', 'verified']);
 
 // Suspension Despacho
 Route::get('/suspension-despacho', [SuspensionDispatchController::class, 'index'])->middleware(['auth', 'verified'])->name('suspension.index');

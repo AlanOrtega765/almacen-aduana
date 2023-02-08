@@ -14,30 +14,21 @@ const emits = defineEmits(['update:form', 'closeModal']);
 
 const user = computed(() => usePage().props.auth.user);
 const form = ref({
-    fecha_contrabando: null,        //contrabando
-    tipo_doc_imputado: "",          //persona
-    n_doc_imputado: "",             //persona
-    nombres_imputado: "",           //persona
-    apellidos_imputado: "",         //persona
-    nacionalidad: "",               //persona
-    direccion: "",                  //persona
-    ciudad: "",                     //persona
-    franquicia: null,               //contrabando
+    fecha_oficio: null,             //abandono
+    fecha_recepcion: null,          //abandono
+
     descripcion_mercancias: "",     //mercancias
     bultos: 0,                      //mercancias
     peso: 0,                        //mercancias
     ubicacion: 0,                   //mercancias
-    observaciones: "",              //contrabando
-    plazo_maximo: null,             //contrabando
-    estado: "Vigente",              //contrabando
-    tipo_contrabando: "",           //contrabando
-    instituciones: "",              //contrabando
-    nue: 0,                         //contrabando
-    doc_denunciante: "",            //contrabando
-    doc_cancelacion: "",            //contrabando
-    fecha_canc: null,               //contrabando
-    doc_de_entrega: "",             //contrabando
-    fecha_doc_entrega: null,        //contrabando
+
+    observacion: "",              //abandono
+
+    plazo_maximo: null,             //abandono
+    estado: "Vigente",              //abandono
+
+    instituciones: "",              //abandono
+
 
 
 
@@ -47,24 +38,6 @@ const message = ref({ //almacena mensaje del formulario
     error: "",
     success: "",
 });
-
-const optionsTypeDocument = ref([ //opciones de Tipo Documento
-    { name: "CI", value: "CI" },
-    { name: "DNI", value: "DNI" },
-    { name: "PASAPORTE", value: "Pasaporte" },
-]);
-
-const optionsNationality = ref([ //opciones de Nacionalidad
-    { name: "CHILENA", value: "Chilena" },
-    { name: "PERUANA", value: "Peruana" },
-    { name: "BOLIVIANA", value: "Boliviana" },
-    { name: "OTRA", value: "Otra" },
-]);
-
-const optionsFranchise = ref([ //opciones de Franquicia
-    { name: "SI", value: 1 },
-    { name: "NO", value: 0 },
-]);
 
 const optionsAdvanced = ref([ //opciones de  Ubicacion del Almacen
     { name: "Arica - Bodega Principal", value: 1 },
@@ -147,22 +120,21 @@ const resetForm = () => { //Limpiar el formulario una vez subido a la BD
         quantity: 1,
     };
     form.value = {
-        fecha_boleta: null,
-        tipo_doc_imputado: "",
-        n_doc_imputado: "",
-        nombres_imputado: "",
-        apellidos_imputado: "",
-        nacionalidad: "",
-        direccion: "",
-        ciudad: "",
-        franquicia: null,
-        descripcion_mercancias: "",
-        bultos: 0,
-        peso: 0,
-        ubicacion: 0,
-        observaciones: "",
-        plazo_maximo: null,
-        estado: "Vigente",
+        fecha_oficio: null,             //abandono
+        fecha_recepcion: null,          //abandono
+
+        descripcion_mercancias: "",     //mercancias
+        bultos: 0,                      //mercancias
+        peso: 0,                        //mercancias
+        ubicacion: 0,                   //mercancias
+
+        observacion: "",              //abandono
+
+        plazo_maximo: null,             //abandono
+        estado: "Vigente",              //abandono
+
+        instituciones: "",              //abandono
+
     };
 };
 
@@ -179,10 +151,10 @@ const submit = () => { //metodo para la creacion de registros
     });
     form.value.descripcion_mercancias = list.join(", ").toUpperCase();
 
-    form.value.fecha_boleta = formatDate(form.value.fecha_boleta);
+    form.value.fecha_oficio = formatDate(form.value.fecha_oficio);
     form.value.plazo_maximo = formatDate(form.value.plazo_maximo);
 
-    router.post("boletas-retencion/store", form.value, {
+    router.post("abandonos/store", form.value, {
         onSuccess: () => {
             resetForm();
             emits('closeModal');
@@ -203,13 +175,13 @@ const formatDate = (date) => { //formatear fecha
 <template>
     <form class="flex flex-col gap-4 p-6" @submit.prevent="submit" >
         <div>
-            <h3 class="font-semibold">Fechas Documento</h3>
+            <h3 class="font-semibold">Fechas Documento Abandono</h3>
             <div class="grid grid-cols-4 gap-2 mt-4">
                 <InputLabel class="col-span-1"
-                    >Fecha Retención
+                    >Fecha Abandono
 
                     <DatePicker
-                        v-model="form.fecha_boleta"
+                        v-model="form.fecha_oficio"
                         :format="format"
                         required
                         @update:modelValue="dateSelected"
@@ -251,81 +223,7 @@ const formatDate = (date) => { //formatear fecha
             </div>
         </div>
         <div class="w-full h-[1px] bg-gray mt-2"></div>
-        <div>
-            <h3 class="font-semibold">Imputado</h3>
 
-            <div class="grid grid-cols-6 gap-2 mt-4">
-                <InputLabel class="col-span-3">
-                    Nombres
-                    <TextInput
-                        v-model="form.nombres_imputado"
-                        required
-                        class="w-full h-[38px] border-[1px] shadow-none rounded outline-none hover:border-dark-gray transition-colors duration-200 focus:border-dark-gray px-2 py-3 border-gray"
-                    />
-                </InputLabel>
-                <InputLabel class="col-span-3">
-                    Apellidos
-                    <TextInput
-                        required
-                        v-model="form.apellidos_imputado"
-                        class="w-full h-[38px] border-[1px] shadow-none rounded outline-none hover:border-dark-gray transition-colors duration-200 focus:border-dark-gray px-2 py-3 border-gray"
-                    />
-                </InputLabel>
-                <InputLabel class="col-span-2">
-                    Nacionalidad
-                    <SelectInput
-                        required
-                        class="w-full h-[38px]"
-                        v-model="form.nacionalidad"
-                        :options="optionsNationality"
-                    />
-                </InputLabel>
-
-                <InputLabel class="col-span-2">
-                    Tipo Documento
-                    <SelectInput
-                        required
-                        class="w-full h-[38px]"
-                        v-model="form.tipo_doc_imputado"
-                        :options="optionsTypeDocument"
-                    />
-                </InputLabel>
-                <InputLabel class="col-span-2">
-                    N° Documento
-                    <TextInput
-                        required
-                        v-model="form.n_doc_imputado"
-                        class="w-full h-[38px] border-[1px] shadow-none rounded outline-none hover:border-dark-gray transition-colors duration-200 focus:border-dark-gray px-2 py-3 border-gray"
-                    />
-                </InputLabel>
-                <InputLabel class="col-span-2">
-                    Dirección
-                    <TextInput
-                        required
-                        v-model="form.direccion"
-                        class="w-full h-[38px] border-[1px] shadow-none rounded outline-none hover:border-dark-gray transition-colors duration-200 focus:border-dark-gray px-2 py-3 border-gray"
-                    />
-                </InputLabel>
-                <InputLabel class="col-span-2">
-                    Ciudad
-                    <TextInput
-                        required
-                        v-model="form.ciudad"
-                        class="w-full h-[38px] border-[1px] shadow-none rounded outline-none hover:border-dark-gray transition-colors duration-200 focus:border-dark-gray px-2 py-3 border-gray"
-                    />
-                </InputLabel>
-                <InputLabel class="col-span-2">
-                    Uso Franquicia
-                    <SelectInput
-                        class="w-full h-[38px]"
-                        required
-                        v-model="form.franquicia"
-                        :options="optionsFranchise"
-                    />
-                </InputLabel>
-            </div>
-        </div>
-        <div class="w-full h-[1px] bg-gray mt-2"></div>
         <div>
             <h3 class="col-span-4 font-semibold">Mercancias</h3>
             <div class="grid grid-cols-6 gap-2 mt-4">
@@ -356,11 +254,11 @@ const formatDate = (date) => { //formatear fecha
                 <div class="flex items-center col-span-6">
                     <span
                         :class="
-                            merchandise.description.length > 50
+                            merchandise.description.length > 100
                                 ? 'text-red'
                                 : ''
                         "
-                        >{{ merchandise.description.length }} / 50</span
+                        >{{ merchandise.description.length }} / 100</span
                     >
                     <InputError
                         class="col-span-12 ml-4"
