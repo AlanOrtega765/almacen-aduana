@@ -23,6 +23,7 @@ Route::post('/boletas-retencion/store', [RetentionSlipController::class, 'store'
 
 // Contrabandos
 Route::get('/contrabandos', [ContrabandController::class, 'index'])->middleware(['auth', 'verified'])->name('contrabandos.index');
+Route::post('/contrabandos/store', [ContrabandController::class, 'store'])->middleware(['auth', 'verified']);
 
 // Abandonos
 Route::get('/abandonos', [AbandonmentsController::class, 'index'])->middleware(['auth', 'verified'])->name('abandonos.index');

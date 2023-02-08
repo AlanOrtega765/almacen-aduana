@@ -52,10 +52,10 @@ class RetentionSlipController extends Controller
         $user_id = Auth::id();
 
         $persona = Personas::create([
-            'nombre_p' => $request->nombres_imputado,
-            'apellido_p' => $request->apellidos_imputado,
-            'tipo_doc_p' => $request->tipo_doc_imputado,
-            'nro_id_person' => $request->n_doc_imputado,
+            'nombre_p' => $request->nombres_persona,
+            'apellido_p' => $request->apellidos_persona,
+            'tipo_doc_p' => $request->tipo_doc_persona,
+            'nro_id_person' => $request->n_doc_persona,
             'direccion_p' => $request->direccion,
             'nacionalidad_p' => $request->nacionalidad,
             'ciudad_p' => $request->ciudad,

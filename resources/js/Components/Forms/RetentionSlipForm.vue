@@ -15,10 +15,10 @@ const emits = defineEmits(['update:form', 'closeModal']);
 const user = computed(() => usePage().props.auth.user);
 const form = ref({
     fecha_boleta: null,
-    tipo_doc_imputado: "",
-    n_doc_imputado: "",
-    nombres_imputado: "",
-    apellidos_imputado: "",
+    tipo_doc_persona: "",
+    n_doc_persona: "",
+    nombres_persona: "",
+    apellidos_persona: "",
     nacionalidad: "",
     direccion: "",
     ciudad: "",
@@ -137,10 +137,10 @@ const resetForm = () => {
     };
     form.value = {
         fecha_boleta: null,
-        tipo_doc_imputado: "",
-        n_doc_imputado: "",
-        nombres_imputado: "",
-        apellidos_imputado: "",
+        tipo_doc_persona: "",
+        n_doc_persona: "",
+        nombres_persona: "",
+        apellidos_persona: "",
         nacionalidad: "",
         direccion: "",
         ciudad: "",
@@ -241,13 +241,13 @@ const formatDate = (date) => {
         </div>
         <div class="w-full h-[1px] bg-gray mt-2"></div>
         <div>
-            <h3 class="font-semibold">Imputado</h3>
+            <h3 class="font-semibold">Pasajero</h3>
 
             <div class="grid grid-cols-6 gap-2 mt-4">
                 <InputLabel class="col-span-3">
                     Nombres
                     <TextInput
-                        v-model="form.nombres_imputado"
+                        v-model="form.nombres_persona"
                         required
                         class="w-full h-[38px] border-[1px] shadow-none rounded outline-none hover:border-dark-gray transition-colors duration-200 focus:border-dark-gray px-2 py-3 border-gray"
                     />
@@ -256,7 +256,7 @@ const formatDate = (date) => {
                     Apellidos
                     <TextInput
                         required
-                        v-model="form.apellidos_imputado"
+                        v-model="form.apellidos_persona"
                         class="w-full h-[38px] border-[1px] shadow-none rounded outline-none hover:border-dark-gray transition-colors duration-200 focus:border-dark-gray px-2 py-3 border-gray"
                     />
                 </InputLabel>
@@ -275,7 +275,7 @@ const formatDate = (date) => {
                     <SelectInput
                         required
                         class="w-full h-[38px]"
-                        v-model="form.tipo_doc_imputado"
+                        v-model="form.tipo_doc_persona"
                         :options="optionsTypeDocument"
                     />
                 </InputLabel>
@@ -283,7 +283,7 @@ const formatDate = (date) => {
                     N° Documento
                     <TextInput
                         required
-                        v-model="form.n_doc_imputado"
+                        v-model="form.n_doc_persona"
                         class="w-full h-[38px] border-[1px] shadow-none rounded outline-none hover:border-dark-gray transition-colors duration-200 focus:border-dark-gray px-2 py-3 border-gray"
                     />
                 </InputLabel>
@@ -345,11 +345,11 @@ const formatDate = (date) => {
                 <div class="flex items-center col-span-6">
                     <span
                         :class="
-                            merchandise.description.length > 50
+                            merchandise.description.length > 100
                                 ? 'text-red'
                                 : ''
                         "
-                        >{{ merchandise.description.length }} / 50</span
+                        >{{ merchandise.description.length }} / 100</span
                     >
                     <InputError
                         class="col-span-12 ml-4"

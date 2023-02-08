@@ -2,7 +2,7 @@
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
 import DropdownFilter from "@/Components/DropdownFilter.vue";
 import TextInputFilter from "@/Components/TextInputFilter.vue";
-import RetentionSlipForm from "@/Components/Forms/RetentionSlipForm.vue";
+import ContrabandForm from "@/Components/Forms/ContrabandForm.vue";
 import SecondaryButton from "@/Components/SecondaryButton.vue";
 import DangerButton from "@/Components/DangerButton.vue";
 import Table from "@/Components/Table.vue";
@@ -99,7 +99,7 @@ const onCloseModal = () => show.value = false;
                     <font-awesome-icon class="w-4 h-4" icon="xmark" />
                 </DangerButton>
             </div>
-            <RetentionSlipForm @close-modal="show = false"/>
+            <ContrabandForm @close-modal="show = false"/>
         </Modal>
     </AuthenticatedLayout>
 </template>

@@ -83,7 +83,7 @@ class ContrabandController extends Controller
             'id_almacen_fk' => $request->ubicacion
         ]);
 
-        $retenciones = Contrabandos::create([
+        $contrabandos = Contrabandos::create([
             'fecha_contrab' => $request->fecha_contrabando,
             'fecha_venc_contrab' => $request->plazo_maximo,
             'estado' => $request->estado,
@@ -101,7 +101,7 @@ class ContrabandController extends Controller
         ]);
 
         DetalleContrabandos::create([
-            'n_boleta_pf' => $retenciones->id,
+            'n_boleta_pf' => $contrabandos->id,
             'id_mercancia_fk' => $mercancias->id
         ]);
     }
