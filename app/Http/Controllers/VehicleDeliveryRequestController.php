@@ -59,20 +59,25 @@ class VehicleDeliveryRequestController extends Controller
         $user_id = Auth::id();
 
         $persona = Personas::create([
-            'nombre_p' => $request->nombres_imputado,
-            'apellido_p' => $request->apellidos_imputado,
-            'tipo_doc_p' => $request->tipo_doc_imputado,
-            'nro_id_person' => $request->n_doc_imputado,
+            'nombre_p' => $request->nombres_persona,
+            'apellido_p' => $request->apellidos_persona,
+            'tipo_doc_p' => $request->tipo_doc_persona,
+            'nro_id_person' => $request->n_doc_persona,
             'direccion_p' => $request->direccion,
             'nacionalidad_p' => $request->nacionalidad,
             'ciudad_p' => $request->ciudad,
         ]);
 
         $datos_vehiculos = DatosVehiculos::create([
-            'nombre_merc' => $request->descripcion_mercancias,
-            'peso' => $request->peso,
-            'cantidad_bulto' => $request->bultos,
-            'id_almacen_fk' => $request->ubicacion
+            'marca_vehiculo' => $request->marca_vehiculo,
+            'nom_d_vehiculo' => $request->nom_d_vehiculo,
+            'ppu' => $request->ppu,
+            'tipo_vehiculo' => $request->tipo_vehiculo,
+            'modelo_vehiculo' => $request->modelo_vehiculo,
+            'chasis_veh' => $request->chasis_veh,
+            'n_motor_vehiculo' => $request->n_motor_vehiculo,
+            'anho_fabric' => $request->anho_fabric,
+            'origen_veh' => $request->origen_veh,
         ]);
 
         $sevsev = Sevs::create([

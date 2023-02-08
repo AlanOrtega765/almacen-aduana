@@ -32,7 +32,7 @@ const form = ref({
     modelo_vehiculo: "",            //Datos Vehiculo
     chasis_veh: "",                 //Datos Vehiculo
     n_motor_vehiculo: "",           //Datos Vehiculo
-    anho_fabric: "",                //Datos Vehiculo
+    anho_fabric: 0,                //Datos Vehiculo
     origen_veh: "",                 //Datos Vehiculo
 
     ubicacion: 0,                   //Almacen
@@ -50,6 +50,13 @@ const optionsTypeDocument = ref([
     { name: "CI", value: "CI" },
     { name: "DNI", value: "DNI" },
     { name: "PASAPORTE", value: "Pasaporte" },
+]);
+
+const optionsTypeVehicule = ref([
+    { name: "AUTO", value: "AUTO" },
+    { name: "CAMIONETA", value: "CAMIONETA" },
+    { name: "STATION WAGON", value: "STATION WAGON" },
+    { name: "OTRO", value: "OTRO" },
 ]);
 
 const optionsNationality = ref([
@@ -325,100 +332,81 @@ const formatDate = (date) => {
         </div>
         <div class="w-full h-[1px] bg-gray mt-2"></div>
         <div>
-            <h3 class="col-span-4 font-semibold">Vehiculos</h3>
+            <h3 class="font-semibold">Datos Vehiculo</h3>
+
             <div class="grid grid-cols-6 gap-2 mt-4">
-                <InputLabel class="col-span-4">
-                    Descripción
+                <InputLabel class="col-span-2">
+                    Marca de Vehiculo
                     <TextInput
-                        v-model="vehicule.description"
-                        @keydown="message.error = ''"
-                        class="w-full h-[38px] border-[1px] shadow-none rounded outline-none hover:border-dark-gray transition-colors duration-200 focus:border-dark-gray px-2 py-3 border-gray"
-                    />
-                </InputLabel>
-
-                <InputLabel class="col-span-1">
-                    Cantidad
-                    <TextInput
-                        v-model="vehicule.quantity"
-                        type="number"
-                        min="1"
-                        @input="message.error = ''"
-                        class="w-full h-[38px] border-[1px] shadow-none rounded outline-none hover:border-dark-gray transition-colors duration-200 focus:border-dark-gray px-2 py-3 border-gray"
-                    />
-                </InputLabel>
-                <div class="col-span-1 self-end">
-                    <SecondaryButton class="h-[38px]" @click="listVehicule">
-                        <font-awesome-icon icon="plus" />
-                    </SecondaryButton>
-                </div>
-                <div class="flex items-center col-span-6">
-                    <span
-                        :class="
-                            vehicule.description.length > 100
-                                ? 'text-red'
-                                : ''
-                        "
-                        >{{ vehicule.description.length }} / 100</span
-                    >
-                    <InputError
-                        class="col-span-12 ml-4"
-                        :message="message.error"
-                    />
-                </div>
-                <div
-                    class="col-span-6 w-full border-[1px] border-gray rounded-md"
-                >
-                    <table class="table-auto w-full">
-                        <thead
-                            class="border-b-gray border-t-0 border-x-0 border-[1px]"
-                        >
-                            <tr>
-                                <th class="text-left pl-4 py-2 w-12">#</th>
-                                <th class="text-left w-3/4">Descripción</th>
-                                <th class="text-left w-12">Cantidad</th>
-                                <th class=""></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr
-                                v-if="listOfVehicule.length > 0"
-                                v-for="(item, index) in listOfVehicule"
-                                :key="index"
-                                @click="deleteItem(index)"
-                                class="border-b-gray group border-x-0 hover:bg-soft-black hover:bg-opacity-5 hover:cursor-pointer border-t-0 last-of-type:border-b-0 border-[1px]"
-                            >
-                                <td class="pl-4 py-2">
-                                    {{ index + 1 }}
-                                </td>
-                                <td>{{ item.description }}</td>
-                                <td class="text-center">
-                                    {{ item.quantity }}
-                                </td>
-                                <td>
-                                    <font-awesome-icon
-                                        class="invisible group-hover:visible text-dark-gray"
-                                        icon="xmark"
-                                    />
-                                </td>
-                            </tr>
-                            <tr v-else class="relative h-10">
-                                <span
-                                    class="absolute w-full flex items-center justify-center h-full uppercase text-dark-gray"
-                                    >No hay Vehiculos Añadidos</span
-                                >
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-
-
-                <InputLabel class="col-span-4">
-                    Ubicación
-                    <SelectInput
-                        class="w-full h-[38px]"
-                        v-model="form.ubicacion"
+                        v-model="form.marca_vehiculo"
                         required
-                        :options="optionsAdvanced"
+                        class="w-full h-[38px] border-[1px] shadow-none rounded outline-none hover:border-dark-gray transition-colors duration-200 focus:border-dark-gray px-2 py-3 border-gray"
+                    />
+                </InputLabel>
+                <InputLabel class="col-span-2">
+                    Nombre de Vehiculo
+                    <TextInput
+                        required
+                        v-model="form.nom_d_vehiculo"
+                        class="w-full h-[38px] border-[1px] shadow-none rounded outline-none hover:border-dark-gray transition-colors duration-200 focus:border-dark-gray px-2 py-3 border-gray"
+                    />
+                </InputLabel>
+                <InputLabel class="col-span-2">
+                    Placa Patente Unica
+                    <TextInput
+                        required
+                        v-model="form.ppu"
+                        class="w-full h-[38px] border-[1px] shadow-none rounded outline-none hover:border-dark-gray transition-colors duration-200 focus:border-dark-gray px-2 py-3 border-gray"
+                    />
+                </InputLabel>
+
+                <InputLabel class="col-span-2">
+                    Tipo de Vehiculo
+                    <SelectInput
+                        required
+                        class="w-full h-[38px]"
+                        v-model="form.tipo_vehiculo"
+                        :options="optionsTypeVehicule"
+                    />
+                </InputLabel>
+                <InputLabel class="col-span-2">
+                    Modelo del Vehiculo
+                    <TextInput
+                        required
+                        v-model="form.modelo_vehiculo"
+                        class="w-full h-[38px] border-[1px] shadow-none rounded outline-none hover:border-dark-gray transition-colors duration-200 focus:border-dark-gray px-2 py-3 border-gray"
+                    />
+                </InputLabel>
+                <InputLabel class="col-span-2">
+                    Chasis del Vehiculo
+                    <TextInput
+                        required
+                        v-model="form.chasis_veh"
+                        class="w-full h-[38px] border-[1px] shadow-none rounded outline-none hover:border-dark-gray transition-colors duration-200 focus:border-dark-gray px-2 py-3 border-gray"
+                    />
+                </InputLabel>
+                <InputLabel class="col-span-2">
+                    Numero Motor Vehiculo
+                    <TextInput
+                        required
+                        v-model="form.n_motor_vehiculo"
+                        class="w-full h-[38px] border-[1px] shadow-none rounded outline-none hover:border-dark-gray transition-colors duration-200 focus:border-dark-gray px-2 py-3 border-gray"
+                    />
+                </InputLabel>
+                <InputLabel class="col-span-2">
+                    Año de Fabricación
+                    <TextInput
+                        required
+                        v-model="form.anho_fabric"
+                        class="w-full h-[38px] border-[1px] shadow-none rounded outline-none hover:border-dark-gray transition-colors duration-200 focus:border-dark-gray px-2 py-3 border-gray"
+                    />
+                </InputLabel>
+                <InputLabel class="col-span-2">
+                    Origen del Vehiculo
+                    <TextInput
+                        required
+                        v-model="form.origen_veh"
+                        class="w-full h-[38px] border-[1px] shadow-none rounded outline-none hover:border-dark-gray transition-colors duration-200 focus:border-dark-gray px-2 py-3 border-gray"
                     />
                 </InputLabel>
             </div>

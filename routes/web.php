@@ -37,6 +37,7 @@ Route::get('/solicitud-entrega-mercancia', [MerchandiseDeliveryRequestController
 
 // Solicitud Entrega Vehículo
 Route::get('/solicitud-entrega-vehiculo', [VehicleDeliveryRequestController::class, 'index'])->middleware(['auth', 'verified'])->name('vehiculos.index');
+Route::post('/solicitud-entrega-vehiculo/store', [VehicleDeliveryRequestController::class, 'store'])->middleware(['auth', 'verified']);
 
 // Rezagos
 Route::get('/rezagos', [LagsController::class, 'index'])->middleware(['auth', 'verified'])->name('rezagos.index');
