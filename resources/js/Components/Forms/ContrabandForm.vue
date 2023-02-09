@@ -22,7 +22,7 @@ const form = ref({
     nacionalidad: "",               //persona
     direccion: "",                  //persona
     ciudad: "",                     //persona
-    franquicia: null,               //contrabando
+
     descripcion_mercancias: "",     //mercancias
     bultos: 0,                      //mercancias
     peso: 0,                        //mercancias
@@ -31,7 +31,7 @@ const form = ref({
     plazo_maximo: null,             //contrabando
     estado: "Vigente",              //contrabando
     tipo_contrabando: "",           //contrabando
-    instituciones: "",              //contrabando
+
     nue: 0,                         //contrabando
     doc_denunciante: "",            //contrabando
     doc_cancelacion: "",            //contrabando
@@ -139,7 +139,7 @@ const deleteItem = (index) => { //borrar items del formulario de la lista de mer
 };
 
 const dateSelected = () => { //creación de plazo fecha de vencimiento
-    form.value.plazo_maximo = new Date(form.value.fecha_boleta);
+    form.value.plazo_maximo = new Date(form.value.fecha_contrabando);
     form.value.plazo_maximo = form.value.plazo_maximo.setDate(
         form.value.plazo_maximo.getDate() + 90
     );
@@ -169,7 +169,7 @@ const resetForm = () => { //Limpiar el formulario una vez subido a la BD
         plazo_maximo: null,             //contrabando
         estado: "Vigente",              //contrabando
         tipo_contrabando: "",           //contrabando
-        instituciones: "",              //contrabando
+        instituciones: null,            //contrabando
         nue: 0,                         //contrabando
         doc_denunciante: "",            //contrabando
         doc_cancelacion: "",            //contrabando
@@ -193,7 +193,7 @@ const submit = () => { //metodo para la creacion de registros
     });
     form.value.descripcion_mercancias = list.join(", ").toUpperCase();
 
-    form.value.fecha_boleta = formatDate(form.value.fecha_boleta);
+    form.value.fecha_contrabando = formatDate(form.value.fecha_contrabando);
     form.value.plazo_maximo = formatDate(form.value.plazo_maximo);
 
     router.post("contrabandos/store", form.value, {
@@ -217,7 +217,7 @@ const formatDate = (date) => { //formatear fecha
 <template>
     <form class="flex flex-col gap-4 p-6" @submit.prevent="submit" >
         <div>
-            <h3 class="font-semibold">Fechas Documento Contrabando</h3>
+            <h3 class="font-semibold">Fechas Documento</h3>
             <div class="grid grid-cols-4 gap-2 mt-4">
                 <InputLabel class="col-span-1"
                     >Fecha Contrabando
@@ -288,10 +288,16 @@ const formatDate = (date) => { //formatear fecha
                         class="w-full h-[38px] border-[1px] shadow-none rounded outline-none hover:border-dark-gray transition-colors duration-200 focus:border-dark-gray px-2 py-3 border-gray"
                     />
                 </InputLabel>
+            </div>
+        </div>
+        <div class="w-full h-[1px] bg-gray mt-2"></div>
+
+        <div>
+            <div class="grid grid-cols-6 gap-2 mt-4">
                 <InputLabel class="col-span-3">
                     DOC Cancelación
                     <TextInput
-                        required
+
                         v-model="form.doc_cancelacion"
                         class="w-full h-[38px] border-[1px] shadow-none rounded outline-none hover:border-dark-gray transition-colors duration-200 focus:border-dark-gray px-2 py-3 border-gray"
                     />
@@ -299,7 +305,7 @@ const formatDate = (date) => { //formatear fecha
                 <InputLabel class="col-span-3">
                     DOC de entrega
                     <TextInput
-                        required
+
                         v-model="form.doc_de_entrega"
                         class="w-full h-[38px] border-[1px] shadow-none rounded outline-none hover:border-dark-gray transition-colors duration-200 focus:border-dark-gray px-2 py-3 border-gray"
                     />
@@ -311,7 +317,7 @@ const formatDate = (date) => { //formatear fecha
                     <DatePicker
                         v-model="form.fecha_doc_entrega"
                         :format="format"
-                        required
+
                         @update:modelValue="dateSelected"
                     />
                 </InputLabel>

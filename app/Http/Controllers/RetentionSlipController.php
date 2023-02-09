@@ -20,7 +20,10 @@ class RetentionSlipController extends Controller
      */
     public function index() // Retenciones mostradas en interfaz Boletas Retención
     {
-        $retentions = Retenciones::select('retenciones.n_boleta', 'retenciones.fecha_reten', 'retenciones.fecha_venc', 'personas.tipo_doc_p', 'personas.nro_id_person', 'personas.nombre_p', 'personas.apellido_p', 'personas.nacionalidad_p', 'personas.direccion_p', 'personas.ciudad_p', 'retenciones.franquicia', 'mercancias.nombre_merc', 'mercancias.peso', 'mercancias.cantidad_bulto', 'almacenes.nombre_almc', 'almacenes.avanzada', 'retenciones.observaciones', 'retenciones.estado')
+        $retentions = Retenciones::select('retenciones.n_boleta', 'retenciones.fecha_reten', 'retenciones.fecha_venc',
+                                        'personas.tipo_doc_p', 'personas.nro_id_person', 'personas.nombre_p', 'personas.apellido_p', 'personas.nacionalidad_p', 'personas.direccion_p', 'personas.ciudad_p',
+                                        'retenciones.franquicia', 'mercancias.nombre_merc', 'mercancias.peso', 'mercancias.cantidad_bulto', 'almacenes.nombre_almc', 'almacenes.avanzada',
+                                        'retenciones.observaciones', 'retenciones.estado')
             ->join('users', 'users.id', '=', 'retenciones.id_user_fk')
             ->join('personas', 'personas.id_person', '=', 'retenciones.id_persona_fk')
             ->join('detalles_retenciones', 'detalles_retenciones.n_boleta_pf', '=', 'retenciones.n_boleta')
@@ -94,9 +97,11 @@ class RetentionSlipController extends Controller
     {
     }
 
-    public function printPDF($id) //Funcion utilizada para crear documento PDF de Retentionpdf
+    public function printPDF($id)
     {
-        $retention = Retenciones::select('retenciones.n_boleta', 'retenciones.fecha_reten', 'retenciones.fecha_venc', 'personas.tipo_doc_p', 'personas.nro_id_person', 'personas.nombre_p', 'personas.apellido_p', 'personas.nacionalidad_p', 'personas.direccion_p', 'personas.ciudad_p', 'retenciones.franquicia', 'mercancias.nombre_merc', 'mercancias.cantidad_bulto', 'mercancias.peso', 'almacenes.nombre_almc', 'almacenes.avanzada', 'retenciones.observaciones', 'retenciones.estado')
+        $retention = Retenciones::select('retenciones.n_boleta', 'retenciones.fecha_reten', 'retenciones.fecha_venc',
+                                        'personas.tipo_doc_p', 'personas.nro_id_person', 'personas.nombre_p', 'personas.apellido_p', 'personas.nacionalidad_p', 'personas.direccion_p', 'personas.ciudad_p',
+                                        'retenciones.franquicia', 'mercancias.nombre_merc', 'mercancias.cantidad_bulto', 'mercancias.peso', 'almacenes.nombre_almc', 'almacenes.avanzada', 'retenciones.observaciones', 'retenciones.estado')
             ->where('retenciones.n_boleta', '=', $id)
             ->join('users', 'users.id', '=', 'retenciones.id_user_fk')
             ->join('personas', 'personas.id_person', '=', 'retenciones.id_persona_fk')
@@ -107,6 +112,7 @@ class RetentionSlipController extends Controller
 
         return Inertia::render('Documents/Retentionpdf', ['retention' => $retention]);
     }
+
 
     /**
      * Show the form for editing the specified resource.

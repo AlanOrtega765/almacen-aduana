@@ -19,7 +19,7 @@ return new class extends Migration
             $table->date('fecha_venc');
             $table->boolean('franquicia');
             $table->string('estado', 10);
-            $table->text('observaciones', 200)->nullable();
+            $table->text('observaciones')->nullable();
             $table->unsignedBigInteger('id_persona_fk');
             $table->foreign('id_persona_fk')->references('id_person')->on('personas');
             $table->unsignedBigInteger('id_user_fk');

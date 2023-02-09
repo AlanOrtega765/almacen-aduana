@@ -16,25 +16,25 @@ const props = defineProps(["retentions"]);
 
 const search = ref("");
 
-const tableColumns = ref([ //atributos de la tabla SEV de la BD
-    { name: "N° Boleta", data: "n_boleta" },
-    { name: "Fecha Boleta", data: "fecha_reten" },
-    { name: "Plazo Maximo", data: "fecha_venc" },
-    { name: "Tipo Documento", data: "tipo_doc_p" },
-    { name: "N° Documento", data: "nro_id_person" },
-    { name: "Nombres", data: "nombre_p" },
-    { name: "Apellidos", data: "apellido_p" },
-    { name: "Nacionalidad", data: "nacionalidad_p" },
-    { name: "Direccion", data: "direccion_p" },
-    { name: "Ciudad", data: "ciudad_p" },
-    { name: "Uso Franquicia", data: "franquicia" },
-    { name: "Descripcion", data: "nombre_merc" },
-    { name: "Bultos", data: "cantidad_bulto" },
-    { name: "Peso", data: "peso" },
-    { name: "Almacen", data: "nombre_almc" },
-    { name: "Avanzada", data: "avanzada" },
-    { name: "Observaciones", data: "observaciones" },
-    { name: "Estado", data: "estado" },
+const tableColumns = ref([ //atributos de la tabla Retenciones de la BD
+    { name: "N° Boleta", data: "n_boleta" },                //Retenciones
+    { name: "Fecha Boleta", data: "fecha_reten" },          //Retenciones
+    { name: "Plazo Maximo", data: "fecha_venc" },           //Retenciones
+    { name: "Tipo Documento", data: "tipo_doc_p" },         //Personas
+    { name: "N° Documento", data: "nro_id_person" },        //Personas
+    { name: "Nombres", data: "nombre_p" },                  //Personas
+    { name: "Apellidos", data: "apellido_p" },              //Personas
+    { name: "Nacionalidad", data: "nacionalidad_p" },       //Personas
+    { name: "Direccion", data: "direccion_p" },             //Personas
+    { name: "Ciudad", data: "ciudad_p" },                   //Personas
+    { name: "Uso Franquicia", data: "franquicia" },         //Retenciones
+    { name: "Descripcion", data: "nombre_merc" },           //Mercancias
+    { name: "Bultos", data: "cantidad_bulto" },             //Mercancias
+    { name: "Peso", data: "peso" },                         //Mercancias
+    { name: "Almacen", data: "nombre_almc" },               //Almacen
+    { name: "Avanzada", data: "avanzada" },                 //Almacen
+    { name: "Observaciones", data: "observaciones" },       //Retenciones
+    { name: "Estado", data: "estado" },                     //Retenciones
 ]);
 
 const show = ref(false);

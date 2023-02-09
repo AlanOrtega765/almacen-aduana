@@ -22,9 +22,7 @@ return new class extends Migration
             $table->string('estado', 20);
             $table->unsignedBigInteger('id_users_fk');
             $table->foreign('id_users_fk')->references('id')->on('users');
-            $table->unsignedBigInteger('id_almacen_fk');
-            $table->foreign('id_almacen_fk')->references('id_almacen')->on('almacenes');
-            $table->timestamps();
+
         });
     }
 

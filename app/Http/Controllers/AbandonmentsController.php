@@ -20,14 +20,15 @@ class AbandonmentsController extends Controller
      */
     public function index()
     {
-        $abandono = Abandonos::select('abandonos.n_oficio', 'abandonos.fecha_oficio', 'abandonos.fecha_venc', 'abandonos.fecha_recepcion', 'abandonos.observacion', 'abandonos.estado', 'detalles_contrabandos.turno')
+        $abandonos = Abandonos::select('abandonos.n_oficio', 'abandonos.fecha_oficio', 'abandonos.fecha_venc',
+                                      'abandonos.fecha_recepcion', 'abandonos.observacion', 'abandonos.estado', 'detalles_abandonos.turno')
             ->join('users', 'users.id', '=', 'abandonos.id_users_fk')
             ->join('detalles_abandonos', 'detalles_abandonos.n_oficio', '=', 'abandonos.n_oficio')
             ->join('mercancias', 'mercancias.n_rol', '=', 'detalles_abandonos.n_rol_fk')
             ->join('almacenes', 'almacenes.id_almacen', '=', 'mercancias.id_almacen_fk')
             ->paginate(10);
 
-        return Inertia::render('Abandonments', ['abandonments' => $abandono]);
+        return Inertia::render('Abandonments', ['abandonments' => $abandonos]);
 
         return Inertia::render('Abandonments');
     }
@@ -77,14 +78,15 @@ class AbandonmentsController extends Controller
 
     public function printPDF($id)
     {
-        $contraband = Abandonos::select('abandonos.n_oficio', 'abandonos.fecha_oficio', 'abandonos.fecha_venc', 'abandonos.fecha_recepcion', 'abandonos.observacion', 'abandonos.estado')
-            ->join('users', 'users.id', '=', 'contrabandos.id_user_fk')
-            ->join('detalles_contrabandos', 'detalles_contrabandos.n_rol_contrab', '=', 'contrabandos.n_rol')
-            ->join('mercancias', 'mercancias.n_rol', '=', 'detalles_contrabandos.n_rol_merc')
-            ->join('almacenes', 'almacenes.id_almacen', '=', 'mercancias.id_almacen_fk')
-            ->first();
+        $abandono = Abandonos::select('abandonos.n_oficio', 'abandonos.fecha_oficio', 'abandonos.fecha_venc',
+                                    'abandonos.fecha_recepcion', 'abandonos.observacion', 'abandonos.estado', 'detalles_abandonos.turno')
+    ->join('users', 'users.id', '=', 'abandonos.id_users_fk')
+    ->join('detalles_abandonos', 'detalles_abandonos.n_oficio', '=', 'abandonos.n_oficio')
+    ->join('mercancias', 'mercancias.n_rol', '=', 'detalles_abandonos.n_rol_fk')
+    ->join('almacenes', 'almacenes.id_almacen', '=', 'mercancias.id_almacen_fk')
+    ->first();
 
-        return Inertia::render('Documents/Contrabandpdf', ['contraband' => $contraband]);
+        return Inertia::render('Documents/Contrabandpdf', ['contraband' => $abandono]);
     }
 
     /**

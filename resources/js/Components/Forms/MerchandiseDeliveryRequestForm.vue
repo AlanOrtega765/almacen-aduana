@@ -14,7 +14,8 @@ const emits = defineEmits(['update:form', 'closeModal']);
 
 const user = computed(() => usePage().props.auth.user);
 const form = ref({
-    fecha_boleta: null,
+    fecha_llegada: null,
+
     tipo_doc_persona: "",
     n_doc_persona: "",
     nombres_persona: "",
@@ -22,7 +23,8 @@ const form = ref({
     nacionalidad: "",
     direccion: "",
     ciudad: "",
-    franquicia: null,
+
+
     descripcion_mercancias: "",
     bultos: 0,
     peso: 0,
@@ -123,7 +125,7 @@ const deleteItem = (index) => {
 };
 
 const dateSelected = () => {
-    form.value.plazo_maximo = new Date(form.value.fecha_boleta);
+    form.value.plazo_maximo = new Date(form.value.fecha_llegada);
     form.value.plazo_maximo = form.value.plazo_maximo.setDate(
         form.value.plazo_maximo.getDate() + 90
     );

@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\DetalleSems;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
-use App\Models\DetallesRetenciones;
 use App\Models\Mercancias;
 use App\Models\Personas;
 use App\Models\Retenciones;
@@ -85,9 +85,9 @@ class MerchandiseDeliveryRequestController extends Controller
             'id_persona_fk' => $persona->id
         ]);
 
-        DetallesRetenciones::create([
-            'n_boleta_pf' => $semsem->id,
-            'id_mercancia_fk' => $mercancias->id
+        $detallessem = DetalleSems::create([
+            'numero_sem_pf' => $semsem->id,
+            'n_rol_fk' => $mercancias->id
         ]);
     }
 

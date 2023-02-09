@@ -193,7 +193,7 @@ const submit = () => {
     });
     form.value.descripcion_mercancias = list.join(", ").toUpperCase();
 
-    form.value.fecha_boleta = formatDate(form.value.fecha_llegada);
+    form.value.fecha_llegada = formatDate(form.value.fecha_llegada);
     form.value.plazo_maximo = formatDate(form.value.plazo_maximo);
 
     router.post("boletas-retencion/store", form.value, {

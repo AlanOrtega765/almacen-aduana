@@ -14,6 +14,7 @@ class Abandonos extends Model
         'fecha_recepcion',
         'observacion',
         'estado',
+        'id_user_fk',
     ];
 }
 

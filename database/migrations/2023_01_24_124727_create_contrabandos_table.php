@@ -14,19 +14,19 @@ return new class extends Migration
     public function up()
     {
         Schema::create('contrabandos', function (Blueprint $table) {
-            $table->id('n_rol');
+            $table->id('n_rol')->from(2000);
             $table->date('fecha_contrab');
             $table->date('fecha_venc_contrab');
-            $table->boolean('estado');
+            $table->string('estado', 10);
             $table->string('tipo_contrabando', 20);
-            $table->string('instituciones', 20) ;
+            //$table->string('instituciones', 20);
             $table->integer('nue');
             $table->string('doc_denunciante', 20);
-            $table->string('doc_cancelacion', 20)->nullable;
+            $table->string('doc_cancelacion', 20)->nullable();
             $table->date('fecha_canc')->nullable();
-            $table->string('doc_de_entrega', 20)->nullable;;
-            $table->date('fecha_doc_entrega')->nullable;;
-            $table->text('observaciones', 50);
+            $table->string('doc_de_entrega', 20)->nullable();
+            $table->date('fecha_doc_entrega')->nullable();
+            $table->text('observaciones', 50)->nullable();
             $table->unsignedBigInteger('id_persona_fk');
             $table->foreign('id_persona_fk')->references('id_person')->on('personas');
             $table->unsignedBigInteger('id_user_fk');

@@ -62,7 +62,7 @@ const onCloseModal = () => show.value = false;
                         <template #content></template>
                     </DropdownFilter>
                     <TextInputFilter
-                        placeholder="Buscar n° boleta..."
+                        placeholder="Buscar n° contrabando..."
                         type="number"
                         v-model="search"
                         @keyup="filterRetentions()"

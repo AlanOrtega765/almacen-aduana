@@ -107,7 +107,7 @@ const deleteItem = (index) => { //borrar items del formulario de la lista de mer
 };
 
 const dateSelected = () => { //creación de plazo fecha de vencimiento
-    form.value.plazo_maximo = new Date(form.value.fecha_boleta);
+    form.value.plazo_maximo = new Date(form.value.fecha_oficio);
     form.value.plazo_maximo = form.value.plazo_maximo.setDate(
         form.value.plazo_maximo.getDate() + 90
     );
