@@ -14,39 +14,48 @@ const emits = defineEmits(['update:form', 'closeModal']);
 
 const user = computed(() => usePage().props.auth.user);
 const form = ref({
-    fecha_oficio: null,             //abandono
-    fecha_recepcion: null,          //abandono
-
-    descripcion_mercancias: "",     //mercancias
-    bultos: 0,                      //mercancias
-    peso: 0,                        //mercancias
-    ubicacion: 0,                   //mercancias
-
-    observacion: "",              //abandono
-
-    plazo_maximo: null,             //abandono
-    estado: "Vigente",              //abandono
-
-    turno: "",                      //Detalle abandono
-
-
-
-
+    fecha_boleta: null,
+    tipo_doc_persona: "",
+    n_doc_persona: "",
+    nombres_persona: "",
+    apellidos_persona: "",
+    nacionalidad: "",
+    direccion: "",
+    ciudad: "",
+    franquicia: null,
+    descripcion_mercancias: "",
+    bultos: 0,
+    peso: 0,
+    ubicacion: 0,
+    observaciones: "",
+    plazo_maximo: null,
+    estado: "Vigente",
 });
 
-const message = ref({ //almacena mensaje del formulario
+const message = ref({
     error: "",
     success: "",
 });
 
-const optionsTurnAbandonments = ref([ //opciones de Tipo Documento
-    { name: "00:00 a 08:00", value: "00:00 a 08:00" },
-    { name: "08:00 a 16:00", value: "08:00 a 16:00" },
-    { name: "16:00 a 00:00", value: "16:00 a 00:00" },
+const optionsTypeDocument = ref([
+    { name: "CI", value: "CI" },
+    { name: "DNI", value: "DNI" },
+    { name: "PASAPORTE", value: "Pasaporte" },
 ]);
 
+const optionsNationality = ref([
+    { name: "CHILENA", value: "Chilena" },
+    { name: "PERUANA", value: "Peruana" },
+    { name: "BOLIVIANA", value: "Boliviana" },
+    { name: "OTRA", value: "Otra" },
+]);
 
-const optionsAdvanced = ref([ //opciones de  Ubicacion del Almacen
+const optionsFranchise = ref([
+    { name: "SI", value: 1 },
+    { name: "NO", value: 0 },
+]);
+
+const optionsAdvanced = ref([
     { name: "Arica - Bodega Principal", value: 1 },
     { name: "Arica - Bodega Hansen", value: 2 },
     { name: "Arica - Bodega Sitrans", value: 3 },
@@ -55,7 +64,7 @@ const optionsAdvanced = ref([ //opciones de  Ubicacion del Almacen
     { name: "Visviri - Bodega Principal", value: 6 },
 ]);
 
-const format = (date) => { //Formato de la fecha
+const format = (date) => {
     const day = date.getDate();
     const month = date.getMonth() + 1;
     const year = date.getFullYear();
@@ -63,14 +72,14 @@ const format = (date) => { //Formato de la fecha
     return `${day}/${month}/${year}`;
 };
 
-const merchandise = ref({  //Campos para las mercancias en el formulario
+const merchandise = ref({
     description: "",
     quantity: 1,
 });
 
-const listOfMerchandise = ref([]); //lista de mercancias
+const listOfMerchandise = ref([]);
 
-const listMerchandise = () => { //metodo que rellena la lista de la mercancia
+const listMerchandise = () => {
     if (
         merchandise.value.description === "" &&
         merchandise.value.quantity < 1
@@ -107,51 +116,46 @@ const listMerchandise = () => { //metodo que rellena la lista de la mercancia
     };
 };
 
-const deleteItem = (index) => { //borrar items del formulario de la lista de mercancias
+const deleteItem = (index) => {
     listOfMerchandise.value = listOfMerchandise.value.filter((item, id) => {
         if (id !== index) return item;
     });
 };
 
-const dateSelected = () => { //creación de plazo fecha de vencimiento
-    form.value.plazo_maximo = new Date(form.value.fecha_oficio);
+const dateSelected = () => {
+    form.value.plazo_maximo = new Date(form.value.fecha_boleta);
     form.value.plazo_maximo = form.value.plazo_maximo.setDate(
         form.value.plazo_maximo.getDate() + 90
     );
 };
 
-const dateSelecteddate = () => { //creación de plazo fecha de vencimiento
-    new Date(form.value.fecha_recepcion);
-
-
-};
-
-const resetForm = () => { //Limpiar el formulario una vez subido a la BD
+const resetForm = () => {
     listOfMerchandise.value = [];
     merchandise.value = {
         description: "",
         quantity: 1,
     };
     form.value = {
-        fecha_oficio: null,             //abandono
-        fecha_recepcion: null,          //abandono
-
-        descripcion_mercancias: "",     //mercancias
-        bultos: 0,                      //mercancias
-        peso: 0,                        //mercancias
-        ubicacion: 0,                   //mercancias
-
-        observacion: "",              //abandono
-
-        plazo_maximo: null,             //abandono
-        estado: "Vigente",              //abandono
-
-        turno: "",                      //abandono
-
+        fecha_boleta: null,
+        tipo_doc_persona: "",
+        n_doc_persona: "",
+        nombres_persona: "",
+        apellidos_persona: "",
+        nacionalidad: "",
+        direccion: "",
+        ciudad: "",
+        franquicia: null,
+        descripcion_mercancias: "",
+        bultos: 0,
+        peso: 0,
+        ubicacion: 0,
+        observaciones: "",
+        plazo_maximo: null,
+        estado: "Vigente",
     };
 };
 
-const submit = () => { //metodo para la creacion de registros
+const submit = () => {
     if (listOfMerchandise.value.length === 0) {
         message.value.error = "¡Debes ingresar mercancías!";
         return;
@@ -164,10 +168,10 @@ const submit = () => { //metodo para la creacion de registros
     });
     form.value.descripcion_mercancias = list.join(", ").toUpperCase();
 
-    form.value.fecha_oficio = formatDate(form.value.fecha_oficio);
+    form.value.fecha_boleta = formatDate(form.value.fecha_boleta);
     form.value.plazo_maximo = formatDate(form.value.plazo_maximo);
 
-    router.post("abandonos/store", form.value, {
+    router.post("boletas-retencion/store", form.value, {
         onSuccess: () => {
             resetForm();
             emits('closeModal');
@@ -175,7 +179,7 @@ const submit = () => { //metodo para la creacion de registros
     });
 };
 
-const formatDate = (date) => { //formatear fecha
+const formatDate = (date) => {
     const _date = new Date(date);
     const day = _date.getDate();
     const month = _date.getMonth() + 1;
@@ -188,13 +192,13 @@ const formatDate = (date) => { //formatear fecha
 <template>
     <form class="flex flex-col gap-4 p-6" @submit.prevent="submit" >
         <div>
-            <h3 class="font-semibold">Fechas Documento Abandono</h3>
+            <h3 class="font-semibold">Fechas Documento</h3>
             <div class="grid grid-cols-4 gap-2 mt-4">
                 <InputLabel class="col-span-1"
-                    >Fecha Abandono
+                    >Fecha Retención
 
                     <DatePicker
-                        v-model="form.fecha_oficio"
+                        v-model="form.fecha_boleta"
                         :format="format"
                         required
                         @update:modelValue="dateSelected"
@@ -210,20 +214,9 @@ const formatDate = (date) => { //formatear fecha
                         :format="format"
                     />
                 </InputLabel>
-                <InputLabel class="col-span-2">
-                    Turno
-                    <SelectInput
-                        class="w-full h-[38px]"
-                        v-model="form.turno"
-                        required
-                        :options="optionsTurnAbandonments"
-                    />
-                </InputLabel>
             </div>
         </div>
         <div class="w-full h-[1px] bg-gray mt-2"></div>
-
-
         <div>
             <h3 class="font-semibold">Funcionario</h3>
 
@@ -247,7 +240,81 @@ const formatDate = (date) => { //formatear fecha
             </div>
         </div>
         <div class="w-full h-[1px] bg-gray mt-2"></div>
+        <div>
+            <h3 class="font-semibold">Pasajero</h3>
 
+            <div class="grid grid-cols-6 gap-2 mt-4">
+                <InputLabel class="col-span-3">
+                    Nombres
+                    <TextInput
+                        v-model="form.nombres_persona"
+                        required
+                        class="w-full h-[38px] border-[1px] shadow-none rounded outline-none hover:border-dark-gray transition-colors duration-200 focus:border-dark-gray px-2 py-3 border-gray"
+                    />
+                </InputLabel>
+                <InputLabel class="col-span-3">
+                    Apellidos
+                    <TextInput
+                        required
+                        v-model="form.apellidos_persona"
+                        class="w-full h-[38px] border-[1px] shadow-none rounded outline-none hover:border-dark-gray transition-colors duration-200 focus:border-dark-gray px-2 py-3 border-gray"
+                    />
+                </InputLabel>
+                <InputLabel class="col-span-2">
+                    Nacionalidad
+                    <SelectInput
+                        required
+                        class="w-full h-[38px]"
+                        v-model="form.nacionalidad"
+                        :options="optionsNationality"
+                    />
+                </InputLabel>
+
+                <InputLabel class="col-span-2">
+                    Tipo Documento
+                    <SelectInput
+                        required
+                        class="w-full h-[38px]"
+                        v-model="form.tipo_doc_persona"
+                        :options="optionsTypeDocument"
+                    />
+                </InputLabel>
+                <InputLabel class="col-span-2">
+                    N° Documento
+                    <TextInput
+                        required
+                        v-model="form.n_doc_persona"
+                        class="w-full h-[38px] border-[1px] shadow-none rounded outline-none hover:border-dark-gray transition-colors duration-200 focus:border-dark-gray px-2 py-3 border-gray"
+                    />
+                </InputLabel>
+                <InputLabel class="col-span-2">
+                    Dirección
+                    <TextInput
+                        required
+                        v-model="form.direccion"
+                        class="w-full h-[38px] border-[1px] shadow-none rounded outline-none hover:border-dark-gray transition-colors duration-200 focus:border-dark-gray px-2 py-3 border-gray"
+                    />
+                </InputLabel>
+                <InputLabel class="col-span-2">
+                    Ciudad
+                    <TextInput
+                        required
+                        v-model="form.ciudad"
+                        class="w-full h-[38px] border-[1px] shadow-none rounded outline-none hover:border-dark-gray transition-colors duration-200 focus:border-dark-gray px-2 py-3 border-gray"
+                    />
+                </InputLabel>
+                <InputLabel class="col-span-2">
+                    Uso Franquicia
+                    <SelectInput
+                        class="w-full h-[38px]"
+                        required
+                        v-model="form.franquicia"
+                        :options="optionsFranchise"
+                    />
+                </InputLabel>
+            </div>
+        </div>
+        <div class="w-full h-[1px] bg-gray mt-2"></div>
         <div>
             <h3 class="col-span-4 font-semibold">Mercancias</h3>
             <div class="grid grid-cols-6 gap-2 mt-4">

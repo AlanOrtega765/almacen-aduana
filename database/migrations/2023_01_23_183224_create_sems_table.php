@@ -18,7 +18,7 @@ return new class extends Migration
             $table->date('fecha_llegada');
             $table->date('fecha_venc');
             $table->string('tipo_cancelacion', 20)->nullable;
-            $table->text('observacion', 500);
+            $table->text('observacion', 500)->nullable();
             $table->boolean('estado');
             $table->integer('total_general');
             $table->integer('numero_lig_grav')->nullable();

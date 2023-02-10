@@ -42,6 +42,7 @@ Route::post('/solicitud-entrega-vehiculo/store', [VehicleDeliveryRequestControll
 
 // Rezagos
 Route::get('/rezagos', [LagsController::class, 'index'])->middleware(['auth', 'verified'])->name('rezagos.index');
+Route::post('/rezagos/store', [LagsController::class, 'store'])->middleware(['auth', 'verified']);
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

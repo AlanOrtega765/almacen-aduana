@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('detalles_abandonos', function (Blueprint $table) {
             $table->foreignId('n_oficio')->references('n_oficio')->on('abandonos');
-            $table->string('turno', 30);
+            $table->string('turno', 30)->nullable();
             $table->unsignedBigInteger('id_mercancia_fk');
             $table->foreign('id_mercancia_fk')->references('id_mercancia')->on('mercancias');
 

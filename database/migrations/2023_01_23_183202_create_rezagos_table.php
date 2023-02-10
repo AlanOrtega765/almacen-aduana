@@ -24,7 +24,7 @@ return new class extends Migration
             $table->string('dpu',20)->nullable();
             $table->string('acl_manifesto',20)->nullable();
             $table->string('fecha_manifesto',20)->nullable();
-            $table->string('solicitante', 30);
+            $table->string('solicitante', 30)->nullable();
             $table->timestamps();
         });
     }

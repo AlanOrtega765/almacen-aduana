@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Inertia\Inertia;
-use App\Models\DetalleAbandonos;
+use App\Models\DetallesAbandonos;
 use App\Models\Mercancias;
 use App\Models\Abandonos;
 use Barryvdh\DomPDF\Facade\Pdf as PDF;
@@ -21,7 +21,8 @@ class AbandonmentsController extends Controller
     public function index()
     {
         $abandonos = Abandonos::select('abandonos.n_oficio', 'abandonos.fecha_oficio', 'abandonos.fecha_venc',
-                                      'abandonos.fecha_recepcion', 'abandonos.observacion', 'abandonos.estado', 'detalles_abandonos.turno')
+                                    'mercancias.nombre_merc', 'mercancias.peso', 'mercancias.cantidad_bulto', 'almacenes.nombre_almc', 'almacenes.avanzada',
+                                    'abandonos.fecha_recepcion', 'abandonos.observacion', 'abandonos.estado', 'detalles_abandonos.turno')
             ->join('users', 'users.id', '=', 'abandonos.id_users_fk')
             ->join('detalles_abandonos', 'detalles_abandonos.n_oficio', '=', 'abandonos.n_oficio')
             ->join('mercancias', 'mercancias.id_mercancia', '=', 'detalles_abandonos.id_mercancia_fk')
@@ -54,7 +55,7 @@ class AbandonmentsController extends Controller
         $user_id = Auth::id();
 
         $mercancias = Mercancias::create([
-            'nombre_merc' => $request->descripcion_mercancias,
+            'nombre_merc' => $request->nombre_merc,
             'peso' => $request->peso,
             'cantidad_bulto' => $request->bultos,
             'id_almacen_fk' => $request->ubicacion
@@ -69,7 +70,7 @@ class AbandonmentsController extends Controller
             'id_users_fk' => $user_id,
         ]);
 
-        DetalleAbandonos::create([
+        DetallesAbandonos::create([
             'n_oficio' => $abandonos->id,
             'turno' =>  $request->turno,
             'id_mercancia_fk' => $mercancias->id,

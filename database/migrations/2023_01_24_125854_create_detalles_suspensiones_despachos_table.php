@@ -22,7 +22,7 @@ return new class extends Migration
             $table->unsignedBigInteger('id_almacen_fk');
             $table->foreign('id_almacen_fk')->references('id_almacen')->on('almacenes');
             $table->unsignedBigInteger('id_mercancia_fk');
-            $table->foreign('id_mercancia_fk')->references('id_mercancia')->on('mercancias');
+            $table->foreign('id_mercancia_fk')->references('id_mercancia')->on('mercancias')->nullable();
             $table->unsignedBigInteger('id_vehiculo_fk');
             $table->foreign('id_vehiculo_fk')->references('id_vehiculo')->on('datos_vehiculos')->nullable();
 

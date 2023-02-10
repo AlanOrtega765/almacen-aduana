@@ -20,9 +20,9 @@ return new class extends Migration
             $table->string('ppu', 15)->nullable();
             $table->string('tipo_vehiculo', 25);
             $table->string('modelo_vehiculo', 30);
-            $table->string('chasis_veh', 30);
+            $table->string('chasis_veh', 30)->nullable();
             $table->integer('n_motor_vehiculo');
-            $table->integer('anho_fabric');
+            $table->integer('anho_fabric')->nullable();
             $table->string('origen_veh', 20)->nullable();
             $table->unsignedBigInteger('id_almacen_fk');
             $table->foreign('id_almacen_fk')->references('id_almacen')->on('almacenes');
