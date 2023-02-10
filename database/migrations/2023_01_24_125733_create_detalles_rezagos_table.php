@@ -21,8 +21,8 @@ return new class extends Migration
             $table->foreign('id_users_fk')->references('id')->on('users');
             $table->unsignedBigInteger('id_almacen_fk');
             $table->foreign('id_almacen_fk')->references('id_almacen')->on('almacenes');
-            $table->unsignedBigInteger('n_rol_fk');
-            $table->foreign('n_rol_fk')->references('n_rol')->on('mercancias');
+            $table->unsignedBigInteger('id_mercancia_fk');
+            $table->foreign('id_mercancia_fk')->references('id_mercancia')->on('mercancias');
 
             $table->timestamps();
         });

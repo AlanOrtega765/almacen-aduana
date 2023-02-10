@@ -24,7 +24,7 @@ class AbandonmentsController extends Controller
                                       'abandonos.fecha_recepcion', 'abandonos.observacion', 'abandonos.estado', 'detalles_abandonos.turno')
             ->join('users', 'users.id', '=', 'abandonos.id_users_fk')
             ->join('detalles_abandonos', 'detalles_abandonos.n_oficio', '=', 'abandonos.n_oficio')
-            ->join('mercancias', 'mercancias.n_rol', '=', 'detalles_abandonos.n_rol_fk')
+            ->join('mercancias', 'mercancias.id_mercancia', '=', 'detalles_abandonos.id_mercancia_fk')
             ->join('almacenes', 'almacenes.id_almacen', '=', 'mercancias.id_almacen_fk')
             ->paginate(10);
 
@@ -66,13 +66,13 @@ class AbandonmentsController extends Controller
             'fecha_recepcion' => $request->fecha_recepcion,
             'observacion' => $request->observacion,
             'estado' => $request->estado,
-            'id_user_fk' => $user_id,
+            'id_users_fk' => $user_id,
         ]);
 
         DetalleAbandonos::create([
             'n_oficio' => $abandonos->id,
             'turno' =>  $request->turno,
-            'n_rol_fk' => $mercancias->id,
+            'id_mercancia_fk' => $mercancias->id,
         ]);
     }
 
@@ -82,7 +82,7 @@ class AbandonmentsController extends Controller
                                     'abandonos.fecha_recepcion', 'abandonos.observacion', 'abandonos.estado', 'detalles_abandonos.turno')
     ->join('users', 'users.id', '=', 'abandonos.id_users_fk')
     ->join('detalles_abandonos', 'detalles_abandonos.n_oficio', '=', 'abandonos.n_oficio')
-    ->join('mercancias', 'mercancias.n_rol', '=', 'detalles_abandonos.n_rol_fk')
+    ->join('mercancias', 'mercancias.id_mercancia', '=', 'detalles_abandonos.id_mercancia_fk')
     ->join('almacenes', 'almacenes.id_almacen', '=', 'mercancias.id_almacen_fk')
     ->first();
 

@@ -10,6 +10,6 @@ class DetalleSems extends Model
     use HasFactory;
     protected $fillable = [
         'numero_sem_pf',
-        'n_rol_fk',
+        'id_mercancia_fk',
     ];
 }

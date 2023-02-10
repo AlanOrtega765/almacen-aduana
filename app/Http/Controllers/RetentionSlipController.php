@@ -27,7 +27,7 @@ class RetentionSlipController extends Controller
             ->join('users', 'users.id', '=', 'retenciones.id_user_fk')
             ->join('personas', 'personas.id_person', '=', 'retenciones.id_persona_fk')
             ->join('detalles_retenciones', 'detalles_retenciones.n_boleta_pf', '=', 'retenciones.n_boleta')
-            ->join('mercancias', 'mercancias.n_rol', '=', 'detalles_retenciones.id_mercancia_fk')
+            ->join('mercancias', 'mercancias.id_mercancia', '=', 'detalles_retenciones.id_mercancia_fk')
             ->join('almacenes', 'almacenes.id_almacen', '=', 'mercancias.id_almacen_fk')
             ->paginate(10);
 
@@ -106,7 +106,7 @@ class RetentionSlipController extends Controller
             ->join('users', 'users.id', '=', 'retenciones.id_user_fk')
             ->join('personas', 'personas.id_person', '=', 'retenciones.id_persona_fk')
             ->join('detalles_retenciones', 'detalles_retenciones.n_boleta_pf', '=', 'retenciones.n_boleta')
-            ->join('mercancias', 'mercancias.n_rol', '=', 'detalles_retenciones.id_mercancia_fk')
+            ->join('mercancias', 'mercancias.id_mercancia', '=', 'detalles_retenciones.id_mercancia_fk')
             ->join('almacenes', 'almacenes.id_almacen', '=', 'mercancias.id_almacen_fk')
             ->first();
 

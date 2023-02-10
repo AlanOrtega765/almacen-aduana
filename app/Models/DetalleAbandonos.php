@@ -10,7 +10,7 @@ class DetalleAbandonos extends Model
     use HasFactory;
     protected $fillable = [
         'n_oficio',
-        'n_rol_fk',
+        'id_mercancia_fk',
         'turno',
     ];
 }

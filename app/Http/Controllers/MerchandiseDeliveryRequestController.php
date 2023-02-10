@@ -28,7 +28,7 @@ class MerchandiseDeliveryRequestController extends Controller
             ->join('users', 'users.id', '=', 'sems.id_user_fk')
             ->join('personas', 'personas.id_person', '=', 'sems.id_persona_fk')
             ->join('detalles_sems', 'detalles_sems.numero_sem_pf', '=', 'sems.numero_sem')
-            ->join('mercancias', 'mercancias.n_rol', '=', 'detalles_sems.n_rol_fk')
+            ->join('mercancias', 'mercancias.id_mercancia', '=', 'detalles_sems.id_mercancia_fk')
             ->join('almacenes', 'almacenes.id_almacen', '=', 'mercancias.id_almacen_fk')
             ->paginate(10);
 
@@ -87,7 +87,7 @@ class MerchandiseDeliveryRequestController extends Controller
 
         $detallessem = DetalleSems::create([
             'numero_sem_pf' => $semsem->id,
-            'n_rol_fk' => $mercancias->id
+            'id_mercancia_fk' => $mercancias->id
         ]);
     }
 
@@ -110,7 +110,7 @@ class MerchandiseDeliveryRequestController extends Controller
             ->join('users', 'users.id', '=', 'sems.id_user_fk')
             ->join('personas', 'personas.id_person', '=', 'sems.id_persona_fk')
             ->join('detalles_sems', 'detalles_sems.numero_sem_pf', '=', 'sems.numero_sem')
-            ->join('mercancias', 'mercancias.n_rol', '=', 'detalles_sems.n_rol_fk')
+            ->join('mercancias', 'mercancias.id_mercancia', '=', 'detalles_sems.id_mercancia_fk')
             ->join('almacenes', 'almacenes.id_almacen', '=', 'mercancias.id_almacen_fk')
             ->first();
 

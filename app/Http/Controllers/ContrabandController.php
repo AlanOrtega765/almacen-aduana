@@ -21,19 +21,19 @@ class ContrabandController extends Controller
      */
     public function index()
     {
-        $contraband = contrabandos::select('contrabandos.n_rol', 'contrabandos.fecha_contrab', 'contrabandos.fecha_venc_contrab', 'contrabandos.estado',
+        $contrabands = contrabandos::select('contrabandos.n_rol', 'contrabandos.fecha_contrab', 'contrabandos.fecha_venc_contrab', 'contrabandos.estado',
                                             'personas.tipo_doc_p', 'personas.nro_id_person', 'personas.nombre_p', 'personas.apellido_p', 'personas.nacionalidad_p', 'personas.direccion_p', 'personas.ciudad_p',
                                             'mercancias.nombre_merc', 'mercancias.peso', 'mercancias.cantidad_bulto', 'almacenes.nombre_almc', 'almacenes.avanzada',
                                             'contrabandos.tipo_contrabando', 'contrabandos.nue', 'contrabandos.doc_denunciante', 'contrabandos.doc_cancelacion', 'contrabandos.fecha_canc', 'contrabandos.doc_de_entrega', 'contrabandos.fecha_doc_entrega', 'contrabandos.observaciones')
                     ->join('users', 'users.id', '=', 'contrabandos.id_user_fk')
                     ->join('personas', 'personas.id_person', '=', 'contrabandos.id_persona_fk')
-                    ->join('detalles_contrabandos', 'detalles_contrabandos.n_rol_contrab', '=', 'contrabandos.n_rol')
-                    ->join('mercancias', 'mercancias.n_rol', '=', 'detalles_contrabandos.n_rol_merc')
+                    ->join('detalles_contrabandos', 'detalles_contrabandos.n_rol_fk', '=', 'contrabandos.n_rol')
+                    ->join('mercancias', 'mercancias.id_mercancia', '=', 'detalles_contrabandos.id_mercancia_fk')
                     //->join('datos_vehiculos', 'datos_vehiculos.id_vehiculo', '=', 'detalles_contrabandos.n_rol_contrab')
                     ->join('almacenes', 'almacenes.id_almacen', '=', 'mercancias.id_almacen_fk')
                     ->paginate(10);
 
-        return Inertia::render('Contraband', ['contrabands' => $contraband]);
+        return Inertia::render('Contraband', ['contrabands' => $contrabands]);
 
 
 
@@ -100,7 +100,7 @@ class ContrabandController extends Controller
         ]);
 
         DetallesContrabandos::create([
-            'n_boleta_pf' => $contrabandos->id,
+            'n_rol_fk' => $contrabandos->id,
             'id_mercancia_fk' => $mercancias->id
         ]);
     }
@@ -112,8 +112,8 @@ class ContrabandController extends Controller
             ->where('contrabandos.n_rol', '=', $id)
             ->join('users', 'users.id', '=', 'contrabandos.id_user_fk')
             ->join('personas', 'personas.id_person', '=', 'contrabandos.id_persona_fk')
-            ->join('detalles_contrabandos', 'detalles_contrabandos.n_rol_contrab', '=', 'contrabandos.n_rol')
-            ->join('mercancias', 'mercancias.n_rol', '=', 'detalles_contrabandos.n_rol_merc')
+            ->join('detalles_contrabandos', 'detalles_contrabandos.n_rol_fk', '=', 'contrabandos.n_rol')
+            ->join('mercancias', 'mercancias.id_mercancia', '=', 'detalles_contrabandos.id_mercancia_fk')
             //->join('datos_vehiculos', 'datos_vehiculos.id_vehiculo', '=', 'detalles_contrabandos.n_rol_contrab')
             ->join('almacenes', 'almacenes.id_almacen', '=', 'mercancias.id_almacen_fk')
             ->first();

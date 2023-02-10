@@ -31,6 +31,7 @@ Route::post('/abandonos/store', [AbandonmentsController::class, 'store'])->middl
 
 // Suspension Despacho
 Route::get('/suspension-despacho', [SuspensionDispatchController::class, 'index'])->middleware(['auth', 'verified'])->name('suspension.index');
+Route::post('/suspension-despacho/store', [SuspensionDispatchController::class, 'store'])->middleware(['auth', 'verified']);
 
 // Solicitud Entrega Mercancía
 Route::get('/solicitud-entrega-mercancia', [MerchandiseDeliveryRequestController::class, 'index'])->middleware(['auth', 'verified'])->name('mercancias.index');
