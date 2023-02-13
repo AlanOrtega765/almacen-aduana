@@ -14,24 +14,28 @@ const emits = defineEmits(['update:form', 'closeModal']);
 
 const user = computed(() => usePage().props.auth.user);
 const form = ref({
-    fecha_llegada: null,
+    fecha_llegada: null,                        //SEM
 
-    tipo_doc_persona: "",
-    n_doc_persona: "",
-    nombres_persona: "",
-    apellidos_persona: "",
-    nacionalidad: "",
-    direccion: "",
-    ciudad: "",
+    tipo_doc_persona: "",                       //Persona
+    n_doc_persona: "",                          //Persona
+    nombres_persona: "",                        //Persona
+    apellidos_persona: "",                      //Persona
+    nacionalidad: "",                           //Persona
+    direccion: "",                              //Persona
+    ciudad: "",                                 //Persona
 
 
-    descripcion_mercancias: "",
-    bultos: 0,
-    peso: 0,
-    ubicacion: 0,
-    observaciones: "",
-    plazo_maximo: null,
-    estado: "Vigente",
+    descripcion_mercancias: "",                 //Mercancias
+    bultos: 0,                                  //Mercancias
+    peso: 0,                                    //Mercancias
+    ubicacion: 0,                               //Mercancias
+    observacion: "",                            //Mercancias
+    plazo_maximo: null,                         //Mercancias
+    estado: "Vigente",                          //Mercancias
+
+    total_general: 0,                           //SEM
+    numero_lig_grav: null,                      //SEM
+    fecha_gcp: null,                            //SEM
 });
 
 const message = ref({
@@ -52,10 +56,6 @@ const optionsNationality = ref([
     { name: "OTRA", value: "Otra" },
 ]);
 
-const optionsFranchise = ref([
-    { name: "SI", value: 1 },
-    { name: "NO", value: 0 },
-]);
 
 const optionsAdvanced = ref([
     { name: "Arica - Bodega Principal", value: 1 },
@@ -138,22 +138,28 @@ const resetForm = () => {
         quantity: 1,
     };
     form.value = {
-        fecha_boleta: null,
-        tipo_doc_persona: "",
-        n_doc_persona: "",
-        nombres_persona: "",
-        apellidos_persona: "",
-        nacionalidad: "",
-        direccion: "",
-        ciudad: "",
-        franquicia: null,
-        descripcion_mercancias: "",
-        bultos: 0,
-        peso: 0,
-        ubicacion: 0,
-        observaciones: "",
-        plazo_maximo: null,
-        estado: "Vigente",
+        fecha_llegada: null,                        //SEM
+
+        tipo_doc_persona: "",                       //Persona
+        n_doc_persona: "",                          //Persona
+        nombres_persona: "",                        //Persona
+        apellidos_persona: "",                      //Persona
+        nacionalidad: "",                           //Persona
+        direccion: "",                              //Persona
+        ciudad: "",                                 //Persona
+
+
+        descripcion_mercancias: "",                 //Mercancias
+        bultos: 0,                                  //Mercancias
+        peso: 0,                                    //Mercancias
+        ubicacion: 0,                               //Mercancias
+
+        observacion: "",                            //SEM
+        plazo_maximo: null,                         //SEM
+        estado: "Vigente",                          //SEM
+        total_general: 0,                           //SEM
+        numero_lig_grav: null,                      //SEM
+        fecha_gcp: null,                            //SEM
     };
 };
 
@@ -170,10 +176,10 @@ const submit = () => {
     });
     form.value.descripcion_mercancias = list.join(", ").toUpperCase();
 
-    form.value.fecha_boleta = formatDate(form.value.fecha_boleta);
+    form.value.fecha_llegada = formatDate(form.value.fecha_llegada);
     form.value.plazo_maximo = formatDate(form.value.plazo_maximo);
 
-    router.post("boletas-retencion/store", form.value, {
+    router.post("solicitud-entrega-mercancia/store", form.value, {
         onSuccess: () => {
             resetForm();
             emits('closeModal');
@@ -197,10 +203,10 @@ const formatDate = (date) => {
             <h3 class="font-semibold">Fechas Documento</h3>
             <div class="grid grid-cols-4 gap-2 mt-4">
                 <InputLabel class="col-span-1"
-                    >Fecha Retención
+                    >Fecha SEM
 
                     <DatePicker
-                        v-model="form.fecha_boleta"
+                        v-model="form.fecha_llegada"
                         :format="format"
                         required
                         @update:modelValue="dateSelected"
@@ -289,7 +295,7 @@ const formatDate = (date) => {
                         class="w-full h-[38px] border-[1px] shadow-none rounded outline-none hover:border-dark-gray transition-colors duration-200 focus:border-dark-gray px-2 py-3 border-gray"
                     />
                 </InputLabel>
-                <InputLabel class="col-span-2">
+                <InputLabel class="col-span-3">
                     Dirección
                     <TextInput
                         required
@@ -305,15 +311,7 @@ const formatDate = (date) => {
                         class="w-full h-[38px] border-[1px] shadow-none rounded outline-none hover:border-dark-gray transition-colors duration-200 focus:border-dark-gray px-2 py-3 border-gray"
                     />
                 </InputLabel>
-                <InputLabel class="col-span-2">
-                    Uso Franquicia
-                    <SelectInput
-                        class="w-full h-[38px]"
-                        required
-                        v-model="form.franquicia"
-                        :options="optionsFranchise"
-                    />
-                </InputLabel>
+
             </div>
         </div>
         <div class="w-full h-[1px] bg-gray mt-2"></div>
@@ -441,7 +439,7 @@ const formatDate = (date) => {
             <textarea
                 class="w-full focus:ring-0 focus:border-dark-gray border-gray border-[1px] rounded-md"
                 rows="4"
-                v-model="form.observaciones"
+                v-model="form.observacion"
             ></textarea>
         </div>
 

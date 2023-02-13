@@ -91,7 +91,7 @@ const onCloseModal = () => show.value = false;
         </section>
         <Modal :show="show" :closeable="false">
             <div class="flex justify-between items-center shadow-md p-4">
-                <h1 class="text-2xl">Crear Boleta de Retención</h1>
+                <h1 class="text-2xl">Crear Servicio de entrega de Mercancias</h1>
                 <DangerButton
                     class="rounded-full w-9 h-9 flex items-center justify-center"
                     @click="onCloseModal"

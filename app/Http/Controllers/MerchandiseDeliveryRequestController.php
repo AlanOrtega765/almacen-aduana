@@ -7,8 +7,8 @@ use Illuminate\Http\Request;
 use Inertia\Inertia;
 use App\Models\Mercancias;
 use App\Models\Personas;
-use App\Models\Retenciones;
 use App\Models\Sems;
+use App\Models\Almacen;
 use Barryvdh\DomPDF\Facade\Pdf as PDF;
 use Illuminate\Support\Facades\Auth;
 
@@ -24,7 +24,7 @@ class MerchandiseDeliveryRequestController extends Controller
     {
         $serm = Sems::select('sems.numero_sem', 'sems.fecha_llegada', 'sems.fecha_venc',
                             'personas.tipo_doc_p', 'personas.nro_id_person', 'personas.nombre_p', 'personas.apellido_p', 'personas.nacionalidad_p', 'personas.direccion_p', 'personas.ciudad_p',
-                            'sems.franquicia', 'mercancias.nombre_merc', 'mercancias.peso', 'mercancias.cantidad_bulto', 'almacenes.nombre_almc', 'almacenes.avanzada', 'sems.observaciones', 'sems.estado')
+                            'mercancias.nombre_merc', 'mercancias.peso', 'mercancias.cantidad_bulto', 'almacenes.nombre_almc', 'almacenes.avanzada', 'sems.observacion', 'sems.estado')
             ->join('users', 'users.id', '=', 'sems.id_user_fk')
             ->join('personas', 'personas.id_person', '=', 'sems.id_persona_fk')
             ->join('detalles_sems', 'detalles_sems.numero_sem_pf', '=', 'sems.numero_sem')
@@ -72,9 +72,9 @@ class MerchandiseDeliveryRequestController extends Controller
             'id_almacen_fk' => $request->ubicacion
         ]);
 
-        $semsem = Retenciones::create([
+        $semsem = Sems::create([
             'fecha_llegada' => $request->fecha_llegada,
-            'fecha_venc' => $request->fecha_venc,
+            'fecha_venc' => $request->plazo_maximo,
             'tipo_cancelacion' => $request->tipo_cancelacion,
             'estado' => $request->estado,
             'observacion' => $request->observacion,
@@ -106,7 +106,7 @@ class MerchandiseDeliveryRequestController extends Controller
     {
         $serm = Sems::select('sems.numero_sem', 'sems.fecha_llegada', 'sems.fecha_venc',
                             'personas.tipo_doc_p', 'personas.nro_id_person', 'personas.nombre_p', 'personas.apellido_p', 'personas.nacionalidad_p', 'personas.direccion_p', 'personas.ciudad_p',
-                            'sems.franquicia', 'mercancias.nombre_merc', 'mercancias.peso', 'mercancias.cantidad_bulto', 'almacenes.nombre_almc', 'almacenes.avanzada', 'sems.observaciones', 'sems.estado')
+                            'mercancias.nombre_merc', 'mercancias.peso', 'mercancias.cantidad_bulto', 'almacenes.nombre_almc', 'almacenes.avanzada', 'sems.observacion', 'sems.estado')
             ->join('users', 'users.id', '=', 'sems.id_user_fk')
             ->join('personas', 'personas.id_person', '=', 'sems.id_persona_fk')
             ->join('detalles_sems', 'detalles_sems.numero_sem_pf', '=', 'sems.numero_sem')
