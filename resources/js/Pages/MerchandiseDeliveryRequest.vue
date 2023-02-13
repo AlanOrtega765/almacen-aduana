@@ -31,13 +31,26 @@ const tableColumns = ref([ //atributos de la tabla SEV de la BD
     { name: "Direccion", data: "direccion_p" },                     //Persona
     { name: "Ciudad", data: "ciudad_p" },                           //Persona
 
-    { name: "Total General", data: "total_general" },              //SEM
-    { name: "Numero lig. grav.", data: "numero_lig_grav" },               //SEM
-    { name: "Fecha lig. grav.", data: "fecha_gcp" },                          //SEM
+    { name: "Aduana", data: "aduana_presenta" },                    //SEM
+    { name: "Tipo Cancelacion", data: "tipo_cancelacion" },         //SEM
 
+    { name: "Entrega Maxima", data: "entrega_maxima" },             //SEM
+    { name: "Numero lig. grav.", data: "numero_lig_grav" },         //SEM
+    { name: "Fecha lig. grav.", data: "fecha_gcp" },                //SEM
+    { name: "DRS fecha", data: "drs_fecha" },                       //SEM
+    { name: "DRS plazo maximo", data: "drs_fecha_venc" },           //SEM
+    { name: "DRS tipo", data: "drs_tipo" },                         //SEM
+    { name: "DRS numero", data: "drs_numero" },                     //SEM
+
+
+    { name: "Unidad de Medida", data: "unidad_medida" },            //Mercancias
+    { name: "N ITEM DRS", data: "drs_n_item" },                     //Mercancias
+    { name: "Valor Mercancia", data: "valor_mercancia" },                                 //Mercancias
     { name: "Peso", data: "peso" },                                 //Mercancias
-    { name: "Almacen", data: "nombre_almc" },                       //Mercancias
-    { name: "Avanzada", data: "avanzada" },                         //Mercancias
+    { name: "Total General", data: "total_general" },
+
+    { name: "Almacen", data: "nombre_almc" },                       //Almacen
+    { name: "Avanzada", data: "avanzada" },                         //Almacen
 
     { name: "Observaciones", data: "observacion" },                 //SEM
     { name: "Estado", data: "estado" },                             //SEM

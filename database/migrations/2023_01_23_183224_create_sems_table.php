@@ -23,13 +23,12 @@ return new class extends Migration
             $table->text('observacion', 500)->nullable();
             $table->boolean('estado')->nullable();
 
-
             $table->string('drs_tipo',20)->nullable();          //Doc regimen suspensivo
             $table->string('drs_numero',20)->nullable();        //Doc regimen suspensivo
             $table->date('drs_fecha')->nullable();              //Doc regimen suspensivo
             $table->date('drs_fecha_venc')->nullable();         //Doc regimen suspensivo
-            $table->date('fecha_gcp',20)->nullable();
-            $table->integer('sem_total')->nullable();
+            $table->string('numero_lig_grav',20)->nullable();
+            $table->date('fecha_gcp')->nullable();
             $table->integer('total_general')->nullable();
             $table->unsignedBigInteger('id_persona_fk')->nullable();
             $table->foreign('id_persona_fk')->references('id_person')->on('personas');

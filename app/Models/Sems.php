@@ -12,11 +12,18 @@ class Sems extends Model
 
         'fecha_llegada',
         'fecha_venc',
+        'aduana_presenta',
+        'entrega_maxima',
         'tipo_cancelacion',
         'estado',
         'observacion',
         'total_general',
         'numero_lig_grav',
+        'drs_tipo',
+        'drs_numero',
+        'drs_fecha',
+        'drs_fecha_venc',
+
         'fecha_gcp',
         'id_user_fk',
         'id_persona_fk'

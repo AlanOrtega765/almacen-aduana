@@ -13,6 +13,8 @@ class Mercancias extends Model
         'peso',
         'cantidad_bulto',
         'valor_mercancia',
-        'id_almacen_fk'
+        'drs_n_item',
+        'unidad_medida',
+        'id_almacen_fk',
     ];
 }
