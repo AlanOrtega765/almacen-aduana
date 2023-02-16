@@ -18,7 +18,7 @@ const props = defineProps(["servicioentmercancias"]);
 
 const search = ref("");
 
-const tableColumns = ref([ //atributos de la tabla SEV de la BD
+const tableColumns = ref([ //atributos de la tabla SEM de la BD
     { name: "N° SEM", data: "numero_sem" },                      //SEM
     { name: "Fecha Llegada", data: "fecha_llegada" },                //SEM
     { name: "Plazo Maximo", data: "fecha_venc" },                   //SEM

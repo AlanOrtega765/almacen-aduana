@@ -21,7 +21,7 @@ return new class extends Migration
             $table->date('entrega_maxima')->nullable();          //fecha maxima de entrega
             $table->string('tipo_cancelacion', 20)->nullable(); //REEXPORTACION, IMPORTACION, ENTREGA
             $table->text('observacion', 500)->nullable();
-            $table->boolean('estado')->nullable();
+            $table->string('estado')->nullable();
 
             $table->string('drs_tipo',20)->nullable();          //Doc regimen suspensivo
             $table->string('drs_numero',20)->nullable();        //Doc regimen suspensivo

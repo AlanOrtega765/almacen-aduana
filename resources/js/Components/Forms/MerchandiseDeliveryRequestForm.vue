@@ -24,18 +24,29 @@ const form = ref({
     direccion: "",                              //Persona
     ciudad: "",                                 //Persona
 
-
     descripcion_mercancias: "",                 //Mercancias
     bultos: 0,                                  //Mercancias
     peso: 0,                                    //Mercancias
     ubicacion: 0,                               //Mercancias
-    observacion: "",                            //Mercancias
-    plazo_maximo: null,                         //Mercancias
-    estado: "Vigente",                          //Mercancias
+    unidad_medida: null,
+    drs_n_item: null,
+    valor_mercancia: 0,
 
     total_general: 0,                           //SEM
     numero_lig_grav: null,                      //SEM
     fecha_gcp: null,                            //SEM
+    aduana_presenta: null,                      //SEM
+    tipo_cancelacion: null,                     //SEM
+    total_general: 0,                           //SEM
+    numero_lig_grav: null,                      //SEM
+    fecha_gcp: null,                            //SEM
+    drs_fecha: null,                            //SEM
+    drs_fecha_venc: null,                       //SEM
+    drs_tipo: null,                             //SEM
+    drs_numero: null,                           //SEM
+    observacion: "",                            //Mercancias
+    plazo_maximo: null,                         //Mercancias
+    estado: "Vigente",                          //Mercancias
 });
 
 const message = ref({
@@ -47,6 +58,12 @@ const optionsTypeDocument = ref([
     { name: "CI", value: "CI" },
     { name: "DNI", value: "DNI" },
     { name: "PASAPORTE", value: "Pasaporte" },
+]);
+
+const optionsTypeCancel = ref([
+    { name: "REEXPORTACIÓN", value: "REEXPORTACIÓN" },
+    { name: "IMPORTACIÓN", value: "IMPORTACIÓN" },
+    { name: "ENTREGA", value: "ENTREGA" },
 ]);
 
 const optionsNationality = ref([
@@ -131,6 +148,13 @@ const dateSelected = () => {
     );
 };
 
+const dateSelectedDrs = () => {
+    form.value.drs_fecha = new Date(form.value.drs_fecha);
+    form.value.drs_fecha_venc = form.value.drs_fecha_venc.setDate(
+        form.value.drs_fecha_venc.getDate() + 90
+    );
+};
+
 const resetForm = () => {
     listOfMerchandise.value = [];
     merchandise.value = {
@@ -140,26 +164,37 @@ const resetForm = () => {
     form.value = {
         fecha_llegada: null,                        //SEM
 
-        tipo_doc_persona: "",                       //Persona
-        n_doc_persona: "",                          //Persona
-        nombres_persona: "",                        //Persona
-        apellidos_persona: "",                      //Persona
-        nacionalidad: "",                           //Persona
-        direccion: "",                              //Persona
-        ciudad: "",                                 //Persona
+    tipo_doc_persona: "",                       //Persona
+    n_doc_persona: "",                          //Persona
+    nombres_persona: "",                        //Persona
+    apellidos_persona: "",                      //Persona
+    nacionalidad: "",                           //Persona
+    direccion: "",                              //Persona
+    ciudad: "",                                 //Persona
 
+    descripcion_mercancias: "",                 //Mercancias
+    bultos: 0,                                  //Mercancias
+    peso: 0,                                    //Mercancias
+    ubicacion: 0,                               //Mercancias
+    unidad_medida: null,
+    drs_n_item: null,
+    valor_mercancia: 0,
 
-        descripcion_mercancias: "",                 //Mercancias
-        bultos: 0,                                  //Mercancias
-        peso: 0,                                    //Mercancias
-        ubicacion: 0,                               //Mercancias
-
-        observacion: "",                            //SEM
-        plazo_maximo: null,                         //SEM
-        estado: "Vigente",                          //SEM
-        total_general: 0,                           //SEM
-        numero_lig_grav: null,                      //SEM
-        fecha_gcp: null,                            //SEM
+    total_general: 0,                           //SEM
+    numero_lig_grav: null,                      //SEM
+    fecha_gcp: null,                            //SEM
+    aduana_presenta: null,                      //SEM
+    tipo_cancelacion: null,                     //SEM
+    total_general: 0,                           //SEM
+    numero_lig_grav: null,                      //SEM
+    fecha_gcp: null,                            //SEM
+    drs_fecha: null,                            //SEM
+    drs_fecha_venc: null,                       //SEM
+    drs_tipo: null,                             //SEM
+    drs_numero: null,                           //SEM
+    observacion: "",                            //Mercancias
+    plazo_maximo: null,                         //Mercancias
+    estado: "Vigente",                          //Mercancias
     };
 };
 
@@ -178,6 +213,9 @@ const submit = () => {
 
     form.value.fecha_llegada = formatDate(form.value.fecha_llegada);
     form.value.plazo_maximo = formatDate(form.value.plazo_maximo);
+
+    form.value.drs_fecha = formatDate(form.value.drs_fecha); //
+    form.value.drs_fecha_venc = formatDate(form.value.drs_fecha_venc);
 
     router.post("solicitud-entrega-mercancia/store", form.value, {
         onSuccess: () => {
@@ -221,7 +259,72 @@ const formatDate = (date) => {
                         v-model="form.plazo_maximo"
                         :format="format"
                     />
+                </InputLabel> <br>
+
+                <InputLabel class="col-span-2">
+                    Aduana en que se presenta (Lugar)
+                    <TextInput
+                        v-model="form.aduana_presenta"
+                        required
+                        class="w-full h-[38px] border-[1px] shadow-none rounded outline-none hover:border-dark-gray transition-colors duration-200 focus:border-dark-gray px-2 py-3 border-gray"
+                    />
                 </InputLabel>
+                <InputLabel class="col-span-2">
+                    Tipo Cancelacion
+                    <SelectInput
+                        required
+                        class="w-full h-[38px]"
+                        v-model="form.tipo_cancelacion"
+                        :options="optionsTypeCancel"
+                    />
+                </InputLabel>
+            </div>
+        </div>
+        <div class="w-full h-[1px] bg-gray mt-2"></div>
+
+        <div>
+            <h3 class="font-semibold">Documento de Regimen Suspensivo</h3>
+            <div class="grid grid-cols-4 gap-2 mt-4">
+
+                <InputLabel class="col-span-1"
+                        >Fecha Doc Reg Susp
+
+                        <DatePicker
+                            v-model="form.drs_fecha"
+                            :format="format"
+
+                            @update:modelValue="dateSelectedDrs"
+                        />
+                    </InputLabel>
+                    <InputLabel class="col-span-1"
+                        >Plazo Máximo(90 días)*
+
+                        <DatePicker
+                            readonly
+
+                            v-model="form.drs_fecha_venc"
+                            :format="format"
+                        />
+                    </InputLabel> <br>
+
+                    <InputLabel class="col-span-2">
+                    Tipo
+                    <TextInput
+                        v-model="form.drs_tipo"
+
+                        class="w-full h-[38px] border-[1px] shadow-none rounded outline-none hover:border-dark-gray transition-colors duration-200 focus:border-dark-gray px-2 py-3 border-gray"
+                    />
+                    </InputLabel>
+
+                    <InputLabel class="col-span-2">
+                    Numero
+                    <TextInput
+                        v-model="form.drs_numero"
+
+                        class="w-full h-[38px] border-[1px] shadow-none rounded outline-none hover:border-dark-gray transition-colors duration-200 focus:border-dark-gray px-2 py-3 border-gray"
+                    />
+                    </InputLabel>
+
             </div>
         </div>
         <div class="w-full h-[1px] bg-gray mt-2"></div>
@@ -249,7 +352,7 @@ const formatDate = (date) => {
         </div>
         <div class="w-full h-[1px] bg-gray mt-2"></div>
         <div>
-            <h3 class="font-semibold">Pasajero</h3>
+            <h3 class="font-semibold">Consignatario</h3>
 
             <div class="grid grid-cols-6 gap-2 mt-4">
                 <InputLabel class="col-span-3">
@@ -303,7 +406,7 @@ const formatDate = (date) => {
                         class="w-full h-[38px] border-[1px] shadow-none rounded outline-none hover:border-dark-gray transition-colors duration-200 focus:border-dark-gray px-2 py-3 border-gray"
                     />
                 </InputLabel>
-                <InputLabel class="col-span-2">
+                <InputLabel class="col-span-3">
                     Ciudad
                     <TextInput
                         required
