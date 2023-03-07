@@ -138,11 +138,21 @@ const deleteItem = (index) => { //borrar items del formulario de la lista de mer
     });
 };
 
+//const fecha_doc = new Date(form.value.fecha_doc_entrega);
+
 const dateSelected = () => { //creación de plazo fecha de vencimiento
+
     form.value.plazo_maximo = new Date(form.value.fecha_contrabando);
     form.value.plazo_maximo = form.value.plazo_maximo.setDate(
         form.value.plazo_maximo.getDate() + 90
     );
+};
+
+const dateSelected1 = () => { //creación de plazo fecha de vencimiento
+   form.value.fecha_doc_entrega = new Date(form.value.fecha_doc_entrega);
+    //form.value.plazo_maximo = form.value.plazo_maximo.setDate(
+       // form.value.plazo_maximo.getDate() + 90
+
 };
 
 const resetForm = () => { //Limpiar el formulario una vez subido a la BD
@@ -318,7 +328,7 @@ const formatDate = (date) => { //formatear fecha
                         v-model="form.fecha_doc_entrega"
                         :format="format"
 
-                        @update:modelValue="dateSelected"
+                        @update:modelValue="dateSelected1"
                     />
                 </InputLabel>
 

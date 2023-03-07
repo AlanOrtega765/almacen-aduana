@@ -7,7 +7,8 @@ use Illuminate\Support\Facades\Schema;
 return new class extends Migration
 {
     /**
-     * Run the migrations.
+     * Se pretende generar una tabla con la lista de conexiones por usuario (Entidad Debil Con respecto a Users)
+     * Con IP Nombre dispositivo S.O etc. relacionado a Seguridad.
      *
      * @return void
      */
@@ -16,6 +17,7 @@ return new class extends Migration
         Schema::create('docts', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
+
         });
     }
 

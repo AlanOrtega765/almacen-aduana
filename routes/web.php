@@ -45,6 +45,7 @@ Route::post('/solicitud-entrega-vehiculo/store', [VehicleDeliveryRequestControll
 Route::get('/rezagos', [LagsController::class, 'index'])->middleware(['auth', 'verified'])->name('rezagos.index');
 Route::post('/rezagos/store', [LagsController::class, 'store'])->middleware(['auth', 'verified']);
 
+//Cuentas crear eliminar usuarios
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
@@ -54,6 +55,11 @@ Route::middleware('auth')->group(function () {
 Route::get('/retentionpdf', function() {
 
     return inertia('Documents/Retentionpdf');
+});
+
+Route::get('/contrabandpdf', function() {
+
+    return inertia('Documents/contrabandpdf');
 });
 
 require __DIR__ . '/auth.php';

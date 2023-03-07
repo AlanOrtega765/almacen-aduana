@@ -26,6 +26,9 @@ return new class extends Migration
             $table->string('privilegio', 20);
             $table->rememberToken();
             $table->timestamps();
+            //Agregar IP
+            //Agregar PC en el que se realizo la conexion y sistema operativo
+
         });
     }
 
