@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('estado', 10);
             $table->string('tipo_contrabando', 20);
             //$table->string('instituciones', 20);
-            $table->integer('nue');
+            $table->integer('nue')->nullable();
             $table->string('doc_denunciante', 20);
             $table->string('doc_cancelacion', 20)->nullable();
             $table->date('fecha_canc')->nullable();
