@@ -1,13 +1,13 @@
 <script setup>
 import { Head } from "@inertiajs/vue3";
 
-const props = defineProps(["retention"]);
+const props = defineProps(["Abandono"]);
 
 const merchandises = props.retention.nombre_merc.split(",");
 </script>
 
 <template>
-    <Head title="Boletas de Retención" />
+    <Head title="Abandono" />
     <div class="pt-20">
         <header class="flex items-center justify-center gap-10 text-center">
             <div class="relative flex">
@@ -21,7 +21,7 @@ const merchandises = props.retention.nombre_merc.split(",");
                         src="../../../images/logo_aduana.jpg"
                     />
                 </div>
-                <h1 class="text-2xl font-bold">COMPROBANTE DE RETENCIÓN</h1>
+                <h1 class="text-2xl font-bold"> SERVICIO DE ENTREGA DE MERCANCIAS</h1>
             </div>
         </header>
 

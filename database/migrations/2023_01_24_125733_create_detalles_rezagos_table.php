@@ -10,6 +10,8 @@ return new class extends Migration
      * Run the migrations.
      *
      * @return void
+     * Tabla creada para almacenar los atributos relacionados con el detalle de Acta de levantamiento de mercancias en rezago.
+     * (No actualizado)
      */
     public function up()
     {

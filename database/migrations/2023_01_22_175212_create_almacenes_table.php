@@ -10,13 +10,15 @@ return new class extends Migration
      * Run the migrations.
      *
      * @return void
+     *
+     * Tabla en donde se especifican las ubicaciones de todos los almacenes de la Región
      */
     public function up()
     {
         Schema::create('almacenes', function (Blueprint $table) {
-            $table->id('id_almacen');
-            $table->string('nombre_almc', 40);
-            $table->string('avanzada', 40);
+            $table->id('id_almacen');           //id del almacen
+            $table->string('nombre_almc', 40);  //Nombre del Almacen
+            $table->string('avanzada', 40);     //Avanzada del almacen
             $table->timestamps();
         });
     }

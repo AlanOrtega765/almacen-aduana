@@ -1,9 +1,9 @@
 <script setup>
 import { Head } from "@inertiajs/vue3";
 
-const props = defineProps(["retention"]);
+const props = defineProps(["contraband"]);
 
-const merchandises = props.retention.nombre_merc.split(",");
+const merchandises = props.contraband.nombre_merc.split(",");
 </script>
 
 <template>
@@ -25,7 +25,7 @@ const merchandises = props.retention.nombre_merc.split(",");
         <main>
             <div>
                 <h2 class="text-right text-4xl font-bold mt-10">
-                    ROL ALMACEN N° {{1963 contrabandos.n_rol}}
+                    ROL ALMACEN N° 1963 {{contrabandos.n_rol}}
                 </h2>
                 <h2 class="text-right text-4xl font-bold mt-10">
                     Arica , {{contrabandos.fecha_contrab}}
@@ -71,11 +71,7 @@ const merchandises = props.retention.nombre_merc.split(",");
             </div>
             <div :class="merchandises.length >= 10 ? 'relative' : 'absolute'" class="bottom-0 w-full mt-20">
                 <div class="flex justify-between mb-10">
-                    <div
-                        class="flex flex-col border-t-[1px] border-soft-black w-[200px]"
-                    >
-                        <span class="text-center">Firma Pasajero</span>
-                    </div>
+
                     <div
                         class="flex flex-col border-t-[1px] border-soft-black w-[200px]"
                     >
@@ -83,23 +79,12 @@ const merchandises = props.retention.nombre_merc.split(",");
                     </div>
                 </div>
                 <div class="flex flex-col">
-                    <div class="flex justify-between mb-5">
-                        <h5 class="font-bold">
-                            Uso de Franquicia:
-                            <span class="font-normal" v-html="retention.franquicia === 1 ? 'SI' : 'NO'"></span>
-                        </h5>
-                        <h5 class="font-bold">
-                            Peso: <span class="font-normal">{{ retention.peso }} Kg.</span>
-                        </h5>
-                        <h5 class="font-bold">
-                            Bultos: <span class="font-normal">{{ retention.cantidad_bulto }}</span>
-                        </h5>
-                    </div>
+
                     <div class="w-full">
                         <h4 class="font-bold mb-3">OBSERVACIONES:</h4>
                         <div
                             class="border-[1px] border-soft-black border-opacity-20 w-full h-32"
-                        >Ubicación de las mercancias{{ almacenes.nombre_almc}}</div>
+                        >Ubicación de las mercancias:{{ almacenes.nombre_almc}}</div>
                     </div>
                     <div class="flex flex-col">
                         <span class="font-bold"

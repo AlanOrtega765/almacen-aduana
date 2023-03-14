@@ -10,11 +10,13 @@ return new class extends Migration
      * Run the migrations.
      *
      * @return void
+     *
+     * Tabla creada para almacenar Datos relacionados a Suspención de Despacho
      */
     public function up()
     {
         Schema::create('suspensiones_despachos', function (Blueprint $table) {
-            $table->id('n_documento');
+            $table->id('n_documento');          //Identificador de Suspención de despacho
 
             $table->timestamps();
         });

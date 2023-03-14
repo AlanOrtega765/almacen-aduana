@@ -10,6 +10,8 @@ return new class extends Migration
      * Run the migrations.
      *
      * @return void
+     * Tabla creada para almacenar los atributos relacionados con el detalle de Abandono expreso
+     * (No actualizada y no utilizada)
      */
     public function up()
     {

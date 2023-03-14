@@ -10,12 +10,14 @@ return new class extends Migration
      * Run the migrations.
      *
      * @return void
+     *
+     * Tabla creada para almacenar los atributos relacionados con el Documento de Abandono Expreso
      */
     public function up()
     {
         Schema::create('abandonos_expresos', function (Blueprint $table) {
-            $table->id('n_rol_ae');
-            $table->date('fecha_doc');
+            $table->id('n_rol_ae');         //Identificador de Abandonos
+            $table->date('fecha_doc');      //Fecha del documento de abandono expreso
             $table->timestamps();
         });
     }

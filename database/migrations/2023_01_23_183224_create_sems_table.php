@@ -10,6 +10,8 @@ return new class extends Migration
      * Run the migrations.
      *
      * @return void
+     *
+     * Tabla creada para almacenar los atributos relacionados con el Documento de Servicio de Entrega de Mercancias
      */
     public function up()
     {

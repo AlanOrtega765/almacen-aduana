@@ -10,6 +10,7 @@ return new class extends Migration
      * Run the migrations.
      *
      * @return void
+     * Tabla creada para almacenar los atributos relacionados con el detalle de Contrabando
      */
     public function up()
     {

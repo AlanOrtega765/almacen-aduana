@@ -12,6 +12,8 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
+use App\Controllers\DownloadInvoiceController;
+
 
 // Inicio
 Route::get('/', [HomeController::class, 'index'])->middleware(['auth', 'verified'])->name('home');
@@ -63,3 +65,7 @@ Route::get('/contrabandpdf', function() {
 });
 
 require __DIR__ . '/auth.php';
+
+//Route::get('/', ShowInvoiceController::class); //Mostrar ventana del PDF
+//Route::get('invoice/download', DownloadInvoiceController::class)->name('invoice.download'); //Realizar descarga PDF
+//Route::get('invoice/send', SendInvoiceController::Class)->name('invoice.send'); //para enviar por email

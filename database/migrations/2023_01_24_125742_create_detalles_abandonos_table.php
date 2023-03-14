@@ -10,12 +10,13 @@ return new class extends Migration
      * Run the migrations.
      *
      * @return void
+     * Tabla creada para almacenar los atributos relacionados con el detalle de Abandono
      */
     public function up()
     {
         Schema::create('detalles_abandonos', function (Blueprint $table) {
-            $table->foreignId('n_oficio')->references('n_oficio')->on('abandonos');
-            $table->string('turno', 30)->nullable();
+            $table->foreignId('n_oficio')->references('n_oficio')->on('abandonos');             //Identificador  PF
+            $table->string('turno', 30)->nullable();                                            //Turno en el que ocurrio el abandono
             $table->unsignedBigInteger('id_mercancia_fk');
             $table->foreign('id_mercancia_fk')->references('id_mercancia')->on('mercancias');
 

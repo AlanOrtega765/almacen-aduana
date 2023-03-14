@@ -10,6 +10,9 @@ return new class extends Migration
      * Run the migrations.
      *
      * @return void
+     *
+     * Tabla creada para almacenar los atributos relacionados con el Documento de Servicio de Entrega de Vehiculos
+     * (con s final porque el nombre de la tabla debe ser escrito en plural)
      */
     public function up()
     {
