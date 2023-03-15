@@ -1,4 +1,7 @@
 <script setup>
+/**
+ * Vista creada para reproducir el archivo en pdf del documento de SEM
+ */
 import { Head } from "@inertiajs/vue3";
 
 const props = defineProps(["Abandono"]);

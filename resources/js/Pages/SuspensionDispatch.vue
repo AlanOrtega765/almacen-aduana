@@ -1,4 +1,7 @@
 <script setup>
+/**
+ * Vista creada para mostrar todos los atributos relacionados a la Suspención de Despacho
+ */
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
 import DropdownFilter from "@/Components/DropdownFilter.vue";
 import TextInputFilter from "@/Components/TextInputFilter.vue";

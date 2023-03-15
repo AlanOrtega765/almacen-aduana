@@ -1,4 +1,7 @@
 <script setup>
+/**
+ * Vista creada para reproducir el archivo en pdf del documento de Actas de levantamiento de mercancias en Rezago
+ */
 import { Head } from "@inertiajs/vue3";
 
 const props = defineProps(["retention"]);

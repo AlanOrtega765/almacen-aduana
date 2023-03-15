@@ -1,4 +1,7 @@
 <script setup>
+/**
+ * Vista creada para mostrar todos los atributos relacionados a los Comprobantes de Retención
+ */
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
 import DropdownFilter from "@/Components/DropdownFilter.vue";
 import TextInputFilter from "@/Components/TextInputFilter.vue";

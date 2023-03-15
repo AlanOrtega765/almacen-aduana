@@ -1,4 +1,7 @@
 <script setup>
+/**
+ * Vista creada para Simplificar el codigo y especificar el codigo sobre el funcionamiento de un PrimaryButton
+ */
 defineProps({
     type: {
         type: String,

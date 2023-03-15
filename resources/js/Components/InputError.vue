@@ -1,4 +1,7 @@
 <script setup>
+/**
+ * Vista creada para Simplificar el codigo y especificar un mensaje de error al ingresar
+ */
 defineProps(['message']);
 </script>
 

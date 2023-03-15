@@ -1,4 +1,7 @@
 <script setup>
+/**
+ * Vista creada para Simplificar el codigo y especificar el codigo sobre el funcionamiento de un DangerButton
+ */
 defineProps({
     type: {
         type: String,

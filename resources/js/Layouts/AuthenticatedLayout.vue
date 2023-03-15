@@ -1,4 +1,7 @@
 <script setup>
+/**
+ * Vista creada para Simplificar el codigo y especificar el codigo sobre el funcionamiento del AuthenticatedLayout
+ */
 import { ref, computed } from "vue";
 import { Link, usePage } from "@inertiajs/vue3";
 import Dropdown from "@/Components/Dropdown.vue";

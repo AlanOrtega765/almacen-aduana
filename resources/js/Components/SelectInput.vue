@@ -1,4 +1,7 @@
 <script setup>
+/**
+ * Vista creada para Simplificar el codigo y especificar el codigo sobre el funcionamiento de un SelectInput
+ */
 import { ref } from "vue";
 
 defineProps(["modelValue", "options"]);

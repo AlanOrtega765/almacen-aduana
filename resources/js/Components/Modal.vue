@@ -1,4 +1,8 @@
 <script setup>
+/**
+ * Vista creada para Simplificar el codigo y especificar el codigo sobre el funcionamiento del modal
+ * Es aquel que hace que se vea la pantalla oscura al momento de abrir un formulario
+ */
 import { ref, computed, onMounted, onUnmounted, watch } from 'vue';
 
 const props = defineProps({

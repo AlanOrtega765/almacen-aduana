@@ -1,4 +1,8 @@
 <script setup>
+/**
+ * Vista creada para Simplificar el codigo y especificar el codigo sobre el funcionamiento de la paginación de las vistas
+ * y en donde se visualiza una Tabla(Table.vue)
+ */
 import { Link } from "@inertiajs/vue3";
 
 defineProps(["links"]);

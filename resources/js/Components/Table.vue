@@ -1,4 +1,8 @@
 <script setup>
+/**
+ * Vista creada para Simplificar el codigo y especificar el codigo sobre
+ * el funcionamiento de la tabla mostrada en cada una de las vistas de los documentos
+ */
 import { Link } from '@inertiajs/vue3';
 defineProps(["columns", "items", 'width']);
 </script>

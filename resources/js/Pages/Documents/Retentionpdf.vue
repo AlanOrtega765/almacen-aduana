@@ -1,4 +1,7 @@
 <script setup>
+/**
+ * Vista creada para reproducir el archivo en pdf del documento de Comprobante de Retención
+ */
 import { Head } from "@inertiajs/vue3";
 
 const props = defineProps(["retention"]);

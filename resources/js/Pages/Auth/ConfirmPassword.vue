@@ -1,4 +1,7 @@
 <script setup>
+/**
+ * Vista creada para la confirmación de contraseña del usuario creada
+ */
 import GuestLayout from '@/Layouts/GuestLayout.vue';
 import InputError from '@/Components/InputError.vue';
 import InputLabel from '@/Components/InputLabel.vue';

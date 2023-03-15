@@ -1,4 +1,7 @@
 <script setup>
+/**
+ * Vista creada para mostrar todos los atributos relacionados a los rezagos
+ */
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
 import DropdownFilter from "@/Components/DropdownFilter.vue";
 import TextInputFilter from "@/Components/TextInputFilter.vue";
@@ -43,7 +46,7 @@ const onCloseModal = () => show.value = false;
 </script>
 
 <template>
-    <Head title="Boletas de Retención" />
+    <Head title="Acta de levantamiento de mercancias en rezago" />
 
     <AuthenticatedLayout>
         <template #title>

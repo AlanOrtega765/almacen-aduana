@@ -1,4 +1,7 @@
 <script setup>
+/**
+ * Vista creada para Simplificar el codigo y especificar el codigo sobre el funcionamiento de un Checkbox
+ */
 import { computed } from 'vue';
 
 const emit = defineEmits(['update:checked']);

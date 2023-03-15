@@ -1,57 +1,52 @@
 <script setup>
 import { Head } from "@inertiajs/vue3";
 
-const props = defineProps(["retention"]);
+const props = defineProps(["abandonment"]);
 
-const merchandises = props.retention.nombre_merc.split(",");
+const merchandises = props.abandonment.nombre_merc.split(",");
 </script>
 
 <template>
-    <Head title="Boletas de Retención" />
+    <Head title="Abandono" />
     <div class="pt-20">
         <header class="flex items-center justify-center gap-10 text-center">
             <div class="relative flex">
                 <div class="absolute flex -left-44 -top-4">
-                    <img
-                        class="h-20"
-                        src="../../../images/logo_gobierno_chile.png"
-                    />
+
                     <img
                         class="h-20 ml-4"
                         src="../../../images/logo_aduana.jpg"
                     />
                 </div>
-                <h1 class="text-2xl font-bold">COMPROBANTE DE RETENCIÓN</h1>
             </div>
         </header>
 
         <main>
             <div>
-                <h1 class="text-right text-4xl font-bold mt-10">
-                    N° {{ retention.n_boleta }}
-                </h1>
+                <h2 class="text-right text-4xl font-bold mt-10">
+                    OF. ORD. {{ abandonos.n_oficio }}
+                </h2>
                 <div class="flex flex-col w-full items-end uppercase">
-                    <span>FECHA C.R.: {{ retention.fecha_reten }}</span>
-                    <span>AVANZADA: {{ retention.avanzada }}</span>
+                    <span>MAT: Remite movimiento de mercancias </span>
+                    <span>REF: Art. 136°, y siguientes de la Ordenanza de Aduanas</span>
                     <span>ALMACÉN: BODEGA {{ retention.nombre_almc }}</span>
+                    <div ></div>
+                    <div class="w-full h-[1px] bg-gray mt-2">
+                        <span>{{ almacenes.nombre_almc }}, {{ abandonos.fecha_oficio }}</span>
+                    </div>
                 </div>
                 <div class="flex flex-col uppercase">
-                    <span
-                        >PASAJERO:
-                        {{
-                            retention.nombre_p + " " + retention.apellido_p
-                        }}</span
-                    >
-                    <span
-                        >RUT / DNI / PASAPORTE:
-                        {{ retention.nro_id_person }}</span
-                    >
-                    <span>NACIONALIDAD: {{ retention.nacionalidad_p }}</span>
-                    <span>DOMICILIO: {{ retention.direccion_p }}</span>
-                    <span>CIUDAD: {{ retention.ciudad_p }}</span>
+                    <span> DE: JEFE DE TURNO {{ almacenes.avanzada }} </span>
+                    <span> A: JEFE UNIDAD ALMACÉN DEPOSITOS Y REZAGOS DIRECCIÓN REGIONAL ADUANA DE ARICA </span>
+
+                </div>
+                <div class="w-full h-[1px] bg-gray mt-2"></div>
+                <div>
+                    <h4> Me permito informar a Ud., que con {{abandonos.fecha_oficio }}, mercancías en calidad de abandonadas en Zona Primaria de esta Avanzada</h4>
                 </div>
                 <table class="table-auto w-full mt-5">
                     <thead>
+                        <tr> TURNO {00:00 A 8:00 HRS}</tr>
                         <tr
                             class="text-center border-b-[1px] border-soft-black"
                         >
@@ -66,18 +61,6 @@ const merchandises = props.retention.nombre_merc.split(",");
                 </table>
             </div>
             <div :class="merchandises.length >= 10 ? 'relative' : 'absolute'" class="bottom-0 w-full mt-20">
-                <div class="flex justify-between mb-10">
-                    <div
-                        class="flex flex-col border-t-[1px] border-soft-black w-[200px]"
-                    >
-                        <span class="text-center">Firma Pasajero</span>
-                    </div>
-                    <div
-                        class="flex flex-col border-t-[1px] border-soft-black w-[200px]"
-                    >
-                        <span class="text-center">Firma Funcionario</span>
-                    </div>
-                </div>
                 <div class="flex flex-col">
                     <div class="flex justify-between mb-5">
                         <h5 class="font-bold">

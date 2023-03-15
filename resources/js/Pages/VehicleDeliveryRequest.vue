@@ -1,5 +1,7 @@
 <script setup>
-
+/**
+ * Vista creada para mostrar todos los atributos relacionados al Servicio de Entrega de Vehiculos (SEV)
+ */
 import DropdownFilter from "@/Components/DropdownFilter.vue";
 import TextInputFilter from "@/Components/TextInputFilter.vue";
 import VehicleDeliveryRequestForm2 from "@/Components/Forms/VehicleDeliveryRequestForm2.vue";

@@ -1,4 +1,7 @@
 <script setup>
+/**
+ * Vista creada para mostrar la pagina de inicio
+ */
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
 import { Head } from "@inertiajs/vue3";
 </script>
